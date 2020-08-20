@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import * as ROUTES from '../constants/routes';
+import AlumniLogo from '../components/AlumniLogo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,15 +36,10 @@ export default function SignUpPage() {
 
   return (
     <Container component="main" maxWidth="xs" >
-      <CssBaseline />
       <div className={classes.paper}>
 
-        <img src={process.env.PUBLIC_URL + "/img/logo-villebon.png"} alt="logo villebon"
-          height={150} />
-
-        <Typography component="h1" variant="h5" color="secondary">
-          Alumni
-        </Typography>
+       
+        <AlumniLogo height={150} width="auto"/>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -91,10 +85,7 @@ export default function SignUpPage() {
             S'inscrire
           </Button>
           <Grid container>
-
             <Grid item>
-
-            
               <Link href={ROUTES.SIGN_IN} variant="body2" color="secondary">
                 {"Déjà un compte ? Se connecter"}
               </Link>

@@ -6,9 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AlumniLogo from '../components/AlumniLogo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     borderRadius: "2px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
 
-    
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -40,13 +40,9 @@ export default function SignInPage() {
     <Container component="main" maxWidth="xs" >
       <CssBaseline />
       <div className={classes.paper}>
- 
-        <img src={process.env.PUBLIC_URL + "/img/logo-villebon.png"} alt="logo villebon"
-                                height={150} />
- 
-        <Typography component="h1" variant="h5" color="secondary">
-          Alumni
-        </Typography>
+
+        <AlumniLogo height={150} width="auto" />
+
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"

@@ -9,7 +9,9 @@ const useStyles = makeStyles((theme) => ({
 
     },
 }));
-
+/**
+ * Footer used in the whole app
+ */
 export default function StickyFooter() {
     const classes = useStyles();
 

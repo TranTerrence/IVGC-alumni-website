@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AlumniLogo from '../components/AlumniLogo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,17 +34,13 @@ export default function SignUpPage() {
     <Container component="main" maxWidth="xs" >
       <div className={classes.paper}>
 
-        <img src={process.env.PUBLIC_URL + "/img/logo-villebon.png"} alt="logo villebon"
-          height={150} />
+        <AlumniLogo height={150} width="auto" />
 
-        <Typography component="h1" variant="h5" color="secondary">
-          Alumni
-        </Typography>
 
         <Typography component="h1" variant="h5" color="secondary">
           Home Page
         </Typography>
-        
+
       </div>
 
     </Container>

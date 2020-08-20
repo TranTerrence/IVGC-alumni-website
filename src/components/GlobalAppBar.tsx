@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
+/**
+ * App bar used in all pages
+ */
 export default function GlobalAppBar() {
   const classes = useStyles();
 
