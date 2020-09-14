@@ -11,7 +11,7 @@ The design component are extracted from [Material UI](https://material-ui.com/)
 
 You need to install **nodeJS** 
 
-Then you need to **clone** the repository of the project **ekkiden.jobs**  on Github: 
+Then you need to **clone** the repository of the project **IVGC-alumni-website**  on Github: 
 
 [https://github.com/TranTerrence/IVGC-alumni-website/](https://github.com/TranTerrence/IVGC-alumni-website/)
 
