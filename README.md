@@ -1,8 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# IVGC-alumni-website/
 
-## Available Scripts
+### How was it done ?
 
-In the project directory, you can run:
+The code is written in Typescript/TSX using ReactJS framework. (create-react-app project)
+
+The design component are extracted from [Material UI](https://material-ui.com/)
+
+
+### How to setup your environment to start working
+
+You need to install **nodeJS** 
+
+Then you need to **clone** the repository of the project **ekkiden.jobs**  on Github: 
+
+[https://github.com/TranTerrence/IVGC-alumni-website/](https://github.com/TranTerrence/IVGC-alumni-website/)
+
+Then open a terminal and navigate to the folder where you have cloned it.
+
+Execute
+
+<pre>npm install
+</pre>
+
+This will install all the dependencies, and library used by the project.
+
+<pre>npm start
+</pre>
+
+This will launch a node server on your localhost, and you should now be able to see the app running in your browser.
+
+You can now start working on the project.
+
+I recommend **using VS code IDE** with the React extensions
+
+### How to setup Firebase ?
+You will need to create a **.env** file that will contains all the firebase configurations and keys. Ask the lead project for more info.
+
+
+Please follow the tutorial on the [firebase official documentaion](https://firebase.google.com/docs/hosting/quickstart) to get an idea of how it works.
+Before executing the `firebase deploy` command please make sure that you have changed its hosting public config to point towards the build folder.
+
+firebase.json
+```JSON
+{
+  "hosting": {
+    "public": "build",
+     ...
+  }
+}
+```
+
+### How to deploy the app online ?
+
+
+As you know we are using Firebase as a provider so make sure setup Firebase before.
+Make sure to test everything on your local machine before publishing a new version, it **will erase the current production version**
+
+Open a terminal and navigate to the root folder of the project.
+execute `npm run build` this will generate a build of the project in the build folder.
+Now execute the command `firebase deploy -m "My message for this release"` The -m option is optional if you want to associate the message to the release.
+
+
+## Files Organization
+
+
+### components
+Contains all the react components that can be used in different files.
+
+#### constants
+Folder containing all the constants used in the app (strings, theme colors, ...)
+
+#### pages
+Folder containing each pages of the app
+
+### App.js
+Main file 
+
+
+## Available React Scripts
+
+In the project directory, you can run these using yarn or npm:
 
 ### `yarn start`
 
@@ -42,3 +119,27 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `yarn build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
