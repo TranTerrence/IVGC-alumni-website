@@ -45,7 +45,10 @@ export default function GlobalAppBar() {
             Créer un compte
           </Button>
           <Button color='inherit' component={Link} to={ROUTES.FAQ}>
-            FAQ
+          FAQ
+          </Button>
+          <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
+          Actualité
           </Button>
 
 
