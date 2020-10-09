@@ -9,10 +9,15 @@ import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    width: '100%',
-  },
+    marginTop: theme.spacing(8),
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    },
   heading: {
     fontSize: theme.typography.pxToRem(15),
+
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -48,6 +53,9 @@ export default function FAQPage() {
   return (
     <Container component="main" maxWidth="xl" >
     <div className={classes.paper}>
+      <Typography component="h1" variant="h5" color="secondary">
+          FAQ Page
+      </Typography>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
