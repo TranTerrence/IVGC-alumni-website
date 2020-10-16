@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -55,6 +55,18 @@ const useStyles = makeStyles((theme) => ({
   author: {
     display: "flex"
   },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
 }));
 
 export default function AlumniLogo({ image = "auto", title = "default-title", avatar = "auto",
@@ -66,7 +78,7 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
   return(
     <Grid item xs={xs} sm={6} md={4}>
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea href="article?id=1">
         <CardMedia
           className={classes.media}
           image={image}
