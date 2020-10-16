@@ -6,6 +6,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
+import ContactPage from './pages/ContactPage';
 
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
@@ -49,6 +50,7 @@ function App() {
         <Route exact path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.CONTACT} component={ContactPage} />
       </Router>
 
       <Footer />
