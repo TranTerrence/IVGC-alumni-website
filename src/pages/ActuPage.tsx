@@ -1,118 +1,118 @@
 import React from 'react';
-import { makeStyles, fade} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import BlogPost from '../components/BlogPost';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import BlogPost from '../components/BlogPost'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  appBar: {
+    backgroundColor: "#fff"
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  hero: {
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://paristech.fr/sites/default/files/styles/carrousel/public/images/institut_villeboncthecounciloftheeuropeanunion_0.jpg?itok=jR7zgYcR')`,
+    height: "500px",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#fff",
+    fontSize: "4rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 300,
+      fontSize: "3em"
+    }
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+  blogsContainer: {
+    paddingTop: theme.spacing(3)
   },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+  blogTitle: {
+    fontWeight: 800,
+    paddingBottom: theme.spacing(3)
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+  card: {
+    maxWidth: "100%",
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  media: {
+    height: 240
   },
-  inputRoot: {
-    color: 'inherit',
+  cardActions: {
+    display: "flex",
+    margin: "0 10px",
+    justifyContent: "space-between"
   },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
+  author: {
+    display: "flex"
   },
 }));
 
-export default function ImgMediaCard() {
+function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.paper}>
-      <AppBar position="static">
+    <div className="App">
+      <AppBar className={classes.appBar} position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Actualités
+          <Typography variant="h6" color="primary" >
+            Les actualités du moment
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
         </Toolbar>
       </AppBar>
-      <Grid container spacing={3}>
-        <BlogPost image="https://images-na.ssl-images-amazon.com/images/I/41DO0HRpsAL._AC_SY400_.jpg"
-          title="default-title" height={400} xs={12} PostContent="Vive react !" PostTitle="Bravo" />
-        <BlogPost image="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Alca_torda_Caithness%2C_Scotland.jpg/1200px-Alca_torda_Caithness%2C_Scotland.jpg"
-          title="default-title" height={"auto"} xs={4} PostContent="Vive react !" PostTitle="Bravo" />
-        <BlogPost image="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Alca_torda_Caithness%2C_Scotland.jpg/1200px-Alca_torda_Caithness%2C_Scotland.jpg"
-          title="default-title" height={"auto"} xs={4} PostContent="Vive react !" PostTitle="Bravo" />
-        <BlogPost image="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Alca_torda_Caithness%2C_Scotland.jpg/1200px-Alca_torda_Caithness%2C_Scotland.jpg"
-          title="default-title" height={"auto"} xs={4} PostContent="Vive react !" PostTitle="Bravo" />
-      </Grid>
-       </div> 
+      <Box className={classes.hero}>
+        <Box>Actualités</Box>
+      </Box>
+      <Container maxWidth="lg" className={classes.blogsContainer}>
+        <Typography variant="h4" className={classes.blogTitle}>
+          Articles
+        </Typography>
+
+        <Grid container spacing={3}>
+          <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+           title="toto"
+           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
+           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+           across all continents except Antarctica"
+           PostTitle="Titre de toto"
+           xs={12}
+           author="Thomas GEFFROY"
+           />
+           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+           title="toto"
+           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
+           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+           across all continents except Antarctica"
+           PostTitle="Titre de toto"
+           xs={12}
+           author="Thomas GEFFROY"
+           />
+           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+           title="toto"
+           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
+           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+           across all continents except Antarctica"
+           PostTitle="Titre de toto"
+           xs={12}
+           author="Thomas GEFFROY"
+           />
+           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+           title="toto"
+           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
+           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+           across all continents except Antarctica"
+           PostTitle="Titre de toto"
+           xs={12}
+           author="Thomas GEFFROY"
+           />
+        </Grid>
+      </Container>
+    </div>
   );
 }
+
+export default App;
