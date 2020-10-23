@@ -1,6 +1,6 @@
-import app, { database } from 'firebase/app';
+import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
+import 'firebase/firestore';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -19,12 +19,12 @@ const config = {
 class Firebase {
 
     auth: app.auth.Auth;
-    db: database.Database;
+    firestore: firebase.firestore.Firestore;
 
     constructor() {
       app.initializeApp(config);
       this.auth = app.auth();
-      this.db = database();
+      this.firestore = app.firestore();
     }
   
     // *** Auth API ***
@@ -41,21 +41,23 @@ class Firebase {
   
     doPasswordUpdate = (password: string) =>
       this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined  
-  
+    
+  getArticle = () =>
+    this.firestore.collection("articles").get().then(querySnapshot => {
+      const data = querySnapshot.docs.map(doc => doc.data())
+      return data
+    });
+    
     createDummyArticle = () =>
-      this.db.ref("articles/1").set({
+      this.firestore.collection("articles").add({
         PostContent: "La formation s’appuie sur une pédagogie active basée sur l’expérimentation dans l’esprit du programme main à la pâte",
         PostTitle: "Titre de toto",
-        author: "Thomas GEFFROY",
+        author: "Toto",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
         image: "https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
         title: "toto",
       })
-
-      getDummyArticle = () =>{
-       console.log(this.db.ref("articles/1").once("value"))
-       return "Test";
-    }
   
-  }
+    
+    }
 export default Firebase;

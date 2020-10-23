@@ -57,9 +57,9 @@ function App() {
   return (
     <div className="App">
       <FirebaseContext.Consumer>
-        {firebase => {
-          //firebase?.createDummyArticle()
-          return firebase?.getDummyArticle();
+        {firebase => { 
+          console.log(firebase?.getArticle())
+          return <div> plouf </div>;
         }}
       </FirebaseContext.Consumer>
       <AppBar className={classes.appBar} position="static">
