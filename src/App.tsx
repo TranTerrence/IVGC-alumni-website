@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
+import { palette } from './constants/colors';
 
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
@@ -20,24 +21,7 @@ const theme = createMuiTheme({
     "fontWeightRegular": 400,
     "fontWeightMedium": 500
   },
-  palette: {
-    primary: {
-      light: "#41628b",
-      main: "#0B385E",
-      dark: "#001234",
-      contrastText: "#FFF",
-    },
-    secondary: {
-      light: "#78eec7",
-      main: "#41bb96",
-      dark: "#008a68",
-      contrastText: "#fff",
-    },
-    background: {
-      paper: '#fff',
-      default: "#F6FAFF"
-    },
-  },
+  palette:palette,
 });
 
 
