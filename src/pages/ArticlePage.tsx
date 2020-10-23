@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { FirebaseContext } from '../components/Firebase';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -53,9 +54,14 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-
   return (
     <div className="App">
+      <FirebaseContext.Consumer>
+        {firebase => {
+          //firebase?.createDummyArticle()
+          return firebase?.getDummyArticle();
+        }}
+      </FirebaseContext.Consumer>
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <Typography variant="h6" color="primary" >

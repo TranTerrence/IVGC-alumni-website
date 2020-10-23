@@ -1,5 +1,6 @@
-import app from 'firebase/app';
+import app, { database } from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -18,10 +19,12 @@ const config = {
 class Firebase {
 
     auth: app.auth.Auth;
+    db: database.Database;
 
     constructor() {
       app.initializeApp(config);
       this.auth = app.auth();
+      this.db = database();
     }
   
     // *** Auth API ***
@@ -37,6 +40,22 @@ class Firebase {
     doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
   
     doPasswordUpdate = (password: string) =>
-      this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined
+      this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined  
+  
+    createDummyArticle = () =>
+      this.db.ref("articles/1").set({
+        PostContent: "La formation s’appuie sur une pédagogie active basée sur l’expérimentation dans l’esprit du programme main à la pâte",
+        PostTitle: "Titre de toto",
+        author: "Thomas GEFFROY",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
+        image: "https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "toto",
+      })
+
+      getDummyArticle = () =>{
+       console.log(this.db.ref("articles/1").once("value"))
+       return "Test";
+    }
+  
   }
 export default Firebase;
