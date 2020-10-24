@@ -8,10 +8,8 @@ import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 import { palette } from './constants/colors';
-
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
-
 
 const theme = createMuiTheme({
   typography: {
@@ -21,28 +19,22 @@ const theme = createMuiTheme({
     "fontWeightRegular": 400,
     "fontWeightMedium": 500
   },
-  palette:palette,
+  palette: palette,
 });
-
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <GlobalAppBar/>
+        <GlobalAppBar />
         <Route exact path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
       </Router>
-
       <Footer />
-
     </ThemeProvider>
-
-
-
   );
 }
 

@@ -39,23 +39,18 @@ const useStyles = makeStyles((theme) => ({
 
     },
   },
-
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-
-
 export default function SignUpPage() {
   const classes = useStyles();
   const [formSubmmited, setFormSubmmited] = useState<boolean>(false);
 
-
   return (
     <Container component="main" maxWidth="xs" >
       <div className={classes.paper}>
-
         <AlumniLogo height={150} width="auto" />
         {formSubmmited
           ? <SubmissionConfirmation />
@@ -64,31 +59,24 @@ export default function SignUpPage() {
           </FirebaseContext.Consumer>
         }
         <SignInLink />
-
-
-
-
       </div>
-
     </Container>
   );
 }
 
 function SubmissionConfirmation() {
-
   return (<Typography component="h1" variant="h5" color="primary">{"Nous allons vérifier votre email, et nous t'enverrons un email quand ton compte sera activé."}</Typography>
-
   );
 }
 
 function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null, setFormSubmmited: Function }) {
   const classes = useStyles();
-  const [inputValues, setInputValues] = useState({
+  const defaultInputs = {
     email: '',
     password: '',
     passwordCheck: ''
-  });
-
+  };
+  const [inputValues, setInputValues] = useState(defaultInputs);
   const [inputErrors, setInputErrors] = useState({
     emailError: false,
     passwordError: false,
@@ -97,7 +85,6 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
-
     setInputValues({ ...inputValues, [name]: value });
   };
 
@@ -106,7 +93,6 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
     password: string,
     passwordCheck: string
   }) => {
-
     const emailValid = isEmailValid(inputs.email);
     const passwordValid = isPasswordValid(inputs.password);
     const samePassword = inputs.password === inputs.passwordCheck;
@@ -122,7 +108,7 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
     const formIsValid = checkErrors(inputValues);
     if (formIsValid && firebase) {
       firebase.doCreateUserWithEmailAndPassword(inputValues.email, inputValues.password);
-      console.log(setFormSubmmited);
+      setInputValues(defaultInputs);
       setFormSubmmited(true);
     }
   }
@@ -162,7 +148,6 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
         helperText={inputErrors.passwordError
           ? "Le mot de passe doit faire plus de 6 caractères."
           : ""}
-
       />
 
       <TextField
@@ -180,7 +165,6 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
           : ""}
         onChange={handleInputChange}
         className={classes.textField}
-
       />
 
       <Button
@@ -192,16 +176,14 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
         onClick={sumbitUser}
       >
         S'inscrire
-          </Button>
+      </Button>
     </FormControl>
-
-
   );
 }
 
 function SignInLink() {
   return (
-    <span style={{ float: "left", width: "100%"}}>
+    <span style={{ float: "left", width: "100%" }}>
       <Link href={ROUTES.SIGN_IN} variant="body2" color="secondary" >
         {"Déjà un compte ? Se connecter"}
       </Link>

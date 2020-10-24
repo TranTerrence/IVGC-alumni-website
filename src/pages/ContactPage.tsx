@@ -5,25 +5,25 @@ import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: theme.spacing(8),
-      padding: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: 'white',
-      borderRadius: "2px",
-      boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-  
-  
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
+  paper: {
+    marginTop: theme.spacing(8),
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: "2px",
+    boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+
+
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 
@@ -42,8 +42,8 @@ export default function ContactPage() {
         </Typography>
 
         <Typography component="h4" variant="h6" color="secondary">
-          Adresse : 
-          Mail : 
+          Adresse :
+          Mail :
         </Typography>
 
       </div>

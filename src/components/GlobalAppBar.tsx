@@ -28,28 +28,25 @@ export default function GlobalAppBar() {
   const classes = useStyles();
 
   return (
-      <AppBar position="static">
-        <Toolbar>
-         
-          <Typography variant="h6" className={classes.title}>
-            Association Alumni Institut Villebon George Charpak
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          Association Alumni Institut Villebon George Charpak
           </Typography>
 
-          <Button color='inherit' component={Link} to={ROUTES.HOME}>
-            Home
+        <Button color='inherit' component={Link} to={ROUTES.HOME}>
+          Home
           </Button>
-          <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
-            Se connecter
+        <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
+          Se connecter
           </Button>
-          <Button color='inherit' component={Link} to={ROUTES.SIGN_UP}>
-            Créer un compte
+        <Button color='inherit' component={Link} to={ROUTES.SIGN_UP}>
+          Créer un compte
           </Button>
-          <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
-            Contact
+        <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
+          Contact
           </Button>
-
-
-        </Toolbar>
-      </AppBar>
+      </Toolbar>
+    </AppBar>
   );
 }

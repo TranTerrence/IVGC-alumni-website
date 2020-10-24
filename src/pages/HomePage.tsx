@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -15,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     borderRadius: "2px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-
-
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -33,16 +30,11 @@ export default function SignUpPage() {
   return (
     <Container component="main" maxWidth="xs" >
       <div className={classes.paper}>
-
         <AlumniLogo height={150} width="auto" />
-
-
         <Typography component="h1" variant="h5" color="secondary">
           Home Page
         </Typography>
-
       </div>
-
     </Container>
   );
 }

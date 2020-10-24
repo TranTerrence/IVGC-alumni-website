@@ -21,8 +21,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     borderRadius: "2px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-
-
   },
   form: {
     width: '100%', // Fix IE 11 issue.
