@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 import { palette } from '../constants/colors';
 import Firebase from '../components/Firebase';
 import { isEmailValid, isPasswordValid } from '../Utils';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUpPage() {
   const classes = useStyles();
+  const [formSubmmited, setFormSubmmited] = useState<boolean>(false);
 
 
   return (
@@ -56,24 +57,31 @@ export default function SignUpPage() {
       <div className={classes.paper}>
 
         <AlumniLogo height={150} width="auto" />
-        <FirebaseContext.Consumer>
-          {firebaseClass => <SignUpForm firebase={firebaseClass} />}
-        </FirebaseContext.Consumer>
-        <Grid container>
-          <Grid item>
-            <Link href={ROUTES.SIGN_IN} variant="body2" color="secondary">
-              {"Déjà un compte ? Se connecter"}
-            </Link>
-          </Grid>
-        </Grid>
+        {formSubmmited
+          ? <SubmissionConfirmation />
+          : <FirebaseContext.Consumer>
+            {firebaseClass => <SignUpForm firebase={firebaseClass} setFormSubmmited={setFormSubmmited} />}
+          </FirebaseContext.Consumer>
+        }
+        <SignInLink />
+
+
+
+
       </div>
 
     </Container>
   );
 }
 
+function SubmissionConfirmation() {
 
-function SignUpForm(firebase: Firebase | any) {
+  return (<Typography component="h1" variant="h5" color="primary">{"Nous allons vérifier votre email, et nous t'enverrons un email quand ton compte sera activé."}</Typography>
+
+  );
+}
+
+function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null, setFormSubmmited: Function }) {
   const classes = useStyles();
   const [inputValues, setInputValues] = useState({
     email: '',
@@ -112,8 +120,10 @@ function SignUpForm(firebase: Firebase | any) {
 
   const sumbitUser = function () {
     const formIsValid = checkErrors(inputValues);
-    if (formIsValid) {
-      firebase.firebase.doCreateUserWithEmailAndPassword(inputValues.email, inputValues.password);
+    if (formIsValid && firebase) {
+      firebase.doCreateUserWithEmailAndPassword(inputValues.email, inputValues.password);
+      console.log(setFormSubmmited);
+      setFormSubmmited(true);
     }
   }
 
@@ -186,5 +196,15 @@ function SignUpForm(firebase: Firebase | any) {
     </FormControl>
 
 
+  );
+}
+
+function SignInLink() {
+  return (
+    <span style={{ float: "left", width: "100%"}}>
+      <Link href={ROUTES.SIGN_IN} variant="body2" color="secondary" >
+        {"Déjà un compte ? Se connecter"}
+      </Link>
+    </span>
   );
 }
