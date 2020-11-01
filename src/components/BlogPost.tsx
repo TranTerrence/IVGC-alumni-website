@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import * as ROUTES from '../constants/routes';
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -86,7 +87,7 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    navigator.clipboard.writeText(window.location.host+ "/article?id=" + id);
+    navigator.clipboard.writeText(window.location.host+ ROUTES.ARTICLE_PAGE + "?id=" + id);
     setOpen(true);
   };
 
