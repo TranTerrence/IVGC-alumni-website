@@ -40,24 +40,8 @@ class Firebase {
     doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
   
     doPasswordUpdate = (password: string) =>
-      this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined  
+      this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined     
+}
     
-  getArticle = () =>
-    this.firestore.collection("articles").get().then(querySnapshot => {
-      const data = querySnapshot.docs.map(doc => doc.data())
-      return data
-    });
-    
-    createDummyArticle = () =>
-      this.firestore.collection("articles").add({
-        PostContent: "La formation s’appuie sur une pédagogie active basée sur l’expérimentation dans l’esprit du programme main à la pâte",
-        PostTitle: "Titre de toto",
-        author: "Toto",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
-        image: "https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-        title: "toto",
-      })
-  
-    
-    }
+
 export default Firebase;

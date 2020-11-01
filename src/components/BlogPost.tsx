@@ -70,15 +70,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlumniLogo({ image = "auto", title = "default-title", avatar = "auto",
-    PostContent = "default-content", PostTitle = "default-post-title", xs = 4, author = "default-author"}: {
+    PostContent = "default-content", PostTitle = "default-post-title", xs = 4, author = "default-author", id = "default-id"}: {
     image: string, title: string, avatar: string, PostContent: string,
-    PostTitle: string, xs: any, author: string
+    PostTitle: string, xs: any, author: string, id: string
   }) {
   const classes = useStyles();
   return(
     <Grid item xs={xs} sm={6} md={4}>
     <Card className={classes.card}>
-      <CardActionArea href="article?id=1">
+        <CardActionArea href={"article?id=" + id}>
         <CardMedia
           className={classes.media}
           image={image}
@@ -105,10 +105,10 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
             </Typography>
           </Box>
         </Box>
-        <IconButton aria-label="share" href="share?id=1">
+          <IconButton aria-label="share" href={"share?id=" + id}>
           <ShareIcon />
         </IconButton>
-        <IconButton aria-label="show more" href="article?id=1">
+        <IconButton aria-label="show more" href={"article?id=" + id}>
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>

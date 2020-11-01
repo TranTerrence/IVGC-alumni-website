@@ -7,6 +7,9 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import BlogPost from '../components/BlogPost'
+import { FirebaseContext } from '../components/Firebase';
+import { useCollectionData  } from 'react-firebase-hooks/firestore';
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -52,9 +55,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 function App() {
   const classes = useStyles();
-
+  const firebase = React.useContext(FirebaseContext);
+  
+  const FirestoreCollection = () => {
+    const [value, loading, error] = useCollectionData(
+      firebase?.firestore.collection('articles').limit(100),
+      {
+        idField: "id"
+      }
+    );
+    return (
+      <div>
+        {error && <strong>Error: {JSON.stringify(error)}</strong>}
+        {loading && <span>Document: Loading...</span>}
+        {value &&
+          <>
+          <Grid container spacing={3}>
+            {value.map((post: any) => (
+              <BlogPost image={post.image}
+                title={post.title}
+                avatar={post.avatar}
+                PostContent={post.PostContent}
+                PostTitle={post.PostTitle}
+                xs={12}
+                author={post.author}
+                id={post.id}
+              />
+            ))}
+          </Grid>
+          </>
+        }
+      </div>
+    );
+  }
+  
   return (
     <div className="App">
       <AppBar className={classes.appBar} position="static">
@@ -71,45 +108,7 @@ function App() {
         <Typography variant="h4" className={classes.blogTitle}>
           Articles
         </Typography>
-
-        <Grid container spacing={3}>
-          <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-           title="toto"
-           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-           across all continents except Antarctica"
-           PostTitle="Titre de toto"
-           xs={12}
-           author="Thomas GEFFROY"
-           />
-           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-           title="toto"
-           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-           across all continents except Antarctica"
-           PostTitle="Titre de toto"
-           xs={12}
-           author="Thomas GEFFROY"
-           />
-           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-           title="toto"
-           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-           across all continents except Antarctica"
-           PostTitle="Titre de toto"
-           xs={12}
-           author="Thomas GEFFROY"
-           />
-           <BlogPost image="https://images.pexels.com/photos/34600/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-           title="toto"
-           avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-           PostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-           across all continents except Antarctica"
-           PostTitle="Titre de toto"
-           xs={12}
-           author="Thomas GEFFROY"
-           />
-        </Grid>
+        <FirestoreCollection></FirestoreCollection>
       </Container>
     </div>
   );
