@@ -86,7 +86,7 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    navigator.clipboard.writeText("localhost:3000/article?id=" + id);
+    navigator.clipboard.writeText(window.location.host+ "/article?id=" + id);
     setOpen(true);
   };
 
