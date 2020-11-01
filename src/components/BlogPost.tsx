@@ -12,6 +12,12 @@ import Box from '@material-ui/core/Box';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -74,7 +80,24 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
     image: string, title: string, avatar: string, PostContent: string,
     PostTitle: string, xs: any, author: string, id: string
   }) {
+  
   const classes = useStyles();
+  
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    navigator.clipboard.writeText("localhost:3000/article?id=" + id);
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  
   return(
     <Grid item xs={xs} sm={6} md={4}>
     <Card className={classes.card}>
@@ -105,9 +128,14 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
             </Typography>
           </Box>
         </Box>
-          <IconButton aria-label="share" href={"share?id=" + id}>
-          <ShareIcon />
-        </IconButton>
+          <IconButton aria-label="share" onClick={handleClick}>
+            <ShareIcon />
+          </IconButton>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Lien vers l'article copié dans le presse-papier !
+          </Alert>
+        </Snackbar>
         <IconButton aria-label="show more" href={"article?id=" + id}>
           <ExpandMoreIcon />
         </IconButton>
