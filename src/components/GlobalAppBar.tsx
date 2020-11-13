@@ -33,10 +33,9 @@ export default function GlobalAppBar() {
         <Typography variant="h6" className={classes.title}>
           Association Alumni Institut Villebon George Charpak
           </Typography>
-
         <Button color='inherit' component={Link} to={ROUTES.HOME}>
           Home
-          </Button>
+        </Button>
         <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
           Se connecter
           </Button>
@@ -46,8 +45,6 @@ export default function GlobalAppBar() {
           <Button color='inherit' component={Link} to={ROUTES.FAQ}>
             FAQ
           </Button>
-        </Toolbar>
-      </AppBar>
         <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
           Contact
           </Button>
