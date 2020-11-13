@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { FirebaseContext } from '../components/Firebase';
 import { useDocumentData  } from 'react-firebase-hooks/firestore';
 import queryString from 'query-string'
+import * as FIREBASE_CONSTS from '../constants/firebase';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -55,14 +56,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function App() {
+function ArticlePage() {
   const classes = useStyles();
   const firebase = React.useContext(FirebaseContext);
   const parsedId = queryString.parse(window.location.search).id
 
   const FirestoreDocument = () => {
     const [value, loading, error] = useDocumentData(
-      firebase?.firestore.doc('articles/' + parsedId));
+      firebase?.firestore.doc(FIREBASE_CONSTS.ARTICLE_DB + '/' + parsedId));
+    
     return (
       <div>
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -107,4 +109,4 @@ function App() {
   );
 }
 
-export default App;
+export default ArticlePage;

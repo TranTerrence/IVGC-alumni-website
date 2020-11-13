@@ -6,4 +6,5 @@ export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const FAQ = '/FAQ'
 export const ACTU_PAGE = '/ActuPage'
-export const ARTICLE_PAGE= '/article'
+export const ARTICLE_PAGE = '/article'
+export const WRITE_ARTICLE_PAGE = '/write_article'

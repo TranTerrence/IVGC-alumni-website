@@ -113,7 +113,7 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
             {PostTitle}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {PostContent}
+            {PostContent.substring(0,200)}
           </Typography>
         </CardContent>
       </CardActionArea>
