@@ -43,12 +43,12 @@ class Firebase {
           return errorMessage;
         }
       });
-    const user = userCred.user;
+    const user = await userCred.user;
     this.addUserInFirestore(user);
   }
 
   doSignInWithEmailAndPassword = async (email: string, password: string) => {
-    this.auth.signInWithEmailAndPassword(email, password)
+    const userCred = await this.auth.signInWithEmailAndPassword(email, password)
       .catch(function (error) {
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -59,6 +59,11 @@ class Firebase {
         }
         console.log(error);
       });
+    if (userCred && userCred.user) {
+      const user = await userCred.user;
+      this.logUser(user.uid);
+    }
+
   }
 
   doSignOut = () => this.auth.signOut();
