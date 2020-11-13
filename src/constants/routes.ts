@@ -5,3 +5,4 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const FAQ = '/FAQ'
+export const CONTACT = '/contact';
