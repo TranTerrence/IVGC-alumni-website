@@ -31,11 +31,9 @@ export default function GlobalAppBar() {
   return (
       <AppBar position="static">
         <Toolbar>
-         
           <Typography variant="h6"  className={classes.title}>
             Association des anciens élèves de l'institut Villebon – <Box fontStyle="italic" display='inline'>Georges Charpak</Box>
           </Typography>
-
           <Button color='inherit' component={Link} to={ROUTES.HOME}>
             Home
           </Button>
