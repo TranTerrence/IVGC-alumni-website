@@ -2,7 +2,7 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { collections } from '../../constants/firebase';
-
+import { User } from './firebase_interfaces';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,8 +12,6 @@ const config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
-
-
 
 /**
  * Handle all the interactions with Firebase, our backend.
@@ -46,11 +44,22 @@ class Firebase {
         }
       });
     const user = userCred.user;
-    this.addUserInFirestore(user.email, user.uid);
+    this.addUserInFirestore(user);
   }
 
-  doSignInWithEmailAndPassword = (email: string, password: string) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  doSignInWithEmailAndPassword = async (email: string, password: string) => {
+    this.auth.signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+  }
 
   doSignOut = () => this.auth.signOut();
 
@@ -61,20 +70,42 @@ class Firebase {
 
 
   // *** Firestore API ***
-  addUserInFirestore = (email: string, uid: string) =>
-    this.firestore.collection(collections.users).doc(uid)
+  addUserInFirestore = (user: User) =>
+    this.firestore.collection(collections.users).doc(user.uid)
       .set({
-        uid: uid,
-        email: email,
+        uid: user.uid,
+        email: user.email,
         creationDate: new Date(),
         lastConnection: new Date(),
       })
       .then(function () {
-        console.log("User created successfully");
+        console.log("New user created successfully in Firestore");
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
       });
+
+  /**
+   * Update only the fields that the user argument has
+   * @param user 
+   */
+  updateUser = (user: User) => {
+    this.firestore.collection(collections.users).doc(user.uid)
+      .update(user)
+      .then(function () {
+        console.log("User updated successfully");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+  }
+
+  logUser = (uid: string) =>
+    this.updateUser({
+      uid: uid,
+      lastConnection: new Date(),
+    });
+
 
 }
 export default Firebase;
