@@ -1,6 +1,8 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { collections } from '../../constants/firebase';
+
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -11,6 +13,8 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
+
+
 /**
  * Handle all the interactions with Firebase, our backend.
  * Extracted from this tutorial: https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial
@@ -19,15 +23,31 @@ const config = {
 class Firebase {
 
   auth: app.auth.Auth;
+  firestore: firebase.firestore.Firestore;
 
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
+    this.firestore = app.firestore();
   }
 
+
+
   // *** Auth API ***
-  doCreateUserWithEmailAndPassword = (email: string, password: string) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+  doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
+    const userCred = await this.auth.createUserWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        if (errorCode === 'auth/weak-password') {
+          return ('The password is too weak.');
+        } else {
+          return errorMessage;
+        }
+      });
+    const user = userCred.user;
+    this.addUserInFirestore(user.email, user.uid);
+  }
 
   doSignInWithEmailAndPassword = (email: string, password: string) =>
     this.auth.signInWithEmailAndPassword(email, password);
@@ -38,5 +58,23 @@ class Firebase {
 
   doPasswordUpdate = (password: string) =>
     this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined
+
+
+  // *** Firestore API ***
+  addUserInFirestore = (email: string, uid: string) =>
+    this.firestore.collection(collections.users).doc(uid)
+      .set({
+        uid: uid,
+        email: email,
+        creationDate: new Date(),
+        lastConnection: new Date(),
+      })
+      .then(function () {
+        console.log("User created successfully");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+
 }
 export default Firebase;

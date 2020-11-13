@@ -104,7 +104,7 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
     return emailValid && passwordValid && samePassword;
   }
 
-  const sumbitUser = function () {
+  const sumbitUser = async function () {
     const formIsValid = checkErrors(inputValues);
     if (formIsValid && firebase) {
       firebase.doCreateUserWithEmailAndPassword(inputValues.email, inputValues.password);
