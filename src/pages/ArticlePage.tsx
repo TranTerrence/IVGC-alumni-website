@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { FirebaseContext } from '../components/Firebase';
 import { useDocumentData  } from 'react-firebase-hooks/firestore';
 import queryString from 'query-string'
-import * as FIREBASE_CONSTS from '../constants/firebase';
+import * as FIRESTORE_CONSTS from '../constants/firebase';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -63,7 +63,7 @@ function ArticlePage() {
 
   const FirestoreDocument = () => {
     const [value, loading, error] = useDocumentData(
-      firebase?.firestore.doc(FIREBASE_CONSTS.ARTICLE_DB + '/' + parsedId));
+      firebase?.firestore.doc(FIRESTORE_CONSTS.collections.articles + '/' + parsedId));
     
     return (
       <div>

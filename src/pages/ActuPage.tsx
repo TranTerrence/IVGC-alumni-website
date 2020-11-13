@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import BlogPost from '../components/BlogPost'
 import { FirebaseContext } from '../components/Firebase';
 import { useCollectionData  } from 'react-firebase-hooks/firestore';
-import * as FIREBASE_CONSTS from '../constants/firebase';
+import * as FIRESTORE_CONSTS from '../constants/firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +63,7 @@ function ActuPage() {
   
   const FirestoreCollection = () => {
     const [value, loading, error] = useCollectionData(
-      firebase?.firestore.collection(FIREBASE_CONSTS.ARTICLE_DB).limit(100),
+      firebase?.firestore.collection(FIRESTORE_CONSTS.collections.articles).limit(100),
       {
         idField: "id"
       }

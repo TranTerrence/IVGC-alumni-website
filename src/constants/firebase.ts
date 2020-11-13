@@ -1,1 +1,4 @@
-export const ARTICLE_DB = 'articles';
+export const collections = {
+  users: "users",
+  articles: "articles",
+}

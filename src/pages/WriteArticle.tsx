@@ -78,7 +78,7 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
 
   const sumbitUser = function () {
     if (firebase) {
-      firebase.firestore.collection(FIRESTORE_CONSTS.ARTICLE_DB).add(inputValues)
+      firebase.firestore.collection(FIRESTORE_CONSTS.collections.articles).add(inputValues)
       setInputValues(defaultInputs);
       setFormSubmmited(true);
     }
