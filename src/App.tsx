@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import SignInPage from './pages/SignInPage';
 import Footer from './components/Footer';
