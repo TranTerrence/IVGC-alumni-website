@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
@@ -44,11 +45,19 @@ export default function GlobalAppBar() {
         </Button>
       <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
         Contact
-            </Button>
+          </Button>
+      <Button color='inherit' component={Link} to={ROUTES.WRITE_ARTICLE_PAGE}>
+        Ecrire un article
+        </Button>
+      <Button color='inherit' component={Link} to={ROUTES.FAQ}>
+        FAQ
+        </Button>
+      <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
+          Actualité
+          </Button>
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
-
 
   return (
     <AppBar position="static">
@@ -64,8 +73,8 @@ export default function GlobalAppBar() {
 const TitleAlumni = () => {
   const classes = useStyles();
   return (
-    <Typography variant="h6" className={classes.title}>
-      Association Alumni Institut Villebon George Charpak
+    <Typography variant="h6"  className={classes.title}>
+      Association des anciens élèves de l'institut Villebon – <Box fontStyle="italic" display='inline'>Georges Charpak</Box>
     </Typography>
   );
 
@@ -90,6 +99,10 @@ const AppBarNonAuth = () => (
     <Button color='inherit' component={Link} to={ROUTES.FAQ}>
       FAQ
       </Button>
+      <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
+          Actualité
+          </Button>
+          
 
   </Toolbar>
 );
