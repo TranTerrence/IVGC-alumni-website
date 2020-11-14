@@ -22,11 +22,13 @@ class Firebase {
 
   auth: app.auth.Auth;
   firestore: firebase.firestore.Firestore;
+  analytics: firebase.analytics.Analytics;
 
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
     this.firestore = app.firestore();
+    this.analytics = app.analytics();
   }
 
 
