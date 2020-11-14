@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,15 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+import FirebaseContext from './Firebase/context';
+import LogOutButton from './SignOutButton';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
     title: {
       flexGrow: 1,
     },
@@ -25,28 +22,72 @@ const useStyles = makeStyles((theme: Theme) =>
  * App bar used in all pages
  */
 export default function GlobalAppBar() {
-  const classes = useStyles();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const firebase = useContext(FirebaseContext);
+  if (firebase) {
+    firebase.auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        // No user is signed in.
+      }
+    });
+  }
+  const AppBarAuth = () => (
+    <Toolbar>
+      <TitleAlumni />
+      <Button color='inherit' component={Link} to={ROUTES.HOME}>
+        Home
+        </Button>
+      <Button color='inherit' component={Link} to={ROUTES.MY_PROFILE}>
+        Mon Profile
+        </Button>
+      <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
+        Contact
+            </Button>
+      <LogOutButton setIsLoggedIn={setIsLoggedIn} />
+    </Toolbar>
+  );
+
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Association Alumni Institut Villebon George Charpak
-          </Typography>
-
-        <Button color='inherit' component={Link} to={ROUTES.HOME}>
-          Home
-          </Button>
-        <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
-          Se connecter
-          </Button>
-        <Button color='inherit' component={Link} to={ROUTES.SIGN_UP}>
-          Créer un compte
-          </Button>
-        <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
-          Contact
-          </Button>
-      </Toolbar>
+      {
+        isLoggedIn
+          ? <AppBarAuth />
+          : <AppBarNonAuth />
+      }
     </AppBar>
   );
 }
+
+const TitleAlumni = () => {
+  const classes = useStyles();
+  return (
+    <Typography variant="h6" className={classes.title}>
+      Association Alumni Institut Villebon George Charpak
+    </Typography>
+  );
+
+};
+
+
+const AppBarNonAuth = () => (
+  <Toolbar>
+    <TitleAlumni />
+    <Button color='inherit' component={Link} to={ROUTES.HOME}>
+      Home
+          </Button>
+    <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
+      Se connecter
+          </Button>
+    <Button color='inherit' component={Link} to={ROUTES.SIGN_UP}>
+      Créer un compte
+          </Button>
+    <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
+      Contact
+          </Button>
+  </Toolbar>
+);
+
+

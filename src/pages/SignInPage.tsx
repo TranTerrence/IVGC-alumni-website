@@ -11,9 +11,11 @@ import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 import FormControl from '@material-ui/core/FormControl';
 import FirebaseContext from '../components/Firebase/context';
+import * as ROUTES from '../constants/routes';
 
 import { isEmailValid } from '../Utils';
 import { palette } from '../constants/colors';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +80,8 @@ function LogInForm() {
 
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
+  const history = useHistory();
+
   const defaultInputs = {
     email: '',
     password: '',
@@ -100,7 +104,10 @@ function LogInForm() {
     setInputErrors({ ...inputErrors, 'emailError': !emailValid });
 
     if (emailValid && firebase) {
-      firebase.doSignInWithEmailAndPassword(inputValues.email, inputValues.password);
+      const user = await firebase.doSignInWithEmailAndPassword(inputValues.email, inputValues.password);
+      if (user !== undefined && ('uid' in user)) {
+        history.push(ROUTES.MY_PROFILE);
+      }
     }
     else {
       setInputErrors({ ...inputErrors, 'passwordError': !inputErrors['passwordError'] });

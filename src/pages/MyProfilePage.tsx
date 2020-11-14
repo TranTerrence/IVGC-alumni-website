@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUpPage() {
+export default function MyProfilePage() {
   const classes = useStyles();
 
   return (

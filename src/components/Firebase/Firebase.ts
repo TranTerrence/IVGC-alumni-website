@@ -58,21 +58,37 @@ class Firebase {
           alert(errorMessage);
         }
         console.log(error);
+
       });
     if (userCred && userCred.user) {
-      const user = await userCred.user;
+      const user = userCred.user;
       this.logUser(user.uid);
+      return user;
     }
 
   }
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => {
+    this.auth.signOut();
+    console.log("User Signout");
+
+  }
 
   doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = (password: string) =>
     this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined
 
+  isLoggedIn = (): boolean => {
+    const user = this.auth.currentUser;
+    if (user) {
+      // User is signed in.
+      return true
+    } else {
+      return false
+    }
+
+  }
 
   // *** Firestore API ***
   addUserInFirestore = (user: User) =>
