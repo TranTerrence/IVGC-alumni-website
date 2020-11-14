@@ -77,7 +77,7 @@ const AppBarNonAuth = () => (
     <TitleAlumni />
     <Button color='inherit' component={Link} to={ROUTES.HOME}>
       Home
-          </Button>
+        </Button>
     <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
       Se connecter
           </Button>
@@ -86,8 +86,10 @@ const AppBarNonAuth = () => (
           </Button>
     <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
       Contact
-          </Button>
+       </Button>
+    <Button color='inherit' component={Link} to={ROUTES.FAQ}>
+      FAQ
+      </Button>
+
   </Toolbar>
 );
-
-

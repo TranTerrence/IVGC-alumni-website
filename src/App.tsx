@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import MyProfilePage from './pages/MyProfilePage';
+import FAQPage from './pages/FAQPage'
 import ContactPage from './pages/ContactPage';
 import { palette } from './constants/colors';
 import * as ROUTES from './constants/routes';
@@ -34,6 +35,7 @@ function App() {
         <Route exact path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.FAQ} component={FAQPage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={MyProfilePage} redirectPath={ROUTES.SIGN_IN} />
 
@@ -52,7 +54,7 @@ const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
       if (user) {
         setIsLoggedIn(true);
       } else {
-        // No user is signed in.
+        setIsLoggedIn(false);
       }
     });
   }
