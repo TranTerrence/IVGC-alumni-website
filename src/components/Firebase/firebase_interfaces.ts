@@ -3,5 +3,5 @@ export interface User {
   email?: string,
   creationDate?: Date,
   lastConnection?: Date,
-  verifiedByAdmin?: Boolean,
+  verified?: boolean,
 }
