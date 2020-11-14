@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     borderRadius: "2px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -24,17 +26,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUpPage() {
+
+export default function ContactPage() {
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs" >
       <div className={classes.paper}>
+
         <AlumniLogo height={150} width="auto" />
+
+
         <Typography component="h1" variant="h5" color="secondary">
-          Home Page
+          Contact
         </Typography>
+
+        <Typography component="h4" variant="h6" color="secondary">
+          Adresse :
+          Mail :
+        </Typography>
+
       </div>
+
     </Container>
   );
 }
