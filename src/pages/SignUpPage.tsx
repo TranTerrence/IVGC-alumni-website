@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -10,7 +10,6 @@ import AlumniLogo from '../components/AlumniLogo';
 import FirebaseContext from '../components/Firebase/context';
 import { useState } from 'react';
 import { palette } from '../constants/colors';
-import Firebase from '../components/Firebase';
 import { isEmailValid, isPasswordValid } from '../Utils';
 import Typography from '@material-ui/core/Typography';
 
@@ -54,9 +53,7 @@ export default function SignUpPage() {
         <AlumniLogo height={150} width="auto" />
         {formSubmmited
           ? <SubmissionConfirmation />
-          : <FirebaseContext.Consumer>
-            {firebaseClass => <SignUpForm firebase={firebaseClass} setFormSubmmited={setFormSubmmited} />}
-          </FirebaseContext.Consumer>
+          : <SignUpForm setFormSubmmited={setFormSubmmited} />
         }
         <SignInLink />
       </div>
@@ -69,8 +66,9 @@ function SubmissionConfirmation() {
   );
 }
 
-function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null, setFormSubmmited: Function }) {
+function SignUpForm({ setFormSubmmited }: { setFormSubmmited: Function }) {
   const classes = useStyles();
+  const firebase = useContext(FirebaseContext);
   const defaultInputs = {
     email: '',
     password: '',
