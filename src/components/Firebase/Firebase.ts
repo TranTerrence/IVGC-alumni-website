@@ -34,8 +34,6 @@ class Firebase {
     this.analytics = app.analytics();
   }
 
-
-
   // *** Auth API ***
   doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
     const userCred = await this.auth.createUserWithEmailAndPassword(email, password)
@@ -92,24 +90,42 @@ class Firebase {
     } else {
       return false
     }
-
   }
 
   // *** Firestore API ***
-  addUserInFirestore = (user: User) =>
+  addUserInFirestore = (user: User) => {
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      creationDate: new Date(),
+      lastConnection: new Date(),
+      verified: false,
+    };
     this.firestore.collection(collections.users).doc(user.uid)
-      .set({
-        uid: user.uid,
-        email: user.email,
-        creationDate: new Date(),
-        lastConnection: new Date(),
-      })
+      .set(userData)
       .then(function () {
         console.log("New user created successfully in Firestore");
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
       });
+  }
+
+
+  isVerified = async (uid: string): Promise<boolean> => {
+    const userRef = this.firestore.collection(collections.users).doc(uid)
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      return false;
+    } else {
+      const userData = doc.data() as User;
+      if (userData !== undefined)
+        return userData['verified'] ?? false;
+      else
+        return false;
+    }
+
+  }
 
   /**
    * Update only the fields that the user argument has

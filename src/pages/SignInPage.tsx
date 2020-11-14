@@ -111,7 +111,6 @@ function LogInForm() {
     }
     else {
       setInputErrors({ ...inputErrors, 'passwordError': !inputErrors['passwordError'] });
-
     }
   }
 
