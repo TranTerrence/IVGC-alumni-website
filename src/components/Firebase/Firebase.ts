@@ -3,6 +3,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/analytics';
 import { collections } from '../../constants/firebase';
+import { roles } from '../../constants/roles';
+
 import { User } from './firebase_interfaces';
 
 const config = {
@@ -96,6 +98,7 @@ class Firebase {
   addUserInFirestore = (user: User) => {
     const userData: User = {
       uid: user.uid,
+      role: roles.student,  // By default all new account is a student
       email: user.email,
       creationDate: new Date(),
       lastConnection: new Date(),
