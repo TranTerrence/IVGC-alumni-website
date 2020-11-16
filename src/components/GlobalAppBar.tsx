@@ -38,7 +38,7 @@ export default function GlobalAppBar() {
   }
 
   
-  const AppBarAuth = () => (
+  const AppBarAuth = ({ isVerified} : {isVerified: boolean}) => (
     <Toolbar>
       <TitleAlumni />
       <Button color='inherit' component={Link} to={ROUTES.HOME}>
@@ -47,12 +47,18 @@ export default function GlobalAppBar() {
       <Button color='inherit' component={Link} to={ROUTES.MY_PROFILE}>
         Mon Profile
           </Button>
+      
       <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
         Contact
           </Button>
-      <Button color='inherit' component={Link} to={ROUTES.WRITE_ARTICLE_PAGE}>
-        Ecrire un article
-          </Button>
+      {isVerified
+        && <Button color='inherit' component={Link} to={ROUTES.WRITE_ARTICLE_PAGE}>
+          Ecrire un article
+           </Button>
+      }
+      
+          
+     
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>
@@ -63,11 +69,13 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
+
+
   return (
     <AppBar position="static">
       {
-        isLoggedIn && isVerified
-          ? <AppBarAuth />
+        isLoggedIn 
+          ? <AppBarAuth isVerified={isVerified} />
           : <AppBarNonAuth />
       }
     </AppBar>
