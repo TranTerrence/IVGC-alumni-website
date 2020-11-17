@@ -5,7 +5,7 @@ import 'firebase/analytics';
 import { collections } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 
-import { User } from './firebase_interfaces';
+import { Profile, User } from './firebase_interfaces';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -151,6 +151,10 @@ class Firebase {
       lastConnection: new Date(),
     });
 
+  saveProfile = (profile: Profile) => {
+    console.log("SAVING PROFILE... DID NOT WORJED");
+    return;
+  }
 
 }
 export default Firebase;
