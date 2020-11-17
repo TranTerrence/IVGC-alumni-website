@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,11 +8,11 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import BlogPost from '../components/BlogPost'
 import { FirebaseContext } from '../components/Firebase';
-import { useCollectionData  } from 'react-firebase-hooks/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     backgroundColor: "#fff"
   },
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 function ActuPage() {
   const classes = useStyles();
   const firebase = React.useContext(FirebaseContext);
-  
+
   const FirestoreCollection = () => {
     const [value, loading, error] = useCollectionData(
       firebase?.firestore.collection(FIRESTORE_CONSTS.collections.articles).limit(100),
@@ -74,31 +74,31 @@ function ActuPage() {
         {loading && <span>Document: Loading...</span>}
         {value &&
           <>
-          <Grid container spacing={3}>
-            {value.map((post: any) => (
-              <BlogPost image={post.image}
-                title={post.title}
-                avatar={post.avatar}
-                PostContent={post.PostContent}
-                PostTitle={post.PostTitle}
-                xs={12}
-                author={post.author}
-                id={post.id}
-              />
-            ))}
-          </Grid>
+            <Grid container spacing={3}>
+              {value.map((post: any) => (
+                <BlogPost image={post.image}
+                  title={post.title}
+                  avatar={post.avatar}
+                  PostContent={post.PostContent}
+                  PostTitle={post.PostTitle}
+                  xs={12}
+                  author={post.author}
+                  id={post.id}
+                />
+              ))}
+            </Grid>
           </>
         }
       </div>
     );
   }
-  
+
   return (
     <div className="App">
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <Container>
-          <Typography variant="h6" color="primary" >
+            <Typography variant="h6" color="primary" >
               Les actualités du moment
           </Typography>
           </Container>

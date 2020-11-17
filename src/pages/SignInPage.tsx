@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 import FormControl from '@material-ui/core/FormControl';
@@ -18,7 +18,7 @@ import { palette } from '../constants/colors';
 import { useHistory } from 'react-router-dom';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
     padding: theme.spacing(4),

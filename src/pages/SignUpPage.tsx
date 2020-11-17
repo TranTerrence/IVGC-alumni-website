@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import * as ROUTES from '../constants/routes';
 import AlumniLogo from '../components/AlumniLogo';
@@ -13,7 +13,7 @@ import { palette } from '../constants/colors';
 import { isEmailValid, isPasswordValid } from '../Utils';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
     padding: theme.spacing(4),

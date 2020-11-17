@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 import FirebaseContext from '../components/Firebase/context';
@@ -11,7 +11,7 @@ import Firebase from '../components/Firebase';
 import Typography from '@material-ui/core/Typography';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
     padding: theme.spacing(4),
@@ -86,7 +86,7 @@ function SignUpForm({ firebase, setFormSubmmited }: { firebase: Firebase | null,
 
   return (
     <FormControl className={classes.form} >
-       <TextField
+      <TextField
         variant="outlined"
         margin="normal"
         required

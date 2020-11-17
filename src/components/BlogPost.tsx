@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -20,7 +20,7 @@ function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     backgroundColor: "#fff"
   },
@@ -77,17 +77,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlumniLogo({ image = "auto", title = "default-title", avatar = "auto",
-    PostContent = "default-content", PostTitle = "default-post-title", xs = 4, author = "default-author", id = "default-id"}: {
+  PostContent = "default-content", PostTitle = "default-post-title", xs = 4, author = "default-author", id = "default-id" }: {
     image: string, title: string, avatar: string, PostContent: string,
     PostTitle: string, xs: any, author: string, id: string
   }) {
-  
+
   const classes = useStyles();
-  
+
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
-    navigator.clipboard.writeText(window.location.host+ ROUTES.ARTICLE_PAGE + "?id=" + id);
+    navigator.clipboard.writeText(window.location.host + ROUTES.ARTICLE_PAGE + "?id=" + id);
     setOpen(true);
   };
 
@@ -98,49 +98,49 @@ export default function AlumniLogo({ image = "auto", title = "default-title", av
 
     setOpen(false);
   };
-  
-  return(
+
+  return (
     <Grid item xs={xs} sm={6} md={4}>
-    <Card className={classes.card}>
+      <Card className={classes.card}>
         <CardActionArea href={"article?id=" + id}>
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title={title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {PostTitle}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {PostContent.substring(0,200)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.cardActions}>
-        <Box className={classes.author}>
-          <Avatar src={avatar} />
-          <Box ml={2}>
-            <Typography variant="subtitle2" component="p">
-              {author}
+          <CardMedia
+            className={classes.media}
+            image={image}
+            title={title}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {PostTitle}
             </Typography>
-            <Typography variant="subtitle2" color="textSecondary" component="p">
-              May 14, 2020
+            <Typography variant="body2" color="textSecondary" component="p">
+              {PostContent.substring(0, 200)}
             </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions className={classes.cardActions}>
+          <Box className={classes.author}>
+            <Avatar src={avatar} />
+            <Box ml={2}>
+              <Typography variant="subtitle2" component="p">
+                {author}
+              </Typography>
+              <Typography variant="subtitle2" color="textSecondary" component="p">
+                May 14, 2020
+            </Typography>
+            </Box>
           </Box>
-        </Box>
           <IconButton aria-label="share" onClick={handleClick}>
             <ShareIcon />
           </IconButton>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            Lien vers l'article copié dans le presse-papier !
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              Lien vers l'article copié dans le presse-papier !
           </Alert>
-        </Snackbar>
-        <IconButton aria-label="show more" href={"article?id=" + id}>
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
-  </Grid>)
+          </Snackbar>
+          <IconButton aria-label="show more" href={"article?id=" + id}>
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </Grid>)
 };
