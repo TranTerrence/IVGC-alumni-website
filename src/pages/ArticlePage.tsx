@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,11 +7,11 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { FirebaseContext } from '../components/Firebase';
-import { useDocumentData  } from 'react-firebase-hooks/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import queryString from 'query-string'
 import * as FIRESTORE_CONSTS from '../constants/firebase';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
     backgroundColor: "#fff"
   },
@@ -64,13 +64,13 @@ function ArticlePage() {
   const FirestoreDocument = () => {
     const [value, loading, error] = useDocumentData(
       firebase?.firestore.doc(FIRESTORE_CONSTS.collections.articles + '/' + parsedId));
-    
+
     return (
       <div>
-          {error && <strong>Error: {JSON.stringify(error)}</strong>}
-          {loading && <span>Document: Loading...</span>}
-          {value && 
-            <><Box style={{
+        {error && <strong>Error: {JSON.stringify(error)}</strong>}
+        {loading && <span>Document: Loading...</span>}
+        {value &&
+          <><Box style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${value.image})`,
             height: "500px",
             backgroundPosition: "center",
@@ -86,8 +86,8 @@ function ArticlePage() {
             <Box>{value.PostTitle}</Box>
           </Box>
             <Container maxWidth="lg" className={classes.blogsContainer}>
-            <Grid container spacing={3}>
-              <Typography> {value.PostContent} </Typography>
+              <Grid container spacing={3}>
+                <Typography> {value.PostContent} </Typography>
               </Grid>
             </Container></>
         }

@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Copyright from './Copyright';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     footer: {
         marginTop: theme.spacing(4),
 
