@@ -4,30 +4,34 @@ service cloud.firestore {
   	function isLoggedIn() {
       return request.auth != null;
     }
+    function isSelf(uid){
+      return request.auth == uid;
+    }
     function isArticleAuthor(articleId) {
       let article = get(/databases/$(database)/documents/articles/$(articleId));
       return article.data.author == request.auth.uid;
     }
-    function isVerified(uid) {
-      let user = get(/databases/$(database)/documents/users/$(uid));
-      return user.data.verified == true;
+    function isVerified() {
+        return request.auth.verified == true;
     }
-    function isAdmin(uid) {
-      let user = get(/databases/$(database)/documents/users/$(uid));
-      return user.data.role == "admin";
-    }
-    function isStudent(uid) {
-      let user = get(/databases/$(database)/documents/users/$(uid));
-      return user.data.role == "student";
-    }
-    match /users/{userID} {
-      allow read: if isLoggedIn() && isVerified(userID);
-      allow write: if true;
+    function isAdmin(){
+      return request.auth.role == "admin";
     }
 
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 10, 18);
+    match /articles/{articleId} {
+      allow read: if true;
+      allow write: if isLoggedIn() && isVerified() && isArticleAuthor(articleId);
+    }
+    
+    match /users/{uid} {
+      allow read: if isLoggedIn() && isVerified();
+      allow create: if true;
+      allow update, delete: if isLoggedIn() && isVerified() && isAdmin();
+    }
+
+    match /profiles/{uid} {
+      allow read: if isLoggedIn() && isVerified();
+      allow write: if isLoggedIn() && isVerified() && isSelf(uid);
     }
   }
 }
