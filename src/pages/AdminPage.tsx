@@ -163,7 +163,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
     >
       {numSelected > 0 ? (
         <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
+          {numSelected} Sélectionnées
         </Typography>
       ) : (
           <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
@@ -171,13 +171,13 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
           </Typography>
         )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Supprimer les utilisateurs">
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-          <Tooltip title="Filter list">
+          <Tooltip title="Filtrer la liste">
             <IconButton aria-label="filter list">
               <FilterListIcon />
             </IconButton>

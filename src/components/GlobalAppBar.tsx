@@ -73,7 +73,7 @@ export default function GlobalAppBar() {
           : null
       }
       
-      
+
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
@@ -93,7 +93,7 @@ const TitleAlumni = () => {
   const classes = useStyles();
   return (
     <Typography variant="h6"  className={classes.title}>
-      Association des anciens élèves de l'institut Villebon – <Box fontStyle="italic" display='inline'>Georges Charpak</Box>
+      Communauté des anciens élèves de l'institut Villebon - <Box fontStyle="italic" display='inline'>Georges Charpak</Box>
     </Typography>
   );
 
