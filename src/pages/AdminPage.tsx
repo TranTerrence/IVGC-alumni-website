@@ -21,10 +21,10 @@ import { collections } from '../constants/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import FirebaseContext from '../components/Firebase/context';
 import { User } from '../components/Firebase/firebase_interfaces';
-import { FormControl, Select, MenuItem, FormHelperText } from '@material-ui/core';
+import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { roles_fr } from '../constants/roles';
 import Button from '@material-ui/core/Button/Button';
-import { isSpreadAssignment } from 'typescript';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 
 function descendingComparator<User>(a: User, b: User, orderBy: keyof User) {
   if (b[orderBy] < a[orderBy]) {
@@ -318,95 +318,98 @@ export default function AdminPage() {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={users.length}
-            />
-            <TableBody>
-              {stableSort(users, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((user, index) => {
-                  const isItemSelected = isSelected(user.uid);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  let creationDate_str = "";
-                  if (user.creationDate) {
-                    const creaDate = user.creationDate.toDate();
-                    creationDate_str = creaDate.toLocaleDateString();
-                  }
+      {error && <strong>Error: {JSON.stringify(error)}</strong>}
+      {loading && <CircularProgress />}
+      {users &&
+        <Paper className={classes.paper}>
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={'medium'}
+              aria-label="enhanced table"
+            >
+              <EnhancedTableHead
+                classes={classes}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={users.length}
+              />
+              <TableBody>
+                {stableSort(users, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((user, index) => {
+                    const isItemSelected = isSelected(user.uid);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    let creationDate_str = "";
+                    if (user.creationDate) {
+                      const creaDate = user.creationDate.toDate();
+                      creationDate_str = creaDate.toLocaleDateString();
+                    }
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, user.uid)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={user.uid}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="user" padding="none">
-                        {user.email}
-                      </TableCell>
-                      <TableCell align="left">{user.uid}</TableCell>
-                      <TableCell align="left">{creationDate_str}</TableCell>
-                      <TableCell align="left">{user.verified
-                        ? "Vérifié(e)"
-                        : <VerificationButton uid={user.uid} />}</TableCell>
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={user.uid}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            onClick={(event) => handleClick(event, user.uid)}
 
-                      <TableCell align="left"><FormControl >
-                        <Select
-                          value={user.role}
-                          onChange={
+                            inputProps={{ 'aria-labelledby': labelId }}
+                          />
+                        </TableCell>
+                        <TableCell component="th" id={labelId} scope="user" padding="none">
+                          {user.email}
+                        </TableCell>
+                        <TableCell align="left">{user.uid}</TableCell>
+                        <TableCell align="left">{creationDate_str}</TableCell>
+                        <TableCell align="left">{user.verified
+                          ? "Vérifié(e)"
+                          : <VerificationButton uid={user.uid} />}</TableCell>
 
-                            (event) => handleRoleChange(event, user.uid)}
-
-                          inputProps={{ 'aria-label': 'Without label' }}
-                        >
-                          {getRoleMenuItems()}
-                        </Select>
-                      </FormControl>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
+                        <TableCell align="left"><FormControl >
+                          <Select
+                            value={user.role}
+                            onChange={
+                              (event) => handleRoleChange(event, user.uid)}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                          >
+                            {getRoleMenuItems()}
+                          </Select>
+                        </FormControl>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={users.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+      }
 
     </div>
   );
