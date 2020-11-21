@@ -67,7 +67,6 @@ class Firebase {
       });
     if (userCred && userCred.user) {
       const user = userCred.user;
-      this.logUser(user.uid);
       return user;
     }
 
@@ -101,7 +100,6 @@ class Firebase {
       role: roles.student,  // By default all new account is a student
       email: user.email,
       creationDate: new Date(),
-      lastConnection: new Date(),
       verified: false,
     };
     this.firestore.collection(collections.users).doc(user.uid)
@@ -144,12 +142,6 @@ class Firebase {
         console.error("Error writing document: ", error);
       });
   }
-
-  logUser = (uid: string) =>
-    this.updateUser({
-      uid: uid,
-      lastConnection: new Date(),
-    });
 
   saveProfile = (profile: Profile) => {
     console.log("SAVING PROFILE... DID NOT WORJED");
