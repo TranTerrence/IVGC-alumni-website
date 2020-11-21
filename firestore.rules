@@ -12,10 +12,10 @@ service cloud.firestore {
       return article.data.author == request.auth.uid;
     }
     function isVerified() {
-        return request.auth.verified == true;
+        return request.auth.token.verified == true;
     }
     function isAdmin(){
-      return request.auth.role == "admin";
+      return request.auth.token.role == "admin";
     }
 
     match /articles/{articleId} {
@@ -24,7 +24,7 @@ service cloud.firestore {
     }
     
     match /users/{uid} {
-      allow get: if isSelf(uid);
+      allow get: if isSelf(uid) || isAdmin();
       allow list: if isLoggedIn() && isVerified() && isAdmin();
       allow create: if true;
       allow update, delete: if isLoggedIn() && isVerified() && isAdmin();

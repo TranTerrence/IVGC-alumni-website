@@ -7,9 +7,10 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import MyProfilePage from './pages/MyProfilePage';
-import FAQPage from './pages/FAQPage'
-import ActuPage from './pages/ActuPage'
-import ArticlePage from './pages/ArticlePage'
+import FAQPage from './pages/FAQPage';
+import ActuPage from './pages/ActuPage';
+import ArticlePage from './pages/ArticlePage';
+import AdminPage from './pages/AdminPage'
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
 import WriteArticlePage from './pages/WriteArticle';
@@ -44,6 +45,8 @@ function App() {
         <Route path={ROUTES.WRITE_ARTICLE_PAGE} component={WriteArticlePage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={MyProfilePage} redirectPath={ROUTES.SIGN_IN} />
+        <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
+
 
       </Router>
       <Footer />

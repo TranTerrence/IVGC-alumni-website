@@ -3,3 +3,9 @@ export const roles = {
   admin: "admin",
   professor: "professor",
 }
+
+export const roles_fr: { [k: string]: string } = {
+  student: "Etudiant",
+  admin: "Administrateur",
+  professor: "Professeur",
+} 

@@ -1,9 +1,9 @@
 export interface User {
   uid: string,
-  email?: string,
-  creationDate?: Date,
-  role?: string,
-  verified?: boolean,
+  email: string,
+  creationDate: firebase.firestore.Timestamp,
+  role: string,
+  verified: boolean,
 }
 export interface Profile {
   uid: string, //Same uid as the user

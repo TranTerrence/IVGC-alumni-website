@@ -24,12 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function GlobalAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isVerified, setIsverified] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const firebase = useContext(FirebaseContext);
   if (firebase) {
     firebase.auth.onAuthStateChanged(async function (user) {
       if (user) {
         setIsLoggedIn(true);
-        const isVerified = await firebase.isVerified(user.uid);
+        const isVerified = await firebase.isVerified();
+        const isAdmin = await firebase.isAdmin();
+        setIsAdmin(isAdmin);
         setIsverified(isVerified);
       } else {
         // No user is signed in.
@@ -61,6 +65,14 @@ export default function GlobalAppBar() {
       <Button color='inherit' component={Link} to={ROUTES.MY_PROFILE}>
         Mon Profile
           </Button>
+      {
+        isAdmin
+          ? <Button color='inherit' component={Link} to={ROUTES.ADMIN}>
+              Admin
+              </Button>
+          : null
+      }
+      
       
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>

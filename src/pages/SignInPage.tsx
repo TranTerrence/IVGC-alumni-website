@@ -106,6 +106,8 @@ function LogInForm() {
     if (emailValid && firebase) {
       const user = await firebase.doSignInWithEmailAndPassword(inputValues.email, inputValues.password);
       if (user !== undefined && ('uid' in user)) {
+        const idToken = await user.getIdTokenResult();
+        console.log(idToken.claims);
         history.push(ROUTES.MY_PROFILE);
       }
     }

@@ -93,13 +93,24 @@ class Firebase {
     }
   }
 
+  isAdmin = async (): Promise<boolean> => {
+    const user = this.auth.currentUser;
+    if (user) {
+      // User is signed in.
+      const idTokenResult = await user.getIdTokenResult();
+      return idTokenResult.claims.role === roles.admin;
+    } else {
+      return false
+    }
+  }
+
   // *** Firestore API ***
   addUserInFirestore = (user: User) => {
     const userData: User = {
       uid: user.uid,
       role: roles.student,  // By default all new account is a student
       email: user.email,
-      creationDate: new Date(),
+      creationDate: app.firestore.Timestamp.fromDate(new Date()),
       verified: false,
     };
     this.firestore.collection(collections.users).doc(user.uid)
@@ -112,40 +123,54 @@ class Firebase {
       });
   }
 
-
-  isVerified = async (uid: string): Promise<boolean> => {
-    const userRef = this.firestore.collection(collections.users).doc(uid)
-    const doc = await userRef.get();
-    if (!doc.exists) {
-      return false;
+  isVerified = async (): Promise<boolean> => {
+    const user = this.auth.currentUser;
+    if (user) {
+      // User is signed in.
+      const idTokenResult = await user.getIdTokenResult();
+      return idTokenResult.claims.verified === true;
     } else {
-      const userData = doc.data() as User;
-      if (userData !== undefined)
-        return userData['verified'] ?? false;
-      else
-        return false;
+      return false
     }
-
   }
 
   /**
    * Update only the fields that the user argument has
+   * note that the UID field is required
    * @param user 
    */
-  updateUser = (user: User) => {
+  updateUser = (user: Partial<User>) => {
     this.firestore.collection(collections.users).doc(user.uid)
       .update(user)
       .then(function () {
         console.log("User updated successfully");
       })
       .catch(function (error) {
-        console.error("Error writing document: ", error);
+        console.error("Error writing document, make sure to provide the uid of the user.", error);
       });
   }
 
   saveProfile = (profile: Profile) => {
     console.log("SAVING PROFILE... DID NOT WORJED");
     return;
+  }
+
+  verifyUser = (uid: string) => {
+    if (this.isAdmin()) {
+      this.updateUser({
+        uid: uid,
+        verified: true
+      });
+    }
+  }
+
+  changeRole = (uid: string, role: string) => {
+    if (this.isAdmin()) {
+      this.updateUser({
+        uid: uid,
+        role: role
+      });
+    }
   }
 
 }
