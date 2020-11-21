@@ -24,7 +24,8 @@ service cloud.firestore {
     }
     
     match /users/{uid} {
-      allow read: if isLoggedIn() && isVerified();
+      allow get: if isSelf(uid);
+      allow list: if isLoggedIn() && isVerified() && isAdmin();
       allow create: if true;
       allow update, delete: if isLoggedIn() && isVerified() && isAdmin();
     }
