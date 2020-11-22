@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -33,12 +33,12 @@ export default function GlobalAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isVerified, setIsverified] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const firebase = useContext(FirebaseContext);
 
-  const { profile, }: { profile: Profile } = useContext(ProfileContext);
+  const { profile } = useContext(ProfileContext);
   const classes = useStyles();
 
 
-  const firebase = useContext(FirebaseContext);
   if (firebase) {
     firebase.auth.onAuthStateChanged(async function (user) {
       if (user) {
@@ -49,6 +49,8 @@ export default function GlobalAppBar() {
         setIsverified(isVerified);
       } else {
         // No user is signed in.
+        setIsLoggedIn(false);
+
       }
     });
   }
@@ -101,7 +103,7 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
-  if (profile.onBoarding < 2 && isLoggedIn) {
+  if (profile.onBoarding < 2 && profile.uid !== "" && isLoggedIn) {
     return (<AppBar position="static">
       <AppBarOnBoarding />
     </AppBar>);

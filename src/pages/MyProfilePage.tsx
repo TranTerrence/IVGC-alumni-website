@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'left',
     backgroundColor: 'white',
     borderRadius: "2px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",

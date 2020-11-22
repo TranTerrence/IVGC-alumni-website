@@ -13,10 +13,10 @@ const ProfileContextProvider = (props: any) => {
     onBoarding: 0,  // Step in the onboarding 0: not started | 10: finish
   };
   const [profile, setProfile]: [Partial<Profile>, Function] = useState(initProfile);
+
   const changeKey = async (key: keyof Profile, value: string | number) => {
     await setProfile({ ...profile, [key]: value });
   }
-
 
   return (
     <ProfileContext.Provider
