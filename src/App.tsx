@@ -17,6 +17,7 @@ import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
+import OnBoardingPage from './pages/OnBoardingPage';
 
 const theme = createMuiTheme({
   typography: {
@@ -46,6 +47,7 @@ function App() {
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={MyProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
+        <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
 
 
       </Router>
