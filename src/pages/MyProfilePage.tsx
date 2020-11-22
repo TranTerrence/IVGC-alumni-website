@@ -1,8 +1,9 @@
-import React, { useContext, } from 'react';
+import React, { useContext, useEffect, } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
+import { FirebaseContext } from '../components/Firebase';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -19,7 +20,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function MyProfilePage() {
   const classes = useStyles();
-  const { profile, } = useContext(ProfileContext);
+  const firebase = useContext(FirebaseContext);
+  const { profile, setProfile } = useContext(ProfileContext);
+  // Sync the data with the context
+  // TODO: Optimization fetch only if context is empty
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (firebase) {
+        const currentProfile = await firebase.getCurrentProfile();
+        if (currentProfile !== null) {
+          setProfile(currentProfile);
+        }
+      } else
+        console.log("No firebase");
+    }
+    fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   return (

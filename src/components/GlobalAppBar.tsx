@@ -10,7 +10,6 @@ import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
 import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
-import AlumniLogo from './AlumniLogo';
 import { Profile } from './Firebase/firebase_interfaces';
 import { ProfileContext } from './Profile/ProfileContext';
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       flexGrow: 1,
-      textAlign:"center"
+      textAlign: "left"
     },
   }),
 );
@@ -51,18 +50,18 @@ export default function GlobalAppBar() {
   }
 
   const AppBarOnBoarding = () => (
-    
+
     <Toolbar>
       <ButtonPrevious />
-      <Typography  variant="h6" className={classes.title}>Bienvenue dans la communauté</Typography>
+      <Typography variant="h6" className={classes.title}>Bienvenue dans la communauté</Typography>
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
- 
 
-  
-  
-  const AppBarAuth = ({ isVerified} : {isVerified: boolean}) => (
+
+
+
+  const AppBarAuth = ({ isVerified }: { isVerified: boolean }) => (
     <Toolbar>
       <TitleAlumni />
       <Button color='inherit' component={Link} to={ROUTES.HOME}>
@@ -78,7 +77,7 @@ export default function GlobalAppBar() {
         && <Button color='inherit' component={Link} to={ROUTES.WRITE_ARTICLE_PAGE}>
           Ecrire un article
            </Button>
-      }     
+      }
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>
@@ -88,25 +87,25 @@ export default function GlobalAppBar() {
       {
         isAdmin
           ? <Button color='inherit' component={Link} to={ROUTES.ADMIN}>
-              Admin
+            Admin
               </Button>
           : null
       }
-      
+
 
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
 
-  if (profile.onBoarding < 3 && !isAdmin) {
-    return (    <AppBar position="static">
+  if (profile.onBoarding < 2 && !isAdmin && isLoggedIn) {
+    return (<AppBar position="static">
       <AppBarOnBoarding />
     </AppBar>);
   }
   return (
     <AppBar position="static">
       {
-        isLoggedIn 
+        isLoggedIn
           ? <AppBarAuth isVerified={isVerified} />
           : <AppBarNonAuth />
       }
@@ -117,9 +116,13 @@ export default function GlobalAppBar() {
 const TitleAlumni = () => {
   const classes = useStyles();
   return (
-    <Typography variant="h6"  className={classes.title}>
-      Communauté des anciens élèves de l'institut Villebon - <Box fontStyle="italic" display='inline'>Georges Charpak</Box>
-    </Typography>
+    <>
+      <Typography variant="h6" className={classes.title}>
+        Communauté des anciens élèves de l'institut Villebon -
+        <Box fontStyle="italic" display='inline'> Georges Charpak</Box>
+
+      </Typography>
+    </>
   );
 
 };

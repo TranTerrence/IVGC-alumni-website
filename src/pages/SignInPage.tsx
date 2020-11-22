@@ -113,12 +113,19 @@ function LogInForm() {
         console.log(idToken.claims);
 
         // Refresh the profile context
-        // const currentProfile = await firebase.getCurrentProfile();
-        // await setProfile({
-        //   currentProfile
-        // });
+        const currentProfile = await firebase.getCurrentProfile();
+        let goTo = ROUTES.ONBOARDING;
+        if (currentProfile) {
+          await setProfile({
+            currentProfile
+          });
+          if (currentProfile.onBoarding >= 2) {
+            goTo = ROUTES.MY_PROFILE;
+          }
 
-        history.push(ROUTES.ONBOARDING);
+        }
+        history.push(goTo);
+
       }
     }
     else {
@@ -180,5 +187,4 @@ function LogInForm() {
       </Button>
     </FormControl >
   );
-
 }
