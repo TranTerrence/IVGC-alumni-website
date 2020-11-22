@@ -15,9 +15,10 @@ import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
+import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
+
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
-import OnBoardingPage from './pages/OnBoardingPage';
 
 const theme = createMuiTheme({
   typography: {

@@ -16,6 +16,7 @@ import * as ROUTES from '../constants/routes';
 import { isEmailValid } from '../Utils';
 import { palette } from '../constants/colors';
 import { useHistory } from 'react-router-dom';
+import { ProfileContext } from '../components/Profile/ProfileContext';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -80,6 +81,8 @@ function LogInForm() {
 
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
+  const { profile, setProfile } = useContext(ProfileContext);
+
   const history = useHistory();
 
   const defaultInputs = {
@@ -108,7 +111,16 @@ function LogInForm() {
       if (user !== undefined && ('uid' in user)) {
         const idToken = await user.getIdTokenResult();
         console.log(idToken.claims);
-        history.push(ROUTES.MY_PROFILE);
+        console.log("SIGN IN: ", user.uid,);
+        await setProfile({
+          ...profile,
+          uid: user.uid,
+          email: user.email,
+        });
+
+        console.log("profile", profile);
+
+        history.push(ROUTES.ONBOARDING);
       }
     }
     else {

@@ -150,10 +150,24 @@ class Firebase {
       });
   }
 
-  saveProfile = (profile: Profile) => {
-    console.log("SAVING PROFILE... DID NOT WORJED");
-    return;
+  updateProfile = (profile: Partial<Profile>) => {
+    if (profile.uid) {
+      this.firestore.collection(collections.profiles).doc(profile.uid)
+        .set(profile, { merge: true })
+        .then(function () {
+          console.log("User updated successfully");
+        })
+        .catch(function (error) {
+          console.error("Error writing document, make sure to provide the uid of the profile.", error);
+        });
+    }
+    else
+      console.error("Error writing document, make sure to provide the uid of the profile.");
+
   }
+
+
+
 
   verifyUser = (uid: string) => {
     if (this.isAdmin()) {

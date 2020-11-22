@@ -5,7 +5,7 @@ service cloud.firestore {
       return request.auth != null;
     }
     function isSelf(uid){
-      return request.auth == uid;
+      return request.auth.uid == uid;
     }
     function isArticleAuthor(articleId) {
       let article = get(/databases/$(database)/documents/articles/$(articleId));
@@ -32,7 +32,7 @@ service cloud.firestore {
 
     match /profiles/{uid} {
       allow read: if isLoggedIn() && isVerified();
-      allow write: if isLoggedIn() && isVerified() && isSelf(uid);
+      allow write: if isLoggedIn() && isSelf(uid);
     }
   }
 }

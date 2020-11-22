@@ -7,6 +7,7 @@ import { FormControl, TextField, FormControlLabel, Checkbox, Button, Grid } from
 import { palette } from '../constants/colors';
 import { FirebaseContext } from '../components/Firebase';
 import { Profile } from '../components/Firebase/firebase_interfaces';
+import { ProfileContext } from '../components/Profile/ProfileContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -39,22 +40,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function MyProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const defaultProfile: Profile = {
-    uid: "",
-    firstName: "",
-    lastName: "",
-    lastEditDate: new Date(),
-  };
-  const [profile, setProfile] = useState(defaultProfile);
+  const { profile, changeKey } = useContext(ProfileContext);
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
-    setProfile({ ...profile, [name]: value });
+    changeKey(name, value);
   };
 
   const saveChanges = () => {
 
-    firebase?.saveProfile(profile);
+    firebase?.updateProfile(profile);
   }
 
   return (
