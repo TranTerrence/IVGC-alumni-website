@@ -19,7 +19,7 @@ import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
 
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
-
+import { frFR } from '@material-ui/core/locale';
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -29,7 +29,7 @@ const theme = createMuiTheme({
     "fontWeightMedium": 500
   },
   palette: palette,
-});
+}, frFR);
 
 function App() {
 
