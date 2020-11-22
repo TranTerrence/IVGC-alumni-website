@@ -51,7 +51,7 @@ export const ButtonPrevious = () => {
   };
 
 
-  return (<Button variant="outlined" color="secondary"
+  return (<Button variant="outlined" color='inherit'
     onClick={goPrevious}>Précédent</Button>);
 }
 
