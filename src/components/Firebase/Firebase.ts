@@ -50,6 +50,14 @@ class Firebase {
       });
     const user = await userCred.user;
     this.addUserInFirestore(user);
+    // Create the Profile with default values
+    this.updateProfile({
+      uid: user.uid,
+      email: user.email,
+      lastEditDate: app.firestore.Timestamp.fromDate(new Date()),
+      onBoarding: 0,
+      promotion: new Date().getFullYear(),
+    })
   }
 
   doSignInWithEmailAndPassword = async (email: string, password: string) => {
@@ -123,6 +131,8 @@ class Firebase {
       });
   }
 
+
+
   isVerified = async (): Promise<boolean> => {
     const user = this.auth.currentUser;
     if (user) {
@@ -164,6 +174,22 @@ class Firebase {
     else
       console.error("Error writing document, make sure to provide the uid of the profile.");
 
+  }
+
+  getCurrentProfile = async (): Promise<Profile | null> => {
+    const user = this.auth.currentUser;
+    if (user) {
+      // User is signed in.
+      const doc = await this.firestore.collection(collections.profiles).doc(user.uid).get();
+      if (!doc.exists) {
+        console.log('User ', user.uid, " has no profile.");
+        return null;
+      } else {
+        return (doc.data() as Profile);
+      }
+    } else {
+      return null;
+    }
   }
 
 

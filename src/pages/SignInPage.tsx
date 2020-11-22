@@ -111,14 +111,12 @@ function LogInForm() {
       if (user !== undefined && ('uid' in user)) {
         const idToken = await user.getIdTokenResult();
         console.log(idToken.claims);
-        console.log("SIGN IN: ", user.uid,);
-        await setProfile({
-          ...profile,
-          uid: user.uid,
-          email: user.email,
-        });
 
-        console.log("profile", profile);
+        // Refresh the profile context
+        // const currentProfile = await firebase.getCurrentProfile();
+        // await setProfile({
+        //   currentProfile
+        // });
 
         history.push(ROUTES.ONBOARDING);
       }

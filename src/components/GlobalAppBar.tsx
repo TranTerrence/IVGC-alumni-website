@@ -9,11 +9,16 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
+import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
+import AlumniLogo from './AlumniLogo';
+import { Profile } from './Firebase/firebase_interfaces';
+import { ProfileContext } from './Profile/ProfileContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       flexGrow: 1,
+      textAlign:"center"
     },
   }),
 );
@@ -25,6 +30,10 @@ export default function GlobalAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isVerified, setIsverified] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const { profile, }: { profile: Profile } = useContext(ProfileContext);
+  const classes = useStyles();
+
 
   const firebase = useContext(FirebaseContext);
   if (firebase) {
@@ -41,6 +50,17 @@ export default function GlobalAppBar() {
     });
   }
 
+  const AppBarOnBoarding = () => (
+    
+    <Toolbar>
+      <ButtonPrevious />
+      <Typography  variant="h6" className={classes.title}>Bienvenue dans la communauté</Typography>
+      <LogOutButton setIsLoggedIn={setIsLoggedIn} />
+    </Toolbar>
+  );
+ 
+
+  
   
   const AppBarAuth = ({ isVerified} : {isVerified: boolean}) => (
     <Toolbar>
@@ -78,6 +98,11 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
+  if (profile.onBoarding < 3 && !isAdmin) {
+    return (    <AppBar position="static">
+      <AppBarOnBoarding />
+    </AppBar>);
+  }
   return (
     <AppBar position="static">
       {
@@ -122,3 +147,6 @@ const AppBarNonAuth = () => (
         </Button>
   </Toolbar>
 );
+
+
+

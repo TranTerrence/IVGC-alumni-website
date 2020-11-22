@@ -7,11 +7,13 @@ export interface User {
 }
 export interface Profile {
   uid: string, //Same uid as the user
-  email?: string,
-  firstName?: string,
-  lastName?: string,
-  lastEditDate?: Date,
+  email: string,
+  firstName: string,
+  lastName: string,
+  lastEditDate: firebase.firestore.Timestamp,
   onBoarding: number,
+  promotion: number,
+
 }
 // Role Management in Firebase
 //https://firebase.google.com/docs/firestore/solutions/role-based-access

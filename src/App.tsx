@@ -49,8 +49,6 @@ function App() {
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={MyProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
-
-
       </Router>
       <Footer />
     </ThemeProvider>

@@ -6,7 +6,7 @@ import Copyright from './Copyright';
 const useStyles = makeStyles((theme: Theme) => ({
     footer: {
         marginTop: theme.spacing(4),
-
+        marginBottom: theme.spacing(2),
     },
 }));
 /**

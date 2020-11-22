@@ -1,9 +1,11 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import Button from "@material-ui/core/Button/Button";
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import FirebaseContext from "../../../components/Firebase/context";
 import { Profile } from "../../../components/Firebase/firebase_interfaces";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
+import * as ROUTES from '../../../constants/routes';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -22,9 +24,10 @@ export const ButtonNext = () => {
 
   const goNext = async () => {
     if (profile.onBoarding < 1) {
-      await changeKey("onBoarding", profile.onBoarding + 1);
+      profile.onBoarding += 1;
+      console.log("GO next", profile);
       firebase?.updateProfile(profile);
-
+      await changeKey("onBoarding", profile.onBoarding);
     }
   };
 
@@ -36,14 +39,40 @@ export const ButtonNext = () => {
 export const ButtonPrevious = () => {
   const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
   const classes = useStyles();
+  const firebase = useContext(FirebaseContext);
 
-  const goNext = () => {
+  const goPrevious = async () => {
     if (profile.onBoarding > 0) {
-      changeKey("onBoarding", profile.onBoarding - 1);
+      profile.onBoarding -= 1;
+      console.log("GO next", profile);
+      firebase?.updateProfile(profile);
+      await changeKey("onBoarding", profile.onBoarding);
     }
   };
 
 
-  return (<Button variant="outlined" color="primary" className={classes.buttonNext}
-    onClick={goNext}>Précédent</Button>);
+  return (<Button variant="outlined" color="secondary"
+    onClick={goPrevious}>Précédent</Button>);
 }
+
+
+export const ButtonLast = () => {
+  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
+  const classes = useStyles();
+  const firebase = useContext(FirebaseContext);
+  const history = useHistory();
+
+  const goProfile = async () => {
+    console.log("GO profile");
+    profile.onBoarding += 1;
+    console.log("GO next", profile);
+    firebase?.updateProfile(profile);
+    await changeKey("onBoarding", profile.onBoarding);
+    history.push(ROUTES.MY_PROFILE);
+
+  };
+
+  return (<Button variant="contained" color="primary" className={classes.buttonNext}
+    onClick={goProfile}>Terminer</Button>);
+}
+
