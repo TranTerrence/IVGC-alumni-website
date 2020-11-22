@@ -7,6 +7,7 @@ import { AskPromo } from './components/AskPromo';
 import { FirebaseContext } from '../../components/Firebase';
 import { useHistory } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -48,11 +49,16 @@ export default function OnBoardingPage() {
     history.push(ROUTES.MY_PROFILE);
   }
   return (
-    <Container component="main" >
-      <div className={classes.stepWrapper}>
-        {onBoardingSteps[profile.onBoarding]}
-      </div>
-    </Container>
+    <>
+      <LinearProgress variant="determinate" color="secondary" value={(profile.onBoarding / onBoardingSteps.length) * 100} />
+
+      <Container component="main" >
+        <div className={classes.stepWrapper}>
+          {onBoardingSteps[profile.onBoarding]}
+        </div>
+      </Container>
+    </>
+
   );
 }
 

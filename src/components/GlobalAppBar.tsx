@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       textAlign: "left"
     },
+    titleCenter: {
+      flexGrow: 1,
+      textAlign: "center"
+    }
   }),
 );
 
@@ -53,7 +57,7 @@ export default function GlobalAppBar() {
 
     <Toolbar>
       <ButtonPrevious />
-      <Typography variant="h6" className={classes.title}>Bienvenue dans la communauté</Typography>
+      <Typography variant="h6" className={classes.titleCenter}>Bienvenue dans la communauté</Typography>
       <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
@@ -97,7 +101,7 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
-  if (profile.onBoarding < 2 && !isAdmin && isLoggedIn) {
+  if (profile.onBoarding < 2 && isLoggedIn) {
     return (<AppBar position="static">
       <AppBarOnBoarding />
     </AppBar>);
