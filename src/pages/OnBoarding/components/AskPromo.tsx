@@ -66,7 +66,7 @@ const getPromoMenuItems = () => {
   const thisYear = new Date().getFullYear();
 
   for (let year = 2016; year < thisYear + 3; year++) {
-    promoItems.push(<MenuItem value={year}>{year}</MenuItem>)
+    promoItems.push(<MenuItem value={year} key={year}>{year}</MenuItem>)
   }
   return promoItems;
 }
