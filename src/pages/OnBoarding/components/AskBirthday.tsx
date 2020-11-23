@@ -1,4 +1,4 @@
-import { Box, Grid, Avatar, Typography, MenuItem, Select } from "@material-ui/core";
+import { Box, Grid, Avatar, Typography, } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
@@ -67,7 +67,9 @@ export const AskBirthday = () => {
                 'aria-label': "date anniversaire",
               }}
             />
-            <Grid item>
+
+            <Grid item>{//Maybe do a check on the date before going next
+            }
               <ButtonNext />
             </Grid>
           </Grid>
@@ -75,15 +77,4 @@ export const AskBirthday = () => {
       </Box>
     </Fade>
   );
-}
-
-
-const getPromoMenuItems = () => {
-  const promoItems = [];
-  const thisYear = new Date().getFullYear();
-
-  for (let year = 2016; year < thisYear + 3; year++) {
-    promoItems.push(<MenuItem value={year}>{year}</MenuItem>)
-  }
-  return promoItems;
 }
