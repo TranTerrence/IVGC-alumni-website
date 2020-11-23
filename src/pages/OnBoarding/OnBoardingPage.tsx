@@ -8,6 +8,7 @@ import { FirebaseContext } from '../../components/Firebase';
 import { useHistory } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
+import { AskBirthday } from './components/AskBirthday';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -26,7 +27,7 @@ export default function OnBoardingPage() {
   const { profile, setProfile } = useContext(ProfileContext);
   const firebase = useContext(FirebaseContext);
 
-  const onBoardingSteps = [<AskName />, <AskPromo />,];
+  const onBoardingSteps = [<AskName />, <AskBirthday />, <AskPromo />,];
 
   // Sync the data with the context
   useEffect(() => {

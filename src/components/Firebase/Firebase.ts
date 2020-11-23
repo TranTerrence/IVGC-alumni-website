@@ -213,5 +213,9 @@ class Firebase {
     }
   }
 
+  toTimestamp = (date: Date): app.firestore.Timestamp => {
+    return app.firestore.Timestamp.fromDate(date);
+  }
+
 }
 export default Firebase;

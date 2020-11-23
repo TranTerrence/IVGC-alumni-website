@@ -5,13 +5,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Firebase, { FirebaseContext } from './components/Firebase';
 import ProfileContextProvider from './components/Profile/ProfileContext';
-
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import frLocale from "date-fns/locale/fr";
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
-    <ProfileContextProvider>
-      <App />
-    </ProfileContextProvider>
-
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+      <ProfileContextProvider>
+        <App />
+      </ProfileContextProvider>
+    </MuiPickersUtilsProvider>
   </FirebaseContext.Provider>,
   document.getElementById('root')
 );

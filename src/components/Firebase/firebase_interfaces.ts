@@ -10,6 +10,7 @@ export interface Profile {
   email: string,
   firstName: string,
   lastName: string,
+  birthday: firebase.firestore.Timestamp,
   lastEditDate: firebase.firestore.Timestamp,
   onBoarding: number,
   promotion: number,

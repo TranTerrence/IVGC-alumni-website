@@ -23,12 +23,11 @@ export const ButtonNext = () => {
   const firebase = useContext(FirebaseContext);
 
   const goNext = async () => {
-    if (profile.onBoarding < 1) {
-      profile.onBoarding += 1;
-      console.log("GO next", profile);
-      firebase?.updateProfile(profile);
-      await changeKey("onBoarding", profile.onBoarding);
-    }
+    profile.onBoarding += 1;
+    console.log("GO next", profile);
+    firebase?.updateProfile(profile);
+    await changeKey("onBoarding", profile.onBoarding);
+
   };
 
   return (<Button variant="contained" color="primary" className={classes.buttonNext}

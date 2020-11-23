@@ -103,7 +103,7 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
-  if (profile.onBoarding < 2 && profile.uid !== "" && isLoggedIn) {
+  if (profile.onBoarding < 3 && profile.uid !== "" && isLoggedIn) {
     return (<AppBar position="static">
       <AppBarOnBoarding />
     </AppBar>);
