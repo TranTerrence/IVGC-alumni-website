@@ -3,8 +3,7 @@ import Button from "@material-ui/core/Button/Button";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import FirebaseContext from "../../../components/Firebase/context";
-import { Profile } from "../../../components/Firebase/firebase_interfaces";
-import { ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
 import * as ROUTES from '../../../constants/routes';
 
 

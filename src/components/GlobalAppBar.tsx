@@ -10,8 +10,7 @@ import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
 import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
-import { Profile } from './Firebase/firebase_interfaces';
-import { ProfileContext } from './Profile/ProfileContext';
+import { Profile, ProfileContext } from './Profile/ProfileContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,6 +1,17 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../Firebase';
-import { Profile } from '../Firebase/firebase_interfaces';
+
+export interface Profile {
+  uid: string, //Same uid as the user
+  email: string,
+  firstName: string,
+  lastName: string,
+  birthday: firebase.firestore.Timestamp,
+  lastEditDate: firebase.firestore.Timestamp,
+  onBoarding: number,
+  promotion: number,
+}
+
 export const ProfileContext = createContext<any>({});
 
 const ProfileContextProvider = (props: any) => {

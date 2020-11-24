@@ -1,12 +1,11 @@
 import { Box, Grid, Avatar, Typography, } from "@material-ui/core";
 import React, { useContext } from "react";
-import { ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade";
 import { KeyboardDatePicker, } from '@material-ui/pickers';
-import { Profile } from "../../../components/Firebase/firebase_interfaces";
 import { FirebaseContext } from "../../../components/Firebase";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -53,6 +52,7 @@ export const AskBirthday = () => {
               openTo="year"
               views={["year", "month", "date"]}
               disableFuture
+              minDate={new Date("01/01/1950")}
               invalidDateMessage="Mauvaise date"
               value={
                 profile.birthday
