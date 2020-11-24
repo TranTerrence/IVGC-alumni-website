@@ -5,12 +5,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
 import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
 import { Profile, ProfileContext } from './Profile/ProfileContext';
+import Avatar from '@material-ui/core/Avatar';
+import { Menu, MenuItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +66,54 @@ export default function GlobalAppBar() {
   );
 
 
+  const ProfileButton = () => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const history = useHistory();
+    const goTo = (route: string) => {
+      history.push(route);
+    }
+    return (
+      <div>
+        <Button color='inherit' onClick={handleMenu}
+          endIcon={<Avatar />}>
+          {profile.firstName}
+        </Button>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => goTo(ROUTES.MY_PROFILE)}>Mon profile</MenuItem>
+          <MenuItem>
+            <LogOutButton setIsLoggedIn={setIsLoggedIn} />
+          </MenuItem>
+        </Menu>
+      </div>
+    )
+  };
+
+
 
 
   const AppBarAuth = ({ isVerified }: { isVerified: boolean }) => (
@@ -86,9 +136,6 @@ export default function GlobalAppBar() {
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>
-      <Button color='inherit' component={Link} to={ROUTES.MY_PROFILE}>
-        Mon Profile
-          </Button>
       {
         isAdmin
           ? <Button color='inherit' component={Link} to={ROUTES.ADMIN}>
@@ -97,8 +144,8 @@ export default function GlobalAppBar() {
           : null
       }
 
+      <ProfileButton />
 
-      <LogOutButton setIsLoggedIn={setIsLoggedIn} />
     </Toolbar>
   );
 
@@ -131,6 +178,7 @@ const TitleAlumni = () => {
   );
 
 };
+
 
 const AppBarNonAuth = () => (
   <Toolbar>

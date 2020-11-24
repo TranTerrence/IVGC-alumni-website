@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: "2px",
+    borderRadius: "8px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
   },
   form: {

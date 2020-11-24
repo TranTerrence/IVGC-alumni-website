@@ -6,7 +6,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
-import MyProfilePage from './pages/MyProfilePage';
+import ProfilePage from './pages/ProfilePage';
 import FAQPage from './pages/FAQPage';
 import ActuPage from './pages/ActuPage';
 import ArticlePage from './pages/ArticlePage';
@@ -46,7 +46,7 @@ function App() {
         <Route path={ROUTES.ARTICLE_PAGE} component={ArticlePage} />
         <Route path={ROUTES.WRITE_ARTICLE_PAGE} component={WriteArticlePage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
-        <LoggedInRoute path={ROUTES.MY_PROFILE} component={MyProfilePage} redirectPath={ROUTES.SIGN_IN} />
+        <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
       </Router>

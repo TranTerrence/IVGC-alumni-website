@@ -7,17 +7,17 @@ import { FirebaseContext } from '../components/Firebase';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     padding: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'white',
-    borderRadius: "2px",
+    borderRadius: "8px",
     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
   },
 }));
 
-export default function MyProfilePage() {
+export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { profile, setProfile } = useContext(ProfileContext);
@@ -39,16 +39,19 @@ export default function MyProfilePage() {
 
 
   return (
-    <Container component="main" maxWidth="xs" >
+    <Container component="main" maxWidth="md" >
       <div className={classes.paper}>
-        <Typography variant="h6">Prénom</Typography>
-        <Typography>{profile.firstName + " " + profile.lastName}</Typography>
-        <Typography variant="h6">Email</Typography>
+        <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
+        </Typography>
         <Typography>{profile.email}</Typography>
-        <Typography variant="h6">Promotion</Typography>
-        <Typography>{profile.promotion}</Typography>
         <Typography variant="h6">OnBoarding Step</Typography>
         <Typography>{profile.onBoarding}</Typography>
+      </div>
+      <div className={classes.paper}>
+        <Typography variant="h4">{"Formation"}
+        </Typography>
+        <Typography>{"MINES ParisTech"}</Typography>
+        <Typography>{"Innovation et Entrepreneuriat"}</Typography>
       </div>
     </Container>
   );
