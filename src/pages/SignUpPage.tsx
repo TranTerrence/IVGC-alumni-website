@@ -173,7 +173,7 @@ function SignUpForm({ setFormSubmmited }: { setFormSubmmited: Function }) {
         className={classes.submit}
         onClick={sumbitUser}
       >
-        S'inscrire
+        Rejoindre la communauté
       </Button>
     </FormControl>
   );
