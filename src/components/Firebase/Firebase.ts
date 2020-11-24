@@ -6,6 +6,7 @@ import { collections } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 
 import { User } from './firebase_interfaces';
+import { Profile } from '../Profile/ProfileContext';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
