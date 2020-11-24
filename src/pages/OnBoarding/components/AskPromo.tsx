@@ -1,10 +1,12 @@
-import { Box, Grid, Avatar, Typography, MenuItem, Select } from "@material-ui/core";
+import { Box, Grid, Typography, MenuItem, Select } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonLast } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade";
+import { MascotAvatar } from "../../../components/MascotAvatar";
+import { MASCOT_NAME } from "../../../constants/names";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -34,10 +36,10 @@ export const AskPromo = () => {
       <Box>
         <Grid container direction="row" >
           <Grid item >
-            <Avatar className={classes.avatar} src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.QCVkDf6qZSjynGijcf47IQHaJg%26pid%3DApi&f=1">G</Avatar>
+            <MascotAvatar />
           </Grid>
           <Grid item container direction="column" xs>
-            <Typography variant="body1" className={classes.speakerName} >Georges</Typography>
+            <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >De quelle promotion es-tu?</Typography>
             <Select
               labelId="promotion"

@@ -5,6 +5,8 @@ import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade/Fade";
+import { MascotAvatar } from "../../../components/MascotAvatar";
+import { MASCOT_NAME } from "../../../constants/names";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -36,11 +38,11 @@ export const AskName = () => {
       <Box>
         <Grid container direction="row">
           <Grid item>
-            <Avatar className={classes.avatar} src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.QCVkDf6qZSjynGijcf47IQHaJg%26pid%3DApi&f=1">G</Avatar>
+            <MascotAvatar />
           </Grid>
           <Grid container direction="column" item xs={10}>
-            <Typography variant="body1" className={classes.speakerName} >Georges</Typography>
-            <Typography variant="body2" >Salut! Je suis Georges</Typography>
+            <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
+            <Typography variant="body2" >Salut! Je suis {MASCOT_NAME}</Typography>
             <Typography variant="body2" >On va créer ton profile en quelques étapes.</Typography>
             <Typography variant="body2" >Comment tu t'appelles ?</Typography>
 

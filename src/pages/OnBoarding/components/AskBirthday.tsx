@@ -1,12 +1,15 @@
-import { Box, Grid, Avatar, Typography, } from "@material-ui/core";
+import { Box, Grid, Typography, } from "@material-ui/core";
 import React, { useContext } from "react";
 import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
+import { MASCOT_NAME } from "../../../constants/names";
+
 import Fade from "@material-ui/core/Fade";
 import { KeyboardDatePicker, } from '@material-ui/pickers';
 import { FirebaseContext } from "../../../components/Firebase";
+import { MascotAvatar } from "../../../components/MascotAvatar";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -37,10 +40,10 @@ export const AskBirthday = () => {
       <Box>
         <Grid container direction="row" >
           <Grid item >
-            <Avatar className={classes.avatar} src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.QCVkDf6qZSjynGijcf47IQHaJg%26pid%3DApi&f=1">G</Avatar>
+            <MascotAvatar />
           </Grid>
           <Grid item container direction="column" xs>
-            <Typography variant="body1" className={classes.speakerName} >Georges</Typography>
+            <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >Quelle est ta date d'anniversaire  ?</Typography>
             <KeyboardDatePicker
               margin="normal"
