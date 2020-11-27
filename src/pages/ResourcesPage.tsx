@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,15 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Firebase, { FirebaseContext } from '../components/Firebase';
+import { FirebaseContext } from '../components/Firebase';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import { createNamedExports } from 'typescript';
 import { formatBytes } from '../Utils';
-import { Button, Container } from '@material-ui/core';
-
-
+import { Breadcrumbs, Container, Link } from '@material-ui/core';
+import { storages } from '../constants/firebase';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 const FileRow = (props: { path: string }) => {
 
   const firebase = useContext(FirebaseContext);
@@ -56,30 +51,36 @@ const FileRow = (props: { path: string }) => {
             onClick={() => firebase?.downloadDocument(path, metadata.name)}
           ><GetAppIcon />
           </IconButton></TableCell>
-
       </TableRow>
     </React.Fragment>
   );
 }
-export default function ResourcesPage() {
 
+const FolderRow = (props: { path: string, setPath: Function }) => {
 
   const firebase = useContext(FirebaseContext);
+  const { path, setPath } = props;
 
-  const [paths, setPaths] = useState<string[]>([]);
+  const getLastItem = (thePath: string) => thePath.substring(thePath.lastIndexOf('/') + 1);
+  // Sync the data with the context
+  const [docs_path, setDocs] = useState<string[]>([]);
+  const [folders_path, setFolders] = useState<string[]>([]);
 
   // Sync the data with the context
   useEffect(() => {
     const fetchResources = async () => {
       if (firebase) {
-        const resources = await firebase.listResources();
-
+        const resources = await firebase.listResources(path);
         if (resources) {
-          const paths_arr = resources.items.map(item => item.fullPath)
-          console.log("RESOURCES ", paths);
-          setPaths(paths_arr);
-        }
+          const docs_path_arr = resources.items.map(item => item.fullPath);
+          const folder_arr = resources.prefixes.map(prefix => prefix.fullPath);
 
+          console.log("RESOURCES ", resources);
+          setDocs(docs_path_arr);
+          setFolders(folder_arr);
+          console.log("FOLDER PATH", folder_arr);
+
+        }
       } else
         console.log("No firebase");
     }
@@ -87,26 +88,75 @@ export default function ResourcesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  return (
+    <>
+
+      {folders_path.length > 0 && folders_path.map((path) => (
+        <TableRow >
+          <TableCell >
+            <Link color="primary" onClick={() => setPath(path)} style={{ fontSize: 24 }} >
+              <FolderOutlinedIcon color="primary" />
+              {"\t" + getLastItem(path)}
+            </Link>
+          </TableCell>
+          <TableCell colSpan={12} align="left">-</TableCell>
+        </TableRow>))
+      }
+      {
+        docs_path.length > 0 && docs_path.map((path) => (
+          <FileRow key={path} path={path} />
+        ))
+      }
+    </>
+
+  );
+}
+
+const BreadCrumbsFolder = (props: { path: string, setPath: Function }) => {
+  const { path, setPath } = props;
+
+  const path_split = path.split("/");
+
+  return (
+    <Breadcrumbs aria-label="breadcrumb" separator={<ArrowForwardIosIcon fontSize="small" />}  >
+      {path_split.map((folder_name, index) =>
+        <Link color={(path_split.length - 1 === index) ? "primary" : "inherit"}
+          onClick={() => setPath(path_split.slice(0, index + 1).join("/"))}>
+          {folder_name}
+        </Link>
+      )
+      }
+    </Breadcrumbs >);
+}
+
+export default function ResourcesPage() {
+
+  const [path, setPath] = useState<string>(storages.resources);
 
   return (
     <Container>
       <Typography variant="h2" color="primary">Ressources</Typography>
       <Typography variant="body1">Retrouvez ici tous les documents de l'association.</Typography>
 
+
       <TableContainer component={Paper}>
+
         <Table aria-label="collapsible table">
           <TableHead>
-            <TableRow>
-              <TableCell>Nom</TableCell>
-              <TableCell align="left">Taille</TableCell>
+            <TableRow  >
+              <TableCell colSpan={12}>
+                <BreadCrumbsFolder key={path} path={path} setPath={setPath} />
+              </TableCell>
+            </TableRow>
+            <TableRow >
+              <TableCell >Nom</TableCell>
+              <TableCell >Taille</TableCell>
               <TableCell />
 
             </TableRow>
           </TableHead>
           <TableBody>
-            {paths.map((path) => (
-              <FileRow key={path} path={path} />
-            ))}
+            <FolderRow key={path} path={path} setPath={setPath} />
           </TableBody>
         </Table>
       </TableContainer>

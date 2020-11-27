@@ -222,11 +222,10 @@ class Firebase {
   }
 
   // *** Storage API ***
-  listResources = async (): Promise<void | app.storage.ListResult> => {
+  listResources = async (path: string): Promise<void | app.storage.ListResult> => {
     // Create a reference under which you want to list
-    var resourceRef = this.storage.ref().child(storages.resources);
+    var resourceRef = this.storage.ref().child(path);
 
-    // Find all the prefixes and items.
     let res = await resourceRef.listAll()
       .catch(function (error) {
         // Uh-oh, an error occurred!
