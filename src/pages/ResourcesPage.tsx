@@ -43,7 +43,10 @@ const FileRow = (props: { path: string }) => {
       <TableRow >
 
         <TableCell component="th" scope="row">
-          {metadata.name}
+
+          <Link color="inherit" onClick={() => firebase?.downloadDocument(path, metadata.name)}>
+            {metadata.name}
+          </Link>
         </TableCell>
         <TableCell align="left">{formatBytes(metadata.size)}</TableCell>
         <TableCell align="right">
@@ -74,12 +77,8 @@ const FolderRow = (props: { path: string, setPath: Function }) => {
         if (resources) {
           const docs_path_arr = resources.items.map(item => item.fullPath);
           const folder_arr = resources.prefixes.map(prefix => prefix.fullPath);
-
-          console.log("RESOURCES ", resources);
           setDocs(docs_path_arr);
           setFolders(folder_arr);
-          console.log("FOLDER PATH", folder_arr);
-
         }
       } else
         console.log("No firebase");
@@ -108,7 +107,6 @@ const FolderRow = (props: { path: string, setPath: Function }) => {
         ))
       }
     </>
-
   );
 }
 
