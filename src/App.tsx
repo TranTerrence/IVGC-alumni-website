@@ -20,6 +20,7 @@ import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';
+import ResourcesPage from './pages/ResourcesPage';
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -46,6 +47,8 @@ function App() {
         <Route path={ROUTES.ARTICLE_PAGE} component={ArticlePage} />
         <Route path={ROUTES.WRITE_ARTICLE_PAGE} component={WriteArticlePage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
+        <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
+
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />

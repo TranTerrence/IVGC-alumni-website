@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function SignUpPage() {
+export default function HomePage() {
   const classes = useStyles();
 
   return (

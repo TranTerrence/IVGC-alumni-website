@@ -125,6 +125,9 @@ export default function GlobalAppBar() {
       <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
         Actualité
           </Button>
+      <Button color='inherit' component={Link} to={ROUTES.RESOURCES}>
+        Ressources
+          </Button>
       <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
         Contact
           </Button>
@@ -185,6 +188,9 @@ const AppBarNonAuth = () => (
     <TitleAlumni />
     <Button color='inherit' component={Link} to={ROUTES.HOME}>
       Home
+        </Button>
+    <Button color='inherit' component={Link} to={ROUTES.RESOURCES}>
+      Ressources
         </Button>
     <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
       Actualité

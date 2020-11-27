@@ -1,8 +1,9 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 import 'firebase/analytics';
-import { collections } from '../../constants/firebase';
+import { collections, storages } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 
 import { User } from './firebase_interfaces';
@@ -28,12 +29,14 @@ class Firebase {
 
   auth: app.auth.Auth;
   firestore: firebase.firestore.Firestore;
+  storage: firebase.storage.Storage;
   analytics: firebase.analytics.Analytics;
 
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
     this.firestore = app.firestore();
+    this.storage = app.storage();
     this.analytics = app.analytics();
   }
 
@@ -216,6 +219,39 @@ class Firebase {
 
   toTimestamp = (date: Date): app.firestore.Timestamp => {
     return app.firestore.Timestamp.fromDate(date);
+  }
+
+  // *** Storage API ***
+  listResources = async (): Promise<void | app.storage.ListResult> => {
+    // Create a reference under which you want to list
+    var resourceRef = this.storage.ref().child(storages.resources);
+
+    // Find all the prefixes and items.
+    let res = await resourceRef.listAll()
+      .catch(function (error) {
+        // Uh-oh, an error occurred!
+        console.log("Can't get resources ref");
+      });
+    return res;
+  }
+
+  downloadDocument = (path: string, fileName: string) => {
+    this.storage.ref().child(path).getDownloadURL().then(function (url: string) {
+      let a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.click();
+
+    }).catch(function (error: any) {
+      // Handle any errors
+    });
+  }
+
+  getMetadata = async (path: string): Promise<app.storage.FullMetadata | null> => {
+    const metadata = await this.storage.ref().child(path).getMetadata();
+    return metadata;
   }
 
 }

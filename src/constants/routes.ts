@@ -11,4 +11,5 @@ export const ARTICLE_PAGE = '/article';
 export const WRITE_ARTICLE_PAGE = '/write_article';
 export const CONTACT = '/contact';
 export const ONBOARDING = '/onboarding';
+export const RESOURCES = '/resources';
 
