@@ -13,6 +13,7 @@ import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons
 import { Profile, ProfileContext } from './Profile/ProfileContext';
 import Avatar from '@material-ui/core/Avatar';
 import { Menu, MenuItem } from '@material-ui/core';
+import { ONBOARDING_STEPS } from '../constants/numbers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -152,7 +153,7 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
-  if (profile.onBoarding < 3 && profile.uid !== "" && isLoggedIn) {
+  if (profile.onBoarding < ONBOARDING_STEPS && profile.uid !== "" && isLoggedIn) {
     return (<AppBar position="static">
       <AppBarOnBoarding />
     </AppBar>);

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { FirebaseContext } from '../Firebase';
+import { PostFormation } from './PostFormation';
 
 export interface Profile {
   uid: string, //Same uid as the user

@@ -34,5 +34,10 @@ service cloud.firestore {
       allow read: if isLoggedIn() && isVerified();
       allow write: if isLoggedIn() && isSelf(uid);
     }
+
+    match /profiles/{uid}/postFormations/{pfId} {
+      allow read: if isLoggedIn() && isVerified();
+      allow write: if isLoggedIn() && isSelf(uid);
+    }
   }
 }
