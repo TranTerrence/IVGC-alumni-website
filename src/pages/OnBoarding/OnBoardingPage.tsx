@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../../components/Profile/ProfileContext';
@@ -10,6 +10,7 @@ import * as ROUTES from '../../constants/routes';
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 import { AskBirthday } from './components/AskBirthday';
 import { AskPostFormations } from './components/AskPostFormations';
+import { CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -27,7 +28,7 @@ export default function OnBoardingPage() {
   const classes = useStyles();
   const { profile, setProfile } = useContext(ProfileContext);
   const firebase = useContext(FirebaseContext);
-
+  const [isLoading, setIsLoading] = useState(true);
   const onBoardingSteps = [<AskName />, <AskBirthday />, <AskPromo />, <AskPostFormations />];
 
   // Sync the data with the context
@@ -38,6 +39,7 @@ export default function OnBoardingPage() {
         if (currentProfile !== null) {
           setProfile(currentProfile);
         }
+        setIsLoading(false);
       } else
         console.log("No firebase");
     }
@@ -56,7 +58,9 @@ export default function OnBoardingPage() {
 
       <Container component="main" >
         <div className={classes.stepWrapper}>
-          {onBoardingSteps[profile.onBoarding]}
+          {isLoading
+            ? <CircularProgress />
+            : onBoardingSteps[profile.onBoarding]}
         </div>
       </Container>
     </>
