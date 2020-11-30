@@ -11,6 +11,8 @@ import Firebase from '../components/Firebase';
 import Typography from '@material-ui/core/Typography';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
 
+//TODO: Try to use SLate:https://docs.slatejs.org/
+
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),

@@ -1,1 +1,1 @@
-export const ONBOARDING_STEPS = 4;
+export const ONBOARDING_STEPS = 5;

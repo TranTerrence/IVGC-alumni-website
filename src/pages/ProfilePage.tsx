@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
 import { FirebaseContext } from '../components/Firebase';
+import { PostFormation, initPostFormation } from '../components/Profile/PostFormation';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    borderRadius: "8px",
-    boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+
+
   },
 }));
 
@@ -21,6 +20,8 @@ export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { profile, setProfile } = useContext(ProfileContext);
+  const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
+
   // Sync the data with the context
   // TODO: Optimization fetch only if context is empty
   useEffect(() => {
@@ -33,6 +34,16 @@ export default function ProfilePage() {
       } else
         console.log("No firebase");
     }
+    const fetchPFs = async () => {
+      if (firebase) {
+        const postFormations_arr = await firebase.getPostFormations();
+        if (postFormations_arr !== null) {
+          setPostFormations(postFormations_arr);
+        }
+      } else
+        console.log("No firebase");
+    }
+    fetchPFs();
     fetchProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -40,19 +51,26 @@ export default function ProfilePage() {
 
   return (
     <Container component="main" maxWidth="md" >
-      <div className={classes.paper}>
+      <Paper className={classes.paper}>
         <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
         </Typography>
         <Typography>{profile.email}</Typography>
         <Typography variant="h6">OnBoarding Step</Typography>
         <Typography>{profile.onBoarding}</Typography>
-      </div>
-      <div className={classes.paper}>
-        <Typography variant="h4">{"Formation"}
-        </Typography>
-        <Typography>{"MINES ParisTech"}</Typography>
-        <Typography>{"Innovation et Entrepreneuriat"}</Typography>
-      </div>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Typography variant="h4">{"Formation"}</Typography>
+        {postFormations.map(postFormation =>
+          <>
+            <Typography>{postFormation.school}</Typography>
+            <Typography>{postFormation.title}</Typography>
+            <Typography>{postFormation.city}</Typography>
+            <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
+
+          </>
+        )}
+
+      </Paper>
     </Container>
   );
 }
