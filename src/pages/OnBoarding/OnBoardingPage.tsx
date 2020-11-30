@@ -56,7 +56,7 @@ export default function OnBoardingPage() {
     <>
       <LinearProgress variant="determinate" color="secondary" value={(profile.onBoarding / onBoardingSteps.length) * 100} />
 
-      <Container component="main" >
+      <Container component="main" maxWidth="sm">
         <div className={classes.stepWrapper}>
           {isLoading
             ? <CircularProgress />

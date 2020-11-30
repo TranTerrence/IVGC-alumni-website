@@ -38,7 +38,7 @@ export const AskName = () => {
       <Box>
         <Grid container direction="row">
           <Grid item>
-            <MascotAvatar />
+            <MascotAvatar className={classes.avatar} />
           </Grid>
           <Grid container direction="column" item xs={10}>
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
