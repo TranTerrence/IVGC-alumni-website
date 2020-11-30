@@ -22,6 +22,11 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isLoggedIn() && isVerified() && isArticleAuthor(articleId);
     }
+
+    match /constants/{document=**} {
+      allow read: if true;
+      allow write: if isLoggedIn() && isVerified() && isAdmin();
+    }
     
     match /users/{uid} {
       allow get: if isSelf(uid) || isAdmin();
