@@ -72,7 +72,7 @@ export const AskPostFormations = () => {
       <Box>
         <Grid container direction="row" >
           <Grid item >
-            <MascotAvatar />
+            <MascotAvatar className={classes.avatar} />
           </Grid>
           <Grid item container direction="column" xs >
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>

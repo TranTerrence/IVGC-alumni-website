@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
+import { Container, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import React, { useContext } from "react";
 import { PostFormation } from "./Profile/PostFormation";
@@ -8,6 +8,7 @@ import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
 import { palette } from "../constants/colors";
 import { FirebaseContext } from "./Firebase";
+import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
 
 
 export const PostFormationForm = ({ postFormation, updatePostFormation, index }: { postFormation: PostFormation, updatePostFormation: Function, index: number }) => {
@@ -26,10 +27,13 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
       paddingBottom: theme.spacing(2),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-    }
+
+    },
+
   }));
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
+  const fieldList = ["Informatique", "Biologie", "Aeronautique", "Optique", "Innovation"];
 
   return (
     <Paper className={classes.paper}>
@@ -50,7 +54,7 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SchoolOutlinedIcon color="primary" />
+                <AccountBalanceOutlinedIcon color="primary" />
               </InputAdornment>
             ),
           }}
@@ -74,7 +78,7 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <AccountBalanceOutlinedIcon color="primary" />
+                <SchoolOutlinedIcon color="primary" />
               </InputAdornment>
             ),
           }}
@@ -101,8 +105,41 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
                 <PlaceOutlinedIcon color="primary" />
               </InputAdornment>
             ),
-
           }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          name="speciality"
+          label="Spécialité"
+          type="speciality"
+          id="speciality"
+          margin="normal"
+          fullWidth
+          autoFocus
+          variant="outlined"
+          placeholder={"ex: Informatique, Matériaux, Innovation, Biologie moléculaire, ..."}
+          value={postFormation?.speciality}
+          onChange={(e) => {
+            updatePostFormation(index, "speciality", e.target.value);
+          }}
+          className={classes.textField}
+
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Autocomplete
+          multiple
+          filterSelectedOptions={true}
+          id="field"
+          options={fieldList}
+          value={postFormation?.fields}
+          freeSolo
+          getOptionLabel={option => option}
+          onChange={(event, values) => updatePostFormation(index, "fields", values)}
+          renderInput={(params: any) => (
+            <TextField className={classes.textField} {...params} multiline variant="outlined" label={"Domaines"} helperText={"Appuie entrer pour ajouter un tag"} placeholder={"Ecrire ici"} />)
+          }
         />
       </Grid>
       <Grid item xs={12}>
