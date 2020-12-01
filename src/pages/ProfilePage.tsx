@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
+import { ConstantContext } from '../components/Firebase/ConstantContext';
+
 import { FirebaseContext } from '../components/Firebase';
 import { PostFormation, initPostFormation } from '../components/Profile/PostFormation';
 import { Paper } from '@material-ui/core';
@@ -21,7 +23,9 @@ export default function ProfilePage() {
   const firebase = useContext(FirebaseContext);
   const { profile, setProfile } = useContext(ProfileContext);
   const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
+  const fieldList = useContext(ConstantContext);
 
+  console.log("FIELD LIST", fieldList);
   // Sync the data with the context
   // TODO: Optimization fetch only if context is empty
   useEffect(() => {
@@ -47,6 +51,8 @@ export default function ProfilePage() {
     fetchProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
 
 
   return (

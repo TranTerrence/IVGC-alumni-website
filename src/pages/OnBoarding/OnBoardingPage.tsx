@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 import { AskBirthday } from './components/AskBirthday';
 import { AskPostFormations } from './components/AskPostFormations';
 import { CircularProgress } from '@material-ui/core';
+import ConstantContextProvider from '../../components/Firebase/ConstantContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -55,7 +56,6 @@ export default function OnBoardingPage() {
   return (
     <>
       <LinearProgress variant="determinate" color="secondary" value={(profile.onBoarding / onBoardingSteps.length) * 100} />
-
       <Container component="main" maxWidth="sm">
         <div className={classes.stepWrapper}>
           {isLoading

@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 import 'firebase/analytics';
-import { collections, storages } from '../../constants/firebase';
+import { collections, fieldList, storages } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 
 import { User } from './firebase_interfaces';
@@ -287,5 +287,21 @@ class Firebase {
     return metadata;
   }
 
+  getConstant = async (constantType: string): Promise<any> => {
+    // User is signed in.
+    const doc = await this.firestore.collection(collections.constants).doc(constantType).get();
+    if (!doc.exists) {
+      console.log('Constant ', constantType, " does not exist.");
+      return null;
+    } else {
+      return (doc.data());
+    }
+  }
+
+  setConstant = () => {
+
+    this.firestore.collection(collections.constants).doc("postFormation").set({ "fieldList": fieldList });
+
+  }
 }
 export default Firebase;

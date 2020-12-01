@@ -1,14 +1,14 @@
-import { Container, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
+import { Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import React, { useContext } from "react";
+import React, { useContext, } from "react";
 import { PostFormation } from "./Profile/PostFormation";
-
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
 import { palette } from "../constants/colors";
 import { FirebaseContext } from "./Firebase";
 import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
+import { ConstantContext } from "./Firebase/ConstantContext";
 
 
 export const PostFormationForm = ({ postFormation, updatePostFormation, index }: { postFormation: PostFormation, updatePostFormation: Function, index: number }) => {
@@ -33,7 +33,8 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
   }));
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const fieldList = ["Informatique", "Biologie", "Aeronautique", "Optique", "Innovation"];
+  const fieldList = useContext(ConstantContext);
+
 
   return (
     <Paper className={classes.paper}>
@@ -130,12 +131,14 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
       <Grid item xs={12}>
         <Autocomplete
           multiple
+          disableCloseOnSelect
           filterSelectedOptions={true}
           id="field"
           options={fieldList}
+          groupBy={(option) => option.category}
+          getOptionLabel={(option) => option.field}
           value={postFormation?.fields}
           freeSolo
-          getOptionLabel={option => option}
           onChange={(event, values) => updatePostFormation(index, "fields", values)}
           renderInput={(params: any) => (
             <TextField className={classes.textField} {...params} multiline variant="outlined" label={"Domaines"} helperText={"Appuie entrer pour ajouter un tag"} placeholder={"Ecrire ici"} />)
