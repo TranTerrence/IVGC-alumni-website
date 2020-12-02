@@ -1,6 +1,25 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { PostFormation } from './PostFormation';
+import firebase from 'firebase';
 
+export interface PostFormation {
+  school: string, // School name
+  city: string, // City of the school
+  title: string, // Title of the diploma
+  speciality: string,
+  fields: string[],
+  startDate: firebase.firestore.Timestamp,
+  endDate: firebase.firestore.Timestamp,
+}
+
+export const initPostFormation = {
+  school: "",
+  city: "",
+  title: "",
+  speciality: "",
+  fields: [],
+  startDate: firebase.firestore.Timestamp.now(),
+  endDate: firebase.firestore.Timestamp.now(),
+};
 export interface Profile {
   uid: string, //Same uid as the user
   email: string,
@@ -10,7 +29,8 @@ export interface Profile {
   lastEditDate: firebase.firestore.Timestamp,
   onBoarding: number,
   promotion: number,
-}
+  postFormations: PostFormation[],
+};
 
 export const ProfileContext = createContext<any>({});
 
@@ -21,11 +41,15 @@ const ProfileContextProvider = (props: any) => {
     email: "",
     firstName: "",
     lastName: "",
+    birthday: firebase.firestore.Timestamp.now(),
+    lastEditDate: firebase.firestore.Timestamp.now(),
     onBoarding: 0,  // Step in the onboarding 0: not started | 10: finish
+    promotion: 2020,
+    postFormations: [{ ...initPostFormation }],
   };
-  const [profile, setProfile]: [Partial<Profile>, Function] = useState(initProfile);
+  const [profile, setProfile]: [Profile, Function] = useState(initProfile);
 
-  const changeKey = async (key: keyof Profile, value: string | number) => {
+  const changeKey = async (key: keyof Profile, value: string | number | PostFormation[]) => {
     await setProfile({ ...profile, [key]: value });
   }
 

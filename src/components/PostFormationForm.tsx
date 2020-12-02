@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
+import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import React, { useContext, } from "react";
 import { PostFormation } from "./Profile/PostFormation";
@@ -9,9 +9,9 @@ import { palette } from "../constants/colors";
 import { FirebaseContext } from "./Firebase";
 import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
 import { ConstantContext } from "./Firebase/ConstantContext";
+import DeleteIcon from '@material-ui/icons/Delete';
 
-
-export const PostFormationForm = ({ postFormation, updatePostFormation, index }: { postFormation: PostFormation, updatePostFormation: Function, index: number }) => {
+export const PostFormationForm = ({ postFormation, updatePostFormation, removePostFormation, index }: { postFormation: PostFormation, updatePostFormation: Function, removePostFormation: Function, index: number }) => {
 
   const useStyles = makeStyles((theme: Theme) => ({
     textField: {
@@ -119,7 +119,7 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
           fullWidth
           autoFocus
           variant="outlined"
-          placeholder={"ex: Informatique, Matériaux, Innovation, Biologie moléculaire, ..."}
+          helperText={"L'option ou la spécialisation choisie dans ton école"}
           value={postFormation?.speciality}
           onChange={(e) => {
             updatePostFormation(index, "speciality", e.target.value);
@@ -196,6 +196,10 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, index }:
             'aria-label': "date de fin",
           }}
         />
+      </Grid>
+      <Grid item xs={12} container justify="center" >
+        <Button onClick={(e) => removePostFormation(index)} variant="outlined"
+          startIcon={<DeleteIcon />}>Supprimer la formation</Button>
       </Grid>
     </Paper >
   );

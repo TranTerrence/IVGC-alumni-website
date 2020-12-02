@@ -2,7 +2,6 @@ import firebase from 'firebase';
 import React, { createContext, useState, } from 'react';
 
 export interface PostFormation {
-  id: string,
   school: string, // School name
   city: string, // City of the school
   title: string, // Title of the diploma
@@ -16,7 +15,6 @@ export const PostFormationContext = createContext<any>({});
 
 
 export const initPostFormation = {
-  id: "",
   school: "",
   city: "",
   title: "",

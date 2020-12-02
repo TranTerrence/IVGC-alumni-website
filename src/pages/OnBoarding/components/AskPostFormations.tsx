@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { PostFormationForm } from "../../../components/PostFormationForm";
 
 import Button from "@material-ui/core/Button/Button";
+import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     '& .MuiOutlinedInput-root': {
@@ -34,37 +35,35 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AskPostFormations = () => {
   const classes = useStyles();
-  const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
-  const firebase = useContext(FirebaseContext);
+  //const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
+  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
 
-  // Sync the data with the context
-  useEffect(() => {
-    const fetchPFs = async () => {
-      if (firebase) {
-        const postFormations_arr = await firebase.getPostFormations();
-        if (postFormations_arr !== null) {
-          setPostFormations(postFormations_arr);
-        }
-      } else
-        console.log("No firebase");
-    }
-    fetchPFs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (!profile.postFormations) {
+    const initCPFcopy = { ...initPostFormation };
+    changeKey("postFormations", [initCPFcopy]);
+  }
+
 
   const updatePostFormation = (index: number, key: keyof PostFormation, newValue: any) => {
-    let postFormationsCopy = [...postFormations];
+    let postFormationsCopy = [...profile.postFormations];
     postFormationsCopy[index][key] = newValue;
-    setPostFormations(postFormationsCopy);
-    console.log(postFormations);
+    changeKey("postFormations", postFormationsCopy);
+  };
+
+  const removePostFormation = (index: number) => {
+    let postFormationsCopy = [...profile.postFormations];
+    postFormationsCopy.splice(index, 1);
+    console.log("REMOVE PF");
+    changeKey("postFormations", postFormationsCopy);
   };
 
 
   const addPostFormation = () => {
-    setPostFormations([
-      ...postFormations,
-      initPostFormation,
-    ])
+    const initCPFcopy = { ...initPostFormation };
+    changeKey("postFormations", [
+      ...profile.postFormations,
+      initCPFcopy,
+    ]);
   };
 
   return (
@@ -78,19 +77,16 @@ export const AskPostFormations = () => {
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >Qu'as-tu fais après l'institut ?</Typography>
             {
-              postFormations.map((postFormation, index) =>
-                <PostFormationForm key={index} postFormation={postFormation} updatePostFormation={updatePostFormation} index={index} />
+              profile.postFormations && profile.postFormations.map((postFormation, index) =>
+                <PostFormationForm key={index} postFormation={postFormation} updatePostFormation={updatePostFormation} removePostFormation={removePostFormation} index={index} />
               )
             }
             <Grid item container justify="center" >
               <Button onClick={addPostFormation} color="primary" variant="outlined"
-                startIcon={<AddIcon />}>AJouter une formation</Button>
+                startIcon={<AddIcon />}>Ajouter une formation</Button>
             </Grid>
-
-
-
             <Grid item>
-              <ButtonNextPF postFormations={postFormations} />
+              <ButtonNext />
             </Grid>
           </Grid>
         </Grid>

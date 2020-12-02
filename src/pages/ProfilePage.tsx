@@ -22,7 +22,6 @@ export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { profile, setProfile } = useContext(ProfileContext);
-  const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
   const fieldList = useContext(ConstantContext);
 
   console.log("FIELD LIST", fieldList);
@@ -38,22 +37,9 @@ export default function ProfilePage() {
       } else
         console.log("No firebase");
     }
-    const fetchPFs = async () => {
-      if (firebase) {
-        const postFormations_arr = await firebase.getPostFormations();
-        if (postFormations_arr !== null) {
-          setPostFormations(postFormations_arr);
-        }
-      } else
-        console.log("No firebase");
-    }
-    fetchPFs();
     fetchProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
-
 
   return (
     <Container component="main" maxWidth="md" >
@@ -66,7 +52,7 @@ export default function ProfilePage() {
       </Paper>
       <Paper className={classes.paper}>
         <Typography variant="h4">{"Formation"}</Typography>
-        {postFormations.map(postFormation =>
+        {profile.postFormations && profile.postFormations.map(postFormation =>
           <>
             <Typography>{postFormation.school}</Typography>
             <Typography>{postFormation.title}</Typography>

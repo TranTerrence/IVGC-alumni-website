@@ -178,7 +178,6 @@ class Firebase {
     }
     else
       console.error("Error writing document, make sure to provide the uid of the profile.");
-
   }
 
   getCurrentProfile = async (): Promise<Profile | null> => {
@@ -194,42 +193,6 @@ class Firebase {
       }
     } else {
       return null;
-    }
-  }
-
-  getPostFormations = async (): Promise<PostFormation[] | null> => {
-    const user = this.auth.currentUser;
-    if (user) {
-      // User is signed in.
-      const snapshot = await this.firestore.collection(collections.profiles).doc(user.uid).collection(collections.postFormations).get();
-      if (!snapshot.empty) {
-        const PFs: PostFormation[] = [];
-        snapshot.forEach(async doc => {
-          PFs.push(doc.data() as PostFormation);
-        });
-        return PFs;
-      }
-    }
-    return null;
-  }
-
-  updatePostFormations = async (postFormations: PostFormation[]) => {
-    const user = this.auth.currentUser;
-    if (user) {
-      // User is signed in.
-      const userId = user.uid;
-      const batch = this.firestore.batch();
-      const pfCollectionRef = this.firestore.collection(collections.profiles).doc(userId).collection(collections.postFormations);
-      postFormations.map(postFormation => {
-        let docRef = pfCollectionRef.doc();
-        if (postFormation.id)
-          docRef = pfCollectionRef.doc(postFormation.id);
-        postFormation.id = docRef.id;
-        batch.set(docRef, postFormation, { merge: true });
-      })
-      await batch.commit();
-    } else {
-      return false
     }
   }
 
