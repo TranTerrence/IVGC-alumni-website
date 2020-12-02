@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { constants } from '../../constants/firebase';
 import FirebaseContext from './context';
 
-type field = {
+interface field {
   field: string,
   category: string,
 }

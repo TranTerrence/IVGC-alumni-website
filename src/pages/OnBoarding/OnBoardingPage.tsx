@@ -30,7 +30,13 @@ export default function OnBoardingPage() {
   const { profile, setProfile } = useContext(ProfileContext);
   const firebase = useContext(FirebaseContext);
   const [isLoading, setIsLoading] = useState(true);
-  const onBoardingSteps = [<AskName />, <AskBirthday />, <AskPromo />, <AskPostFormations />];
+  const onBoardingSteps = [<AskName />,
+  <AskBirthday />,
+  <AskPromo />,
+  <ConstantContextProvider>
+    <AskPostFormations />
+  </ConstantContextProvider>,
+  ];
 
   // Sync the data with the context
   useEffect(() => {

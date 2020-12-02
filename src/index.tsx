@@ -8,16 +8,12 @@ import ProfileContextProvider from './components/Profile/ProfileContext';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import frLocale from "date-fns/locale/fr";
-import ConstantContextProvider from './components/Firebase/ConstantContext';
 
-// TODO: REmove the constant provider and put it closer to its provider.
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
       <ProfileContextProvider>
-        <ConstantContextProvider>
-          <App />
-        </ConstantContextProvider>
+        <App />
       </ProfileContextProvider>
     </MuiPickersUtilsProvider>
   </FirebaseContext.Provider>,
