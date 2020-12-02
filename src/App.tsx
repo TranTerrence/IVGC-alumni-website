@@ -49,17 +49,19 @@ function App() {
         <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
 
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
-        <LoggedInRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
+        <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
+
       </Router>
       <Footer />
     </ThemeProvider>
   );
 }
 
-
 const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const firebase = useContext(FirebaseContext);
   if (firebase) {
     firebase.auth.onAuthStateChanged(function (user) {
@@ -68,10 +70,39 @@ const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
       } else {
         setIsLoggedIn(false);
       }
+      setIsLoading(false);
     });
   }
   const routeComponent = (props: any) => (
     isLoggedIn
+      ? React.createElement(component, props)
+      : <Redirect to={{ pathname: redirectPath }} />
+  );
+  return isLoading
+    ? null
+    : < Route {...rest} render={routeComponent} />
+}
+
+/**
+ * 
+ * Should be logged in and admin!
+ */
+const AdminRoute = ({ component, redirectPath, ...rest }: any) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const firebase = useContext(FirebaseContext);
+  if (firebase) {
+    firebase.auth.onAuthStateChanged(async function (user) {
+      if (user) {
+        // User is logged In
+        const isAdmin = await firebase.isAdmin();
+        setIsAdmin(isAdmin);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+  }
+  const routeComponent = (props: any) => (
+    isAdmin
       ? React.createElement(component, props)
       : <Redirect to={{ pathname: redirectPath }} />
   );
