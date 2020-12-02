@@ -10,8 +10,9 @@ import * as ROUTES from '../../constants/routes';
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 import { AskBirthday } from './components/AskBirthday';
 import { AskPostFormations } from './components/AskPostFormations';
-import { CircularProgress } from '@material-ui/core';
+import { AppBar, Button, CircularProgress, Toolbar, Typography } from '@material-ui/core';
 import ConstantContextProvider from '../../components/Firebase/ConstantContext';
+import { ButtonPrevious } from './components/OnboardingButtons';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -61,6 +62,7 @@ export default function OnBoardingPage() {
   }
   return (
     <>
+      <AppBarOnBoarding step={profile.onBoarding} />
       <LinearProgress variant="determinate" color="secondary" value={(profile.onBoarding / onBoardingSteps.length) * 100} />
       <Container component="main" maxWidth="sm">
         <div className={classes.stepWrapper}>
@@ -74,3 +76,44 @@ export default function OnBoardingPage() {
   );
 }
 
+export const AppBarOnBoarding = ({ step }: { step: number }) => {
+  const useStyles = makeStyles((theme: Theme) => ({
+    titleCenter: {
+      flexGrow: 1,
+      textAlign: "center"
+    },
+  }
+  )
+  );
+
+  const classes = useStyles();
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        {step > 0 && <ButtonPrevious />}
+        <Typography variant="h6" className={classes.titleCenter}>Bienvenue dans la communauté</Typography>
+        <LogOutButton />
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+
+const LogOutButton = () => {
+  const firebase = useContext(FirebaseContext);
+  const history = useHistory();
+
+  const SignOutUser = async function () {
+    if (firebase) {
+      firebase.doSignOut();
+      history.push(ROUTES.SIGN_IN);
+    }
+  }
+
+  return (
+    <Button color='inherit' onClick={SignOutUser}>
+      Se déconnecter
+    </Button>
+  );
+}

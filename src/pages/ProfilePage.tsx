@@ -6,8 +6,8 @@ import { ProfileContext } from '../components/Profile/ProfileContext';
 import { ConstantContext } from '../components/Firebase/ConstantContext';
 
 import { FirebaseContext } from '../components/Firebase';
-import { PostFormation, initPostFormation } from '../components/Profile/PostFormation';
 import { Paper } from '@material-ui/core';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -42,27 +42,31 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" >
-      <Paper className={classes.paper}>
-        <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
-        </Typography>
-        <Typography>{profile.email}</Typography>
-        <Typography variant="h6">OnBoarding Step</Typography>
-        <Typography>{profile.onBoarding}</Typography>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Typography variant="h4">{"Formation"}</Typography>
-        {profile.postFormations && profile.postFormations.map(postFormation =>
-          <>
-            <Typography>{postFormation.school}</Typography>
-            <Typography>{postFormation.title}</Typography>
-            <Typography>{postFormation.city}</Typography>
-            <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
+    <>
+      <GlobalAppBar />
 
-          </>
-        )}
+      <Container component="main" maxWidth="md" >
+        <Paper className={classes.paper}>
+          <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
+          </Typography>
+          <Typography>{profile.email}</Typography>
+          <Typography variant="h6">OnBoarding Step</Typography>
+          <Typography>{profile.onBoarding}</Typography>
+        </Paper>
+        <Paper className={classes.paper}>
+          <Typography variant="h4">{"Formation"}</Typography>
+          {profile.postFormations && profile.postFormations.map(postFormation =>
+            <>
+              <Typography>{postFormation.school}</Typography>
+              <Typography>{postFormation.title}</Typography>
+              <Typography>{postFormation.city}</Typography>
+              <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
 
-      </Paper>
-    </Container>
+            </>
+          )}
+
+        </Paper>
+      </Container>
+    </>
   );
 }

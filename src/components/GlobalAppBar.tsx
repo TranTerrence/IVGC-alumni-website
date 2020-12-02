@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +10,7 @@ import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
 import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
-import { Profile, ProfileContext } from './Profile/ProfileContext';
+import { ProfileContext } from './Profile/ProfileContext';
 import Avatar from '@material-ui/core/Avatar';
 import { Menu, MenuItem } from '@material-ui/core';
 import { ONBOARDING_STEPS } from '../constants/numbers';
@@ -35,6 +35,8 @@ export default function GlobalAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isVerified, setIsverified] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const firebase = useContext(FirebaseContext);
 
   const { profile } = useContext(ProfileContext);
@@ -52,20 +54,10 @@ export default function GlobalAppBar() {
       } else {
         // No user is signed in.
         setIsLoggedIn(false);
-
       }
+      setIsLoading(false);
     });
   }
-
-  const AppBarOnBoarding = () => (
-
-    <Toolbar>
-      <ButtonPrevious />
-      <Typography variant="h6" className={classes.titleCenter}>Bienvenue dans la communauté</Typography>
-      <LogOutButton setIsLoggedIn={setIsLoggedIn} />
-    </Toolbar>
-  );
-
 
   const ProfileButton = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -114,9 +106,6 @@ export default function GlobalAppBar() {
     )
   };
 
-
-
-
   const AppBarAuth = ({ isVerified }: { isVerified: boolean }) => (
     <Toolbar>
       <TitleAlumni />
@@ -153,11 +142,13 @@ export default function GlobalAppBar() {
     </Toolbar>
   );
 
-  if (profile.onBoarding < ONBOARDING_STEPS && profile.uid !== "" && isLoggedIn) {
+
+  if (isLoading) {
     return (<AppBar position="static">
-      <AppBarOnBoarding />
+      <TitleAlumni />
     </AppBar>);
   }
+
   return (
     <AppBar position="static">
       {
@@ -175,8 +166,7 @@ const TitleAlumni = () => {
     <>
       <Typography variant="h6" className={classes.title}>
         Communauté des anciens élèves de l'institut Villebon -
-        <Box fontStyle="italic" display='inline'> Georges Charpak</Box>
-
+          <Box fontStyle="italic" display='inline'> Georges Charpak</Box>
       </Typography>
     </>
   );

@@ -10,6 +10,7 @@ import { FirebaseContext } from '../components/Firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import queryString from 'query-string'
 import * as FIRESTORE_CONSTS from '../constants/firebase';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
@@ -67,6 +68,9 @@ function ArticlePage() {
 
     return (
       <div>
+
+        <GlobalAppBar />
+
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <span>Document: Loading...</span>}
         {value &&

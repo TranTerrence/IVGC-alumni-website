@@ -25,6 +25,7 @@ import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { roles_fr } from '../constants/roles';
 import Button from '@material-ui/core/Button/Button';
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 function descendingComparator<User>(a: User, b: User, orderBy: keyof User) {
   if (b[orderBy] < a[orderBy]) {
@@ -318,6 +319,9 @@ export default function AdminPage() {
 
   return (
     <div className={classes.root}>
+
+      <GlobalAppBar />
+
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <CircularProgress />}
       {users &&

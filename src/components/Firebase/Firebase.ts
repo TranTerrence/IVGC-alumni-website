@@ -5,10 +5,8 @@ import 'firebase/storage';
 import 'firebase/analytics';
 import { collections, fieldList, storages } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
-
-import { User } from './firebase_interfaces';
 import { initProfile, Profile } from '../Profile/ProfileContext';
-import { PostFormation } from '../Profile/PostFormation';
+import { User } from '../User/UserContext';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -121,7 +119,7 @@ class Firebase {
       uid: user.uid,
       role: roles.student,  // By default all new account is a student
       email: user.email,
-      creationDate: app.firestore.Timestamp.fromDate(new Date()),
+      creationDate: app.firestore.Timestamp.now(),
       verified: false,
     };
     this.firestore.collection(collections.users).doc(user.uid)

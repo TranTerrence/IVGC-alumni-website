@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Firebase from '../components/Firebase';
 import Typography from '@material-ui/core/Typography';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 //TODO: Try to use SLate:https://docs.slatejs.org/
 
@@ -41,17 +42,21 @@ export default function SignUpPage() {
   const [formSubmmited, setFormSubmmited] = useState<boolean>(false);
 
   return (
-    <Container component="main" maxWidth="xs" >
-      <div className={classes.paper}>
-        <AlumniLogo height={150} width="auto" />
-        {formSubmmited
-          ? <SubmissionConfirmation />
-          : <FirebaseContext.Consumer>
-            {firebaseClass => <SignUpForm firebase={firebaseClass} setFormSubmmited={setFormSubmmited} />}
-          </FirebaseContext.Consumer>
-        }
-      </div>
-    </Container>
+    <>
+      <GlobalAppBar />
+
+      <Container component="main" maxWidth="xs" >
+        <div className={classes.paper}>
+          <AlumniLogo height={150} width="auto" />
+          {formSubmmited
+            ? <SubmissionConfirmation />
+            : <FirebaseContext.Consumer>
+              {firebaseClass => <SignUpForm firebase={firebaseClass} setFormSubmmited={setFormSubmmited} />}
+            </FirebaseContext.Consumer>
+          }
+        </div>
+      </Container>
+    </>
   );
 }
 

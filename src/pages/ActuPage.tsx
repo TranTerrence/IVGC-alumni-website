@@ -10,6 +10,7 @@ import BlogPost from '../components/BlogPost'
 import { FirebaseContext } from '../components/Firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -95,6 +96,9 @@ function ActuPage() {
 
   return (
     <div className="App">
+
+      <GlobalAppBar />
+
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
           <Container>

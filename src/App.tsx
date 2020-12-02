@@ -38,7 +38,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <GlobalAppBar />
         <Route exact path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />

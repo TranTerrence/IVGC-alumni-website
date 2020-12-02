@@ -13,6 +13,7 @@ import { palette } from '../constants/colors';
 import { isEmailValid, isPasswordValid } from '../Utils';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -48,13 +49,16 @@ export default function SignUpPage() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
-      <div className={classes.paper}>
-        <AlumniLogo height={150} width="auto" />
-        <SignUpForm />
-        <SignInLink />
-      </div>
-    </Container>
+    <>
+      <GlobalAppBar />
+      <Container component="main" maxWidth="xs" >
+        <div className={classes.paper}>
+          <AlumniLogo height={150} width="auto" />
+          <SignUpForm />
+          <SignInLink />
+        </div>
+      </Container>
+    </>
   );
 }
 

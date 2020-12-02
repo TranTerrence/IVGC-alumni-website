@@ -44,7 +44,17 @@ export const initProfile: Profile = {
   postFormations: [{ ...initPostFormation }],
 };
 
-export const ProfileContext = createContext<any>({});
+export interface ProfileContextInterface {
+  profile: Profile,
+  setProfile: Function,
+  changeKey: Function
+}
+
+export const ProfileContext = createContext<ProfileContextInterface>({
+  profile: initProfile,
+  setProfile: () => console.log("Context not initiated"),
+  changeKey: () => console.log("Context not initiated"),
+});
 
 const ProfileContextProvider = (props: any) => {
 

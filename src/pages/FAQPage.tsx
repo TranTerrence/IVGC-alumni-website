@@ -6,6 +6,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Container } from '@material-ui/core';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -51,46 +52,50 @@ export default function FAQPage() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xl" >
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5" color="secondary">
-          FAQ Page
+    <>
+      <GlobalAppBar />
+
+      <Container component="main" maxWidth="xl" >
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5" color="secondary">
+            FAQ Page
       </Typography>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={classes.heading}>Question 1</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>Question 1</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                sit amet blandit leo lobortis eget.
           </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography className={classes.heading}>Question 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>Question 2</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                sit amet blandit leo lobortis eget.
             <br />
-              <a href="#secondary-heading-and-columns" className={classes.link}>
-                Learn more
+                <a href="#secondary-heading-and-columns" className={classes.link}>
+                  Learn more
             </a>
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </Container>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </div>
+      </Container>
+    </>
   );
 }

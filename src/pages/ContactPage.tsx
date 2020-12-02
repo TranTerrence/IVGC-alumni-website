@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -31,23 +32,27 @@ export default function ContactPage() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
-      <div className={classes.paper}>
+    <>
+      <GlobalAppBar />
 
-        <AlumniLogo height={150} width="auto" />
+      <Container component="main" maxWidth="xs" >
+        <div className={classes.paper}>
+
+          <AlumniLogo height={150} width="auto" />
 
 
-        <Typography component="h1" variant="h5" color="secondary">
-          Contact
+          <Typography component="h1" variant="h5" color="secondary">
+            Contact
         </Typography>
 
-        <Typography component="h4" variant="h6" color="secondary">
-          Adresse :
-          Mail :
+          <Typography component="h4" variant="h6" color="secondary">
+            Adresse :
+            Mail :
         </Typography>
 
-      </div>
+        </div>
 
-    </Container>
+      </Container>
+    </>
   );
 }

@@ -29,13 +29,17 @@ export default function HomePage() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
-      <div className={classes.paper}>
-        <AlumniLogo height={150} width="auto" />
-        <Typography component="h1" variant="h5" color="secondary">
-          Home Page
+    <>
+      <GlobalAppBar />
+
+      <Container component="main" maxWidth="xs" >
+        <div className={classes.paper}>
+          <AlumniLogo height={150} width="auto" />
+          <Typography component="h1" variant="h5" color="secondary">
+            Home Page
         </Typography>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </>
   );
 }

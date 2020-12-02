@@ -15,6 +15,7 @@ import { Breadcrumbs, Container, Link } from '@material-ui/core';
 import { storages } from '../constants/firebase';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import GlobalAppBar from '../components/GlobalAppBar';
 const FileRow = (props: { path: string }) => {
 
   const firebase = useContext(FirebaseContext);
@@ -132,32 +133,36 @@ export default function ResourcesPage() {
   const [path, setPath] = useState<string>(storages.resources);
 
   return (
-    <Container>
-      <Typography variant="h2" color="primary">Ressources</Typography>
-      <Typography variant="body1">Retrouvez ici tous les documents de l'association.</Typography>
+    <>
+      <GlobalAppBar />
+
+      <Container>
+        <Typography variant="h2" color="primary">Ressources</Typography>
+        <Typography variant="body1">Retrouvez ici tous les documents de l'association.</Typography>
 
 
-      <TableContainer component={Paper}>
+        <TableContainer component={Paper}>
 
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow  >
-              <TableCell colSpan={12}>
-                <BreadCrumbsFolder key={path} path={path} setPath={setPath} />
-              </TableCell>
-            </TableRow>
-            <TableRow >
-              <TableCell >Nom</TableCell>
-              <TableCell >Taille</TableCell>
-              <TableCell />
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow  >
+                <TableCell colSpan={12}>
+                  <BreadCrumbsFolder key={path} path={path} setPath={setPath} />
+                </TableCell>
+              </TableRow>
+              <TableRow >
+                <TableCell >Nom</TableCell>
+                <TableCell >Taille</TableCell>
+                <TableCell />
 
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <FolderRow key={path} path={path} setPath={setPath} />
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <FolderRow key={path} path={path} setPath={setPath} />
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </>
   );
 }

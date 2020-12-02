@@ -17,6 +17,7 @@ import { isEmailValid } from '../Utils';
 import { palette } from '../constants/colors';
 import { useHistory } from 'react-router-dom';
 import { ProfileContext } from '../components/Profile/ProfileContext';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -51,29 +52,33 @@ export default function SignInPage() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
-      <CssBaseline />
-      <div className={classes.paper}>
+    <>
+      <GlobalAppBar />
 
-        <AlumniLogo height={150} width="auto" />
+      <Container component="main" maxWidth="xs" >
+        <CssBaseline />
+        <div className={classes.paper}>
 
-        <LogInForm />
+          <AlumniLogo height={150} width="auto" />
 
-        <Grid container>
-          <Grid item >
-            <Link href="#" variant="body2" >
-              Mot de passe oublié ?
+          <LogInForm />
+
+          <Grid container>
+            <Grid item >
+              <Link href="#" variant="body2" >
+                Mot de passe oublié ?
               </Link>
+            </Grid>
+            <Grid item >
+              <Link href="/signup" variant="body2" color="secondary">
+                {"Pas encore de compte ? S'inscrire"}
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item >
-            <Link href="/signup" variant="body2" color="secondary">
-              {"Pas encore de compte ? S'inscrire"}
-            </Link>
-          </Grid>
-        </Grid>
-      </div>
+        </div>
 
-    </Container>
+      </Container>
+    </>
   );
 }
 
