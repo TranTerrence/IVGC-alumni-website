@@ -1,12 +1,11 @@
-import { Box, Grid, InputAdornment, TextField, Typography, } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import { Box, Grid, Typography, } from "@material-ui/core";
+import React, { useContext } from "react";
 import { initPostFormation, PostFormation, } from "../../../components/Profile/PostFormation";
-import { ButtonNext, ButtonNextPF } from "./OnboardingButtons";
+import { ButtonLast } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import { MASCOT_NAME } from "../../../constants/names";
 import Fade from "@material-ui/core/Fade";
-import { FirebaseContext } from "../../../components/Firebase";
 import { MascotAvatar } from "../../../components/MascotAvatar";
 import AddIcon from '@material-ui/icons/Add';
 import { PostFormationForm } from "../../../components/PostFormationForm";
@@ -86,7 +85,7 @@ export const AskPostFormations = () => {
                 startIcon={<AddIcon />}>Ajouter une formation</Button>
             </Grid>
             <Grid item>
-              <ButtonNext />
+              <ButtonLast />
             </Grid>
           </Grid>
         </Grid>

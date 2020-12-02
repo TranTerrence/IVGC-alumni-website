@@ -7,15 +7,12 @@ import { Profile, ProfileContext } from "../../../components/Profile/ProfileCont
 import * as ROUTES from '../../../constants/routes';
 import { TransitionProps } from '@material-ui/core/transitions';
 import Confetti from 'react-confetti';
-import { PostFormation } from "../../../components/Profile/PostFormation";
 const useStyles = makeStyles((theme: Theme) => ({
   buttonEnd: {
     marginTop: theme.spacing(2),
     alignItems: "left",
   }
 }));
-
-
 
 export const ButtonNext = () => {
   const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
@@ -31,25 +28,6 @@ export const ButtonNext = () => {
   return (<Button variant="contained" color="primary" className={classes.buttonEnd}
     onClick={goNext}>Suivant</Button>);
 }
-/**
- * Button next for Post formations
- */
-export const ButtonNextPF = ({ postFormations }: { postFormations: PostFormation[] }) => {
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
-  const classes = useStyles();
-  const firebase = useContext(FirebaseContext);
-  const goNext = async () => {
-    profile.onBoarding += 1;
-    console.log("GO next", profile);
-    firebase?.updateProfile(profile);
-    firebase?.updatePostFormations(postFormations);
-    await changeKey("onBoarding", profile.onBoarding);
-  };
-
-  return (<Button variant="contained" color="primary" className={classes.buttonEnd}
-    onClick={goNext}>Suivant</Button>);
-}
-
 
 export const ButtonPrevious = () => {
   const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);

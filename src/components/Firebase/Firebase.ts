@@ -7,7 +7,7 @@ import { collections, fieldList, storages } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 
 import { User } from './firebase_interfaces';
-import { Profile } from '../Profile/ProfileContext';
+import { initProfile, Profile } from '../Profile/ProfileContext';
 import { PostFormation } from '../Profile/PostFormation';
 
 const config = {
@@ -57,11 +57,9 @@ class Firebase {
     this.addUserInFirestore(user);
     // Create the Profile with default values
     this.updateProfile({
+      ...initProfile,
       uid: user.uid,
       email: user.email,
-      lastEditDate: app.firestore.Timestamp.fromDate(new Date()),
-      onBoarding: 0,
-      promotion: new Date().getFullYear(),
     })
   }
 

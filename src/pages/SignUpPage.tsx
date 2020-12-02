@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { palette } from '../constants/colors';
 import { isEmailValid, isPasswordValid } from '../Utils';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -45,30 +46,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function SignUpPage() {
   const classes = useStyles();
-  const [formSubmmited, setFormSubmmited] = useState<boolean>(false);
 
   return (
     <Container component="main" maxWidth="xs" >
       <div className={classes.paper}>
         <AlumniLogo height={150} width="auto" />
-        {formSubmmited
-          ? <SubmissionConfirmation />
-          : <SignUpForm setFormSubmmited={setFormSubmmited} />
-        }
+        <SignUpForm />
         <SignInLink />
       </div>
     </Container>
   );
 }
 
-function SubmissionConfirmation() {
-  return (<Typography component="h1" variant="h5" color="primary">{"Nous allons vérifier votre email, et nous t'enverrons un email quand ton compte sera activé."}</Typography>
-  );
-}
 
-function SignUpForm({ setFormSubmmited }: { setFormSubmmited: Function }) {
+const SignUpForm = () => {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
+  const history = useHistory();
+
   const defaultInputs = {
     email: '',
     password: '',
@@ -107,7 +102,7 @@ function SignUpForm({ setFormSubmmited }: { setFormSubmmited: Function }) {
     if (formIsValid && firebase) {
       firebase.doCreateUserWithEmailAndPassword(inputValues.email, inputValues.password);
       setInputValues(defaultInputs);
-      setFormSubmmited(true);
+      history.push(ROUTES.ONBOARDING);
     }
   }
 

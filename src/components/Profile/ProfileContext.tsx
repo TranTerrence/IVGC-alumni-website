@@ -32,21 +32,23 @@ export interface Profile {
   postFormations: PostFormation[],
 };
 
+export const initProfile: Profile = {
+  uid: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  birthday: firebase.firestore.Timestamp.now(),
+  lastEditDate: firebase.firestore.Timestamp.now(),
+  onBoarding: 0,  // Step in the onboarding 0: not started | 10: finish
+  promotion: new Date().getFullYear(),
+  postFormations: [{ ...initPostFormation }],
+};
+
 export const ProfileContext = createContext<any>({});
 
 const ProfileContextProvider = (props: any) => {
 
-  let initProfile = {
-    uid: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    birthday: firebase.firestore.Timestamp.now(),
-    lastEditDate: firebase.firestore.Timestamp.now(),
-    onBoarding: 0,  // Step in the onboarding 0: not started | 10: finish
-    promotion: 2020,
-    postFormations: [{ ...initPostFormation }],
-  };
+
   const [profile, setProfile]: [Profile, Function] = useState(initProfile);
 
   const changeKey = async (key: keyof Profile, value: string | number | PostFormation[]) => {

@@ -36,7 +36,8 @@ service cloud.firestore {
     }
 
     match /profiles/{uid} {
-      allow read: if isLoggedIn() && isVerified();
+      allow get: if isLoggedIn() && isSelf(uid);
+      allow list: if isLoggedIn() && isVerified();
       allow write: if isLoggedIn() && isSelf(uid);
     }
 
