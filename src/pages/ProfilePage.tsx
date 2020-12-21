@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useState, } from 'react';
+import React, { useContext, useEffect} from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
 import { ConstantContext } from '../components/Firebase/ConstantContext';
+import Chip from '@material-ui/core/Chip';
 
 import { FirebaseContext } from '../components/Firebase';
 import { Paper } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
+import { Field } from '../components/Profile/PostFormation';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -17,6 +20,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   },
 }));
+
+
 
 export default function ProfilePage() {
   const classes = useStyles();
@@ -58,7 +63,11 @@ export default function ProfilePage() {
           {profile.postFormations && profile.postFormations.map(postFormation =>
             <>
               <Typography>{postFormation.school}</Typography>
+              {postFormation.fields && postFormation.fields.map((item : Field)=>
+                <Chip label = {item.field}/>
+              )}
               <Typography>{postFormation.title}</Typography>
+              <Typography>{"Specialité : " + postFormation.speciality}</Typography>
               <Typography>{postFormation.city}</Typography>
               <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
 
