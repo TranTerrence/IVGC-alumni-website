@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState } from 'react';
 import firebase from 'firebase';
 import { PostFormation, initPostFormation } from './PostFormation';
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
   },
 }));
+
+
 
 export default function ProfilePage() {
   const classes = useStyles();
@@ -59,9 +61,10 @@ export default function ProfilePage() {
 
               <Typography>{postFormation.school}</Typography>
               {postFormation.fields && postFormation.fields.map((item: Field) =>
-                <Chip label={item.field} />)
-              }
+                <Chip label={item.field} />
+              )}
               <Typography>{postFormation.title}</Typography>
+              <Typography>{"Specialité : " + postFormation.speciality}</Typography>
               <Typography>{postFormation.city}</Typography>
               <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
 

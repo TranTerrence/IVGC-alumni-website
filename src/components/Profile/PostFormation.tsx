@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import React, { createContext, useState, } from 'react';
 
-
 export interface Field {
   field: string,
   category: string,
@@ -16,6 +15,7 @@ export interface PostFormation {
   startDate: firebase.firestore.Timestamp,
   endDate: firebase.firestore.Timestamp,
 }
+
 
 export const PostFormationContext = createContext<any>({});
 
@@ -51,3 +51,4 @@ const PostFormationContextProvider = (props: any) => {
 }
 
 export default PostFormationContextProvider;
+
