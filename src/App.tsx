@@ -12,7 +12,6 @@ import ActuPage from './pages/ActuPage';
 import ArticlePage from './pages/ArticlePage';
 import AdminPage from './pages/AdminPage'
 import * as ROUTES from './constants/routes';
-import GlobalAppBar from './components/GlobalAppBar';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
@@ -21,6 +20,7 @@ import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';
 import ResourcesPage from './pages/ResourcesPage';
+import PasswordForgetPage from './pages/PasswordForgetPage';
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -47,10 +47,11 @@ function App() {
         <Route path={ROUTES.WRITE_ARTICLE_PAGE} component={WriteArticlePage} />
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
 
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
-        <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.SIGN_IN} />
+        <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.MY_PROFILE} />
 
       </Router>
       <Footer />
@@ -60,7 +61,6 @@ function App() {
 
 const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const firebase = useContext(FirebaseContext);
   if (firebase) {
@@ -70,7 +70,6 @@ const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
       } else {
         setIsLoggedIn(false);
       }
-      setIsLoading(false);
     });
   }
   const routeComponent = (props: any) => (
@@ -78,9 +77,7 @@ const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
       ? React.createElement(component, props)
       : <Redirect to={{ pathname: redirectPath }} />
   );
-  return isLoading
-    ? null
-    : < Route {...rest} render={routeComponent} />
+  return < Route {...rest} render={routeComponent} />
 }
 
 /**

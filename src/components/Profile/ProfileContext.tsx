@@ -1,25 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import firebase from 'firebase';
+import { PostFormation, initPostFormation } from './PostFormation';
 
-export interface PostFormation {
-  school: string, // School name
-  city: string, // City of the school
-  title: string, // Title of the diploma
-  speciality: string,
-  fields: string[],
-  startDate: firebase.firestore.Timestamp,
-  endDate: firebase.firestore.Timestamp,
-}
-
-export const initPostFormation = {
-  school: "",
-  city: "",
-  title: "",
-  speciality: "",
-  fields: [],
-  startDate: firebase.firestore.Timestamp.now(),
-  endDate: firebase.firestore.Timestamp.now(),
-};
 export interface Profile {
   uid: string, //Same uid as the user
   email: string,

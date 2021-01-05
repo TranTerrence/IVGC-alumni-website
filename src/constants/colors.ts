@@ -15,4 +15,7 @@ export const palette = {
     paper: '#fff',
     default: "#F6FAFF"
   },
+  error: {
+    main: "#F44336",
+  }
 }

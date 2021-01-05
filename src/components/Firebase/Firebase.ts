@@ -87,7 +87,12 @@ class Firebase {
 
   }
 
-  doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
+  doPasswordReset = (email: string) => {
+    let actionCodeSettings = {
+      url: 'https://alumni-ivgc.web.app/signin',
+    }; // will redirect to the signin page after resetting the password
+    return this.auth.sendPasswordResetEmail(email, actionCodeSettings);
+  }
 
   doPasswordUpdate = (password: string) =>
     this.auth.currentUser?.updatePassword(password); // Executed only if currentUser exist thanks to the ?. operator otherwise return undefined

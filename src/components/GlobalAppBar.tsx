@@ -9,11 +9,9 @@ import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
-import { ButtonPrevious } from '../pages/OnBoarding/components/OnboardingButtons';
 import { ProfileContext } from './Profile/ProfileContext';
 import Avatar from '@material-ui/core/Avatar';
 import { Menu, MenuItem } from '@material-ui/core';
-import { ONBOARDING_STEPS } from '../constants/numbers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +38,6 @@ export default function GlobalAppBar() {
   const firebase = useContext(FirebaseContext);
 
   const { profile } = useContext(ProfileContext);
-  const classes = useStyles();
 
 
   if (firebase) {

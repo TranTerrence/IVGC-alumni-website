@@ -4,17 +4,16 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
 import { ConstantContext } from '../components/Firebase/ConstantContext';
-
+import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../components/Firebase';
 import { Paper } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
+import { Field } from '../components/Profile/PostFormation';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
-
-
   },
 }));
 
@@ -57,7 +56,11 @@ export default function ProfilePage() {
           <Typography variant="h4">{"Formation"}</Typography>
           {profile.postFormations && profile.postFormations.map(postFormation =>
             <>
+
               <Typography>{postFormation.school}</Typography>
+              {postFormation.fields && postFormation.fields.map((item: Field) =>
+                <Chip label={item.field} />)
+              }
               <Typography>{postFormation.title}</Typography>
               <Typography>{postFormation.city}</Typography>
               <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>

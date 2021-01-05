@@ -65,12 +65,12 @@ export default function SignInPage() {
 
           <Grid container>
             <Grid item >
-              <Link href="#" variant="body2" >
+              <Link href={ROUTES.PASSWORD_FORGET} variant="body2" >
                 Mot de passe oublié ?
               </Link>
             </Grid>
             <Grid item >
-              <Link href="/signup" variant="body2" color="secondary">
+              <Link href={ROUTES.SIGN_UP} variant="body2" color="secondary">
                 {"Pas encore de compte ? S'inscrire"}
               </Link>
             </Grid>

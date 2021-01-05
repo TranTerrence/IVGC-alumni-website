@@ -71,7 +71,6 @@ export const AskName = () => {
                   type="lName"
                   id="lastName"
                   margin="normal"
-                  autoFocus
                   variant="outlined"
                   value={profile.lastName}
                   onChange={(e) => {
