@@ -13,12 +13,15 @@ import { palette } from '../constants/colors';
 import { isEmailValid, isPasswordValid } from '../Utils';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import GlobalAppBar from '../components/GlobalAppBar';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
-    padding: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,6 +46,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 export default function SignUpPage() {
@@ -50,11 +57,11 @@ export default function SignUpPage() {
 
   return (
     <>
-      <GlobalAppBar />
+      <AlumniLogo height={100} width="auto" />
       <Container component="main" maxWidth="xs" >
         <div className={classes.paper}>
-          <AlumniLogo height={150} width="auto" />
           <SignUpForm />
+          <Divider className={classes.divider} style={{ width: '100%' }} />
           <SignInLink />
         </div>
       </Container>
@@ -112,6 +119,8 @@ const SignUpForm = () => {
 
   return (
     <FormControl className={classes.form} >
+      <Typography color="primary" variant="h5" align="center">Créer un compte</Typography>
+
       <TextField
         variant="outlined"
         margin="normal"

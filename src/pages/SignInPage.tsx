@@ -17,13 +17,17 @@ import { isEmailValid } from '../Utils';
 import { palette } from '../constants/colors';
 import { useHistory } from 'react-router-dom';
 import { ProfileContext } from '../components/Profile/ProfileContext';
-import GlobalAppBar from '../components/GlobalAppBar';
+import { Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
-    padding: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -46,6 +50,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   submit: {
     margin: theme.spacing(2, 0, 2),
   },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  }
 }));
 
 export default function SignInPage() {
@@ -53,15 +61,17 @@ export default function SignInPage() {
 
   return (
     <>
-      <GlobalAppBar />
+      <AlumniLogo height={100} width="auto" />
 
       <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <div className={classes.paper}>
 
-          <AlumniLogo height={150} width="auto" />
 
           <LogInForm />
+
+          <Divider className={classes.divider} style={{ width: '100%' }} />
+
 
           <Grid container>
             <Grid item >
@@ -142,6 +152,7 @@ function LogInForm() {
   return (
 
     <FormControl className={classes.form} >
+      <Typography color="primary" variant="h5" align="center">Se connecter</Typography>
       <TextField
         variant="outlined"
         margin="normal"

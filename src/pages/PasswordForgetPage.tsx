@@ -17,6 +17,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
@@ -46,6 +47,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   submit: {
     margin: theme.spacing(2, 0, 2),
   },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  }
 }));
 
 export default function PasswordForgetPage() {
@@ -61,6 +66,8 @@ export default function PasswordForgetPage() {
 
 
           <ResetPasswordForm />
+          <Divider className={classes.divider} style={{ width: '100%' }} />
+
           <Link href={ROUTES.SIGN_IN} variant="body2" color="primary">
             {"Revenir à la connexion"}
           </Link>
@@ -115,7 +122,7 @@ function ResetPasswordForm() {
   return (
 
     <FormControl className={classes.form} >
-      <Typography color="primary" variant="h5">Mot de passe oublié ?</Typography>
+      <Typography color="primary" variant="h5" align="center">Mot de passe oublié ?</Typography>
       <Typography>Nous enverrons un lien de récupération à</Typography>
       <TextField
         variant="outlined"
