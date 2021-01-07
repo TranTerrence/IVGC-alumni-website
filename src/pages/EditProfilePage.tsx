@@ -6,11 +6,9 @@ import { ProfileContext } from '../components/Profile/ProfileContext';
 import { ConstantContext } from '../components/Firebase/ConstantContext';
 import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../components/Firebase';
-import { Button, Paper } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Paper } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
 import { Field } from '../components/Profile/PostFormation';
-import * as ROUTES from '../constants/routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 
-export default function ProfilePage() {
+export default function EditProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { profile, setProfile } = useContext(ProfileContext);
@@ -52,10 +50,6 @@ export default function ProfilePage() {
         <Paper className={classes.paper}>
           <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
           </Typography>
-          <Button color='inherit' component={Link} to={ROUTES.EDIT_PROFILE}>
-      Modifier mon profile
-        </Button>
-
           <Typography>{profile.email}</Typography>
           <Typography variant="h6">OnBoarding Step</Typography>
           <Typography>{profile.onBoarding}</Typography>
