@@ -1,6 +1,7 @@
 export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
 export const MY_PROFILE = '/myprofile';
+export const EDIT_PROFILE = '/editprofile';
 export const HOME = '/';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
@@ -12,4 +13,5 @@ export const WRITE_ARTICLE_PAGE = '/write_article';
 export const CONTACT = '/contact';
 export const ONBOARDING = '/onboarding';
 export const RESOURCES = '/resources';
+
 
