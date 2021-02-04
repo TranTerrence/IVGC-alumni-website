@@ -1,160 +1,207 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import './App.css';
+import React, { useState, useEffect } from "react";
+import * as firebase from "firebase";
+
+import { createMuiTheme, ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
+
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { FirebaseContext } from '../../components/Firebase';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import * as FIRESTORE_CONSTS from '../../constants/firebase';
+import Banner from "./components/Banner";
+import JobItem from './components/JobItem';
 
-const names = [
-  {
-    value: 'GEFFROY',
-    label: 'GEFFROY',
+
+const useStyles = makeStyles(theme => ({
+
+  appBar: {
+    position: "relative",
   },
-];
-
-const firstnames = [
-  {
-    value: 'Thomas',
-    label: 'Thomas',
+  logo: {
+    maxHeight: 42,
   },
-];
 
-const schools = [
-  {
-    value: 'ENSTA',
-    label: 'ENSTA',
+  nbResult: {
+    marginLeft: theme.spacing(1),
+    width: theme.spacing(120)
   },
-  {
-    value: 'X',
-    label: 'X',
+  layout: {
+    width: "auto",
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
   },
-];
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      maxWidth: '36ch',
-      backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-      display: 'inline',
-    },
-  }),
-);
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  appBarButton: {
+    magin: theme.spacing(2),
+  },
+  copyright: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  titleBlue: {
+    fontSize: 42,
+    fontWeight: 700,
+    fontFamily: "rocaone",
+  },
 
-export default function MultilineTextFields() {
+
+}));
+
+
+
+
+
+export default function AnnuairePage() {
+  const db = firebase.firestore();
+
   const classes = useStyles();
-  const firebase = React.useContext(FirebaseContext);
+  //HOOKS
+  const [jobList, setJobList] = useState([]); //Job list to show eventually filtered
+  const [nbJobsToShow, setNBJobsToShow] = useState(20);
 
-  const FirestoreCollection = () => {
-    const [value, loading, error] = useCollectionData(
-      firebase?.firestore.collection(FIRESTORE_CONSTS.collections.profiles).limit(100),
-      {
-        idField: "id"
-      }
-    );
-    return (
-      <div>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Document: Loading...</span>}
-        {value &&
-          <>
-            {value.map((profile: any) => (
-              <div> {profile.email} {profile.firstName} {profile.lastName}  </div>
-            ))}
-          </>
-        }
-      </div>
-    );
-  }
-  const [name, setName] = React.useState('Doe');
-  const [firstname, setFirstname] = React.useState('John');
-  const [school, setSchool] = React.useState('ENSTA ParisTech');
+  const [fullJobList, setFullJobList] = useState([]); // The whole jobList without filtering
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  // This effect runs one time for each session
+  useEffect(() => {
+    setIsLoading(true);
+    async function getJobList() {
+      const jobsRef = db.collection('jobs');
+      const snapshot = await jobsRef.get();
 
-  const handleFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstname(event.target.value);
-  };
+      let joblist = [];
+      snapshot.forEach(doc => {
+        let job = doc.data();
+        job.id = doc.id;
+        joblist.push(job);
+      });
 
-  const handleSchool = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSchool(event.target.value);
-  };
 
-  const handleSearch = (event: React.MouseEvent<HTMLElement>) => {
-    setSchool("X");
-    console.log(school);
-  };
+      console.log(joblist);
+      setJobList(joblist);
+      setFullJobList(joblist);
+      setIsLoading(false);
+
+    }
+    getJobList();
+  }, [db]);
+
+
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField
-          id="standard-select-currency"
-          select
-          label="Select"
-          value={name}
-          onChange={handleName}
-          helperText="Please select the name you're looking for"
-        >
-          {names.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="standard-select-currency-native"
-          select
-          label="Native select"
-          value={firstname}
-          onChange={handleFirstname}
-          SelectProps={{
-            native: true,
-          }}
-          helperText="Please select firstname"
-        >
-          {firstnames.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-      </div>
-      <div>
-        <TextField
-          id="filled-select-currency"
-          select
-          label="Select"
-          value={school}
-          onChange={handleSchool}
-          helperText="Please select school"
-          variant="filled"
-        >
-          {schools.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
-          endIcon={<Icon>send</Icon>}
-          onClick={handleSearch}
-        >
-          Search
-      </Button>
-      </div>
-      <FirestoreCollection></FirestoreCollection>
-    </form>
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="absolute" color="primary" className={classes.appBar}>
+        <Toolbar>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid container item xs direction="row" alignItems="center" justify="flex-start">
+              <a href="https://www.ekkiden.com/" target="_blank" rel="noopener noreferrer">
+                <img src={require("./img/ekkiden-logo.png")} alt="Ekkiden" className={classes.logo} />
+              </a>
+
+            </Grid>
+            <Grid item xs align='center'>
+              <a href="https://www.ekkiden.com/" target="_blank" rel="noopener noreferrer">
+                <img src={require("./img/ekkiden-dark-blue.png")} alt="Ekkiden" className={classes.logo} />
+              </a>
+            </Grid>
+            <Grid item xs align='right'>
+              <Button className={classes.appBarButton} variant='contained' color='secondary' onClick={() => window.open("https://recruiterflow.com/ekkiden/jobs/13")}>Spontaneous Application</Button>
+
+            </Grid>
+
+
+          </Grid>
+
+        </Toolbar>
+      </AppBar>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+        className={classes.layout}
+        spacing={2}
+      >
+        <Grid item xs={12} justify="center" container alignItems='center' >
+          <Banner fullJobList={fullJobList} jobList={jobList} setJobList={setJobList} setIsLoading={setIsLoading} />
+
+        </Grid>
+        <Grid item xs={12} justify="center" container alignItems='center' >
+          <Typography color='secondary' className={classes.titleBlue}  >
+            It's time to join the adventure
+                        </Typography>
+        </Grid>
+        <Grid item xs={12} justify="center" container alignItems='center' >
+          <Typography  >
+            And to unleash your potential <span role="img" aria-label="Spaceship emoji"> 🚀</span>
+          </Typography>
+        </Grid>
+        <Grid item xs={12} justify="center" container align='right' spacing={4}>
+          <Grid item xs={6} align='right' >
+            <Link color="secondary" href="https://www.ekkiden.com/about" target="_blank" rel="noopener noreferrer">
+              See our values
+                            </Link>
+          </Grid>
+          <Grid item xs={6} align='left' >
+            <Link color="secondary" href="https://www.ekkiden.com/career" target="_blank" rel="noopener noreferrer">
+              Discover our teams
+                            </Link>
+          </Grid>
+        </Grid>
+        {(jobList === undefined || isLoading)
+          ? null
+          : <Grid item xs={12} justify="center" container alignItems='center' >
+            <Typography variant="h5" className={classes.nbResult}   >
+              {jobList.length + " jobs for your search"}
+            </Typography></Grid>
+        }
+
+
+        {(jobList === undefined || isLoading)
+          ? <Grid item xs={12} container justify="center"><CircularProgress color='secondary' /></Grid>
+          : jobList.reverse().slice(0, nbJobsToShow).map((job, index) => ( //Reverse to change the order and put the last published on top
+            <Grid item xs={12} key={job.id} justify="center" container >
+              <JobItem jobOffer={job} />
+            </Grid>))
+        }
+        {(nbJobsToShow < jobList.length)
+
+          ? <Grid item xs={12} container justify="center">
+            <Button color='secondary' onClick={() => {
+              const NBjobsToLoad = 20;
+              if (nbJobsToShow + NBjobsToLoad < jobList.length)
+                setNBJobsToShow(nbJobsToShow + 20);
+              else setNBJobsToShow(jobList.length);
+
+            }}>Load more</Button>
+          </Grid>
+          : null
+        }
+
+      </Grid>
+
+    </React.Fragment>
   );
 }
+
