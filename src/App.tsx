@@ -9,9 +9,10 @@ import HomePage from './pages/HomePage';
 import FAQPage from './pages/FAQPage'
 import ActuPage from './pages/ActuPage'
 import ArticlePage from './pages/ArticlePage'
+import WriteArticlePage from './pages/WriteArticle';
+import AnnuairePage from './pages/AnnuairePage';
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
-import WriteArticlePage from './pages/WriteArticle';
 
 
 const theme = createMuiTheme({
@@ -56,8 +57,8 @@ function App() {
         <Route path={ROUTES.ACTU_PAGE} component={ActuPage} />
         <Route path={ROUTES.ARTICLE_PAGE} component={ArticlePage} />
         <Route path={ROUTES.WRITE_ARTICLE_PAGE} component={WriteArticlePage} />
+        <Route path={ROUTES.ANNUAIRE_PAGE} component={AnnuairePage} />
       </Router>
-
       <Footer />
 
     </ThemeProvider>

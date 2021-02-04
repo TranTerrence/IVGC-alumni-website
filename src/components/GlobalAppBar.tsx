@@ -50,8 +50,12 @@ export default function GlobalAppBar() {
           Actualité
           </Button>
           <Button color='inherit' component={Link} to={ROUTES.WRITE_ARTICLE_PAGE}>
-            Ecrire un article
+          Ecrire un article
           </Button>
+          <Button color='inherit' component={Link} to={ROUTES.ANNUAIRE_PAGE}>
+          Annuaire
+          </Button>
+        
         </Toolbar>
       </AppBar>
   );
