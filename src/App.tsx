@@ -15,13 +15,14 @@ import * as ROUTES from './constants/routes';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
-
+import AnnuairePage from './pages/AnnuairePage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';
 import ResourcesPage from './pages/ResourcesPage';
 import PasswordForgetPage from './pages/PasswordForgetPage';
 import EditProfilePage from './pages/EditProfilePage';
+
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -49,13 +50,11 @@ function App() {
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        
-
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
         <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.MY_PROFILE} />
-
+        <Route path={ROUTES.ANNUAIRE_PAGE} component={AnnuairePage} />
       </Router>
       <Footer />
     </ThemeProvider>

@@ -183,8 +183,3 @@ export const fieldList = [
     category: "Sciences humaines"
   },
 ]
-
-
-export const storages = {
-  resources: "resources",
-}

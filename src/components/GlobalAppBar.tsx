@@ -123,6 +123,13 @@ export default function GlobalAppBar() {
           Ecrire un article
            </Button>
       }
+      {isVerified
+        &&
+        <Button color='inherit' component={Link} to={ROUTES.ANNUAIRE_PAGE}>
+            Annuaire
+        </Button>
+      }
+      
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>
