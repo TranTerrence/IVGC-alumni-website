@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function MultilineTextFields() {
   const classes = useStyles();
   const firebase = React.useContext(FirebaseContext);
-  
+
   const FirestoreCollection = () => {
     const [value, loading, error] = useCollectionData(
       firebase?.firestore.collection(FIRESTORE_CONSTS.collections.profiles).limit(100),
@@ -93,19 +93,19 @@ export default function MultilineTextFields() {
   const [name, setName] = React.useState('Doe');
   const [firstname, setFirstname] = React.useState('John');
   const [school, setSchool] = React.useState('ENSTA ParisTech');
-  
+
   const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
-  
+
   const handleFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstname(event.target.value);
   };
-  
+
   const handleSchool = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSchool(event.target.value);
   };
-  
+
   const handleSearch = (event: React.MouseEvent<HTMLElement>) => {
     setSchool("X");
     console.log(school);
