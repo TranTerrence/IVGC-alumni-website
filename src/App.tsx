@@ -10,7 +10,7 @@ import FAQPage from './pages/FAQPage'
 import ActuPage from './pages/ActuPage'
 import ArticlePage from './pages/ArticlePage'
 import WriteArticlePage from './pages/WriteArticle';
-import AnnuairePage from './pages/AnnuairePage';
+import AnnuairePage from './pages/Annuaire/AnnuairePage';
 import * as ROUTES from './constants/routes';
 import GlobalAppBar from './components/GlobalAppBar';
 
@@ -49,7 +49,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <GlobalAppBar/>
+        <GlobalAppBar />
         <Route exact path={ROUTES.HOME} component={HomePage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
