@@ -1,12 +1,19 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import Divider from '@material-ui/core/Divider';
 import { FirebaseContext } from '../components/Firebase';
 import { useCollectionData  } from 'react-firebase-hooks/firestore';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
+import { Container } from '@material-ui/core';
+import GlobalAppBar from '../components/GlobalAppBar';
 
 const names = [
   {
@@ -59,14 +66,26 @@ export default function MultilineTextFields() {
     );
     return (
       <div>
+        <GlobalAppBar />
+
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <span>Document: Loading...</span>}
         {value &&
+          <Container component="main" >
+          <List className={classes.root}>
           <>
             {value.map((profile: any) => (
-              <div> {profile.email} {profile.firstName} {profile.lastName}  </div>
+              <Container> 
+                <ListItem>
+                  <ListItemText primary={profile.lastName + " " + profile.firstName}
+                    secondary={"Promotion : " + profile.promotion + ", post formation : " + profile.postFormations[0].school + ", " + profile.postFormations[0].city} />
+                </ListItem>
+                <div> voir </div>
+              </Container>
             ))}
           </>
+          </List>
+          </Container>
         }
       </div>
     );
@@ -93,68 +112,6 @@ export default function MultilineTextFields() {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField
-          id="standard-select-currency"
-          select
-          label="Select"
-          value={name}
-          onChange={handleName}
-          helperText="Please select the name you're looking for"
-        >
-          {names.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="standard-select-currency-native"
-          select
-          label="Native select"
-          value={firstname}
-          onChange={handleFirstname}
-          SelectProps={{
-            native: true,
-          }}
-          helperText="Please select firstname"
-        >
-          {firstnames.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-      </div>
-      <div>
-        <TextField
-          id="filled-select-currency"
-          select
-          label="Select"
-          value={school}
-          onChange={handleSchool}
-          helperText="Please select school"
-          variant="filled"
-        >
-          {schools.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-      <div>
-      <Button
-          variant="contained"
-          color="primary"
-          endIcon={<Icon>send</Icon>}
-          onClick={handleSearch}
-      >
-          Search
-      </Button>
-      </div>
      <FirestoreCollection></FirestoreCollection>
-    </form> 
   );
 }

@@ -6,6 +6,10 @@ export const collections = {
   constants: "constants",
 }
 
+export const storages = {
+  resources: "resources",
+}
+
 export const constants = {
   postFormation: "postFormation",
 }
@@ -183,3 +187,4 @@ export const fieldList = [
     category: "Sciences humaines"
   },
 ]
+
