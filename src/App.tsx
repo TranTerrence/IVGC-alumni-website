@@ -15,7 +15,7 @@ import * as ROUTES from './constants/routes';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
-import AnnuairePage from './pages/AnnuairePage';
+import AnnuairePage from './pages/Annuaire/AnnuairePage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';

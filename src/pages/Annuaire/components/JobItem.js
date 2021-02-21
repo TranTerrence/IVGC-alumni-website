@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from "@material-ui/core/Collapse";
-import flag from 'country-code-emoji';
 import Box from "@material-ui/core/Box";
 import firebase from "firebase";
 import 'firebase/analytics';
@@ -72,7 +71,7 @@ export default function JobItem({ jobOffer }) {
     const location_arr = jobOffer.locations.map(location => {
         let loc_Str = location.city;
         if (location.iso_3166_1_alpha_2_code !== null) {
-            loc_Str += ' ' + flag(location.iso_3166_1_alpha_2_code);
+            loc_Str += ' ';
         }
         return loc_Str;
     });

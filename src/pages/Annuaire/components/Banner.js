@@ -92,7 +92,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const [searchKeywords, setSearchKeywords] = React.useState([]);
 
 
-    let locationList = fullJobList.flatMap(job => job.locations);
+    let locationList = fullJobList.flatMap(job => job.postFormations[0].city);
     locationList = locationList.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i).sort(); //Filter by unique ids
 
     let locationMap = groupBy(locationList, 'country');
@@ -102,10 +102,10 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
         return country !== null && country !== 'null';
       });
     console.log('Country', countryList);
-    let departmentList = fullJobList.flatMap(job => job.department);
+    let departmentList = fullJobList.flatMap(job => job.postFormations[0].speciality);
     departmentList = [...new Set(departmentList)].sort();
 
-    let employmentTypeList = fullJobList.flatMap(job => job.employment_type);
+    let employmentTypeList = fullJobList.flatMap(job => job.postFormations[0].title);
     employmentTypeList = [...new Set(employmentTypeList)].sort();
 
     // On change on those values, execute filterJob
