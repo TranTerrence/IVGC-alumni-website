@@ -63,9 +63,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
-
-
 export default function AnnuairePage() {
   const db = firebase.firestore();
 
@@ -90,13 +87,12 @@ export default function AnnuairePage() {
         job.id = doc.id;
         joblist.push(job);
       });
-
-
-      console.log(joblist);
-      
-
+      setJobList(joblist);
+      setFullJobList(joblist);
+      setIsLoading(false);
     }
     getJobList();
+    console.log("Job list", jobList)
   }, [db]);
 
 
@@ -147,17 +143,17 @@ export default function AnnuairePage() {
             </Typography></Grid>
         }
 
-
+        
         {(jobList === undefined || isLoading)
           ? <Grid item xs={12} container justify="center"><CircularProgress color='secondary' /></Grid>
-          : jobList.reverse().slice(0, nbJobsToShow).map((job, index) => ( //Reverse to change the order and put the last published on top
+          : jobList.reverse().slice(0, nbJobsToShow).map((job) => ( //Reverse to change the order and put the last published on top
             <Grid item xs={12} key={job.id} justify="center" container >
               <JobItem jobOffer={job} />
             </Grid>))
         }
         {(nbJobsToShow < jobList.length)
 
-          ? <Grid item xs={12} container justify="center">
+          ? <Grid item xs={12} container justify="center">  
             <Button color='secondary' onClick={() => {
               const NBjobsToLoad = 20;
               if (nbJobsToShow + NBjobsToLoad < jobList.length)

@@ -65,10 +65,10 @@ const departmentPicMap = {
 
 
 export default function JobItem({ jobOffer }) {
+    console.log("JobOffer", jobOffer)
     const [expanded, setExpanded] = useState(false); //Expand if its last 
     const classes = useStyles();
-    const imgPath = departmentPicMap[jobOffer.department];
-    const location_arr = jobOffer.locations.map(location => {
+    const location_arr = jobOffer.postFormations.map(location => {
         let loc_Str = location.city;
         if (location.iso_3166_1_alpha_2_code !== null) {
             loc_Str += ' ';
@@ -84,18 +84,13 @@ export default function JobItem({ jobOffer }) {
                 alignItems="center">
 
                 <Grid item container md={2} direction="column">
-                    {(imgPath !== undefined)
-                        ? <Grid item md={12} align='center'>
-                            <img src={process.env.PUBLIC_URL + imgPath} alt="Ekkiden"
-                                height={60}
-                                width={60} />
-                        </Grid>
-                        : null
-                    }
-
+                    
                     <Grid item md={12}>
                         <Typography align='center' className={classes.typoDepartment}  >
-                            {jobOffer.department}
+                            {"Promotion " + jobOffer.promotion}
+                        </Typography>
+                        <Typography align='center' className={classes.typoDepartment}  >
+                            {"Spécialité " + jobOffer.postFormations[0].speciality}
                         </Typography>
                     </Grid>
 
@@ -103,7 +98,7 @@ export default function JobItem({ jobOffer }) {
                 </Grid>
                 <Grid item md={3} xs={12}>
                     <Typography color='secondary' className={classes.typoJob} align='center'>
-                        {jobOffer.title}
+                        {jobOffer.postFormations[0].school}
                     </Typography>
                 </Grid>
                 <Grid item md={3} xs={12}>
@@ -115,14 +110,10 @@ export default function JobItem({ jobOffer }) {
                 </Grid>
                 <Grid item md={1}>
                     <Typography color='textSecondary'>
-                        {jobOffer.employment_type}
+                        {jobOffer.lastName + " " + jobOffer.firstName}
                     </Typography>
                 </Grid>
 
-
-                <Grid item md={2} align='right'>
-                    <Button color='secondary' variant='contained' className={classes.button} onClick={() => window.open(jobOffer.apply_link)}>See job</Button>
-                </Grid>
                 <Grid item md align='center'>
                     <IconButton onClick={() => setExpanded(!expanded)} className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -144,32 +135,15 @@ export default function JobItem({ jobOffer }) {
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Box >
-                                <Button color='secondary' variant='contained' className={classes.button} onClick={() => {
-                                    analytics.logEvent("clicked_on_apply");
-                                    window.open(jobOffer.apply_link);
-                                }} >Apply</Button>
-                            </Box>
+                        <Typography color='textSecondary'>
+                        {"Email : " + jobOffer.email}
+                        </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <IconButton onClick={() => setExpanded(!expanded)} className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })} aria-expanded={expanded}
-                                aria-label="Show more">
-                                <ExpandMoreIcon />
-                            </IconButton>
                         </Grid>
-
-
                     </Grid>
-
                 </Collapse>
-
-
-
             </Grid>
-
-
         </Card >
 
     );

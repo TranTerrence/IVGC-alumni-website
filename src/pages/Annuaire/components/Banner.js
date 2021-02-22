@@ -93,7 +93,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
 
 
     let locationList = fullJobList.flatMap(job => job.postFormations[0].city);
-    locationList = locationList.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i).sort(); //Filter by unique ids
+    //locationList = locationList.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i).sort(); //Filter by unique ids
 
     let locationMap = groupBy(locationList, 'country');
 
@@ -118,7 +118,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const selectCountry = function (classes) {
         return (
             <FormControl className={classes.formControl}>
-                <InputLabel id="label-countrySelected" className={classes.inputLabel}  >Country</InputLabel>
+                <InputLabel id="label-countrySelected" className={classes.inputLabel}  >Promo</InputLabel>
                 <Select
                     labelId="label-countrySelected"
                     id="countrySelected-select"
@@ -155,7 +155,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const selectCity = function (classes) {
         return (
             <FormControl className={classes.formControl}>
-                <InputLabel id="label-citySelected" className={classes.inputLabel}  >City</InputLabel>
+                <InputLabel id="label-citySelected" className={classes.inputLabel}  >Ville</InputLabel>
                 <Select
                     labelId="label-citySelected"
                     id="citySelected-select"
@@ -209,7 +209,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const selectDepartment = function (classes) {
         return (
             <FormControl className={classes.formControl}>
-                <InputLabel id="label-department" className={classes.inputLabel} >Department</InputLabel>
+                <InputLabel id="label-department" className={classes.inputLabel} >Ecole</InputLabel>
                 <Select
                     labelId="label-department"
                     id="department-select"
@@ -228,30 +228,6 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
             </FormControl>
         );
     }
-
-    const selectEmploymentType = function (classes) {
-        return (
-            <FormControl className={classes.formControl}>
-                <InputLabel id="label-employment" className={classes.inputLabel} >Contract</InputLabel>
-                <Select
-                    labelId="label-employment"
-                    id="employment-select"
-                    disableUnderline
-                    value={employmentType}
-                    onChange={event => {
-                        setEmploymentType(event.target.value);
-                    }}
-                >
-                    <MenuItem value={''}>All contracts</MenuItem>
-                    {employmentTypeList.map(employmentType =>
-                        <MenuItem key={employmentType} value={employmentType}>{employmentType}</MenuItem>)
-                    }
-                </Select>
-            </FormControl>
-        );
-    }
-
-
 
     const searchBar = function (classes) {
         return (
@@ -348,9 +324,6 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
                 </Grid>
                 <Grid item xs={6} md={2}>
                     {selectDepartment(classes)}
-                </Grid>
-                <Grid item xs={6} md={2}>
-                    {selectEmploymentType(classes)}
                 </Grid>
                 <Grid item container xs={12} md={4} spacing={2} >
                     <Grid item xs={8}>
