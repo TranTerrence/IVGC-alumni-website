@@ -7,7 +7,6 @@ import { collections, fieldList } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 import { initProfile, Profile } from '../Profile/ProfileContext';
 import { User } from '../User/UserContext';
-import { url } from 'inspector';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,

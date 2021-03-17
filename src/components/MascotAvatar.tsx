@@ -1,4 +1,3 @@
-import { makeStyles, Theme, withStyles, createStyles } from "@material-ui/core/styles";
 import Avatar, { AvatarProps } from "@material-ui/core/Avatar/Avatar";
 import React from "react";
 import { StyledBadge } from "./StyledBadge";

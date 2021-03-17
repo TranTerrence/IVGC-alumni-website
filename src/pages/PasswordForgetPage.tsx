@@ -12,7 +12,7 @@ import * as ROUTES from '../constants/routes';
 import { isEmailValid } from '../Utils';
 import { palette } from '../constants/colors';
 import { useHistory } from 'react-router-dom';
-import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Link, Typography } from '@material-ui/core';
+import { Dialog, DialogActions, DialogTitle, IconButton, Link, Typography } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';

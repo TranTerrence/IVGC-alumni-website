@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, MenuItem, Select } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
-import { ButtonLast, ButtonNext } from "./OnboardingButtons";
+import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade";
