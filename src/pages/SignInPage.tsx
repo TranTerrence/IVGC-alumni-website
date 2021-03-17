@@ -96,7 +96,7 @@ function LogInForm() {
 
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const { profile, setProfile } = useContext(ProfileContext);
+  const { setProfile } = useContext(ProfileContext);
 
   const history = useHistory();
 
@@ -134,7 +134,7 @@ function LogInForm() {
           await setProfile({
             currentProfile
           });
-          if (currentProfile.onBoarding >= 2) {
+          if (currentProfile.metadata.onBoarding >= 2) {
             goTo = ROUTES.MY_PROFILE;
           }
 

@@ -20,13 +20,12 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { collections } from '../constants/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import FirebaseContext from '../components/Firebase/context';
-import { User } from '../components/Firebase/firebase_interfaces';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import { roles_fr } from '../constants/roles';
 import Button from '@material-ui/core/Button/Button';
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 import GlobalAppBar from '../components/GlobalAppBar';
-
+import { User } from '../components/User/UserContext';
 function descendingComparator<User>(a: User, b: User, orderBy: keyof User) {
   if (b[orderBy] < a[orderBy]) {
     return -1;

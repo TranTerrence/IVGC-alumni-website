@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import LinearProgress from '@material-ui/core/LinearProgress/LinearProgress';
 import { AskBirthday } from './components/AskBirthday';
-import { AskPostFormations } from './components/AskPostFormations';
+import { AskEducations } from './components/AskEducations';
 import { AppBar, Button, CircularProgress, Toolbar, Typography } from '@material-ui/core';
 import ConstantContextProvider from '../../components/Firebase/ConstantContext';
 import { ButtonPrevious } from './components/OnboardingButtons';
@@ -28,14 +28,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function OnBoardingPage() {
 
   const classes = useStyles();
-  const { profile, setProfile } = useContext(ProfileContext);
+  const { profile, profileMeta, setProfile } = useContext(ProfileContext);
   const firebase = useContext(FirebaseContext);
   const [isLoading, setIsLoading] = useState(true);
   const onBoardingSteps = [<AskName />,
   <AskBirthday />,
   <AskPromo />,
   <ConstantContextProvider>
-    <AskPostFormations />
+    <AskEducations />
   </ConstantContextProvider>,
   ];
 
@@ -57,18 +57,18 @@ export default function OnBoardingPage() {
   const history = useHistory();
 
   console.log("profile", profile);
-  if (profile.onBoarding === onBoardingSteps.length) {
+  if (profileMeta?.onBoarding === onBoardingSteps.length) {
     history.push(ROUTES.MY_PROFILE);
   }
   return (
     <>
-      <AppBarOnBoarding step={profile.onBoarding} />
-      <LinearProgress variant="determinate" color="secondary" value={(profile.onBoarding / onBoardingSteps.length) * 100} />
+      <AppBarOnBoarding step={profileMeta?.onBoarding} />
+      <LinearProgress variant="determinate" color="secondary" value={(profileMeta?.onBoarding / onBoardingSteps.length) * 100} />
       <Container component="main" maxWidth="sm">
         <div className={classes.stepWrapper}>
           {isLoading
             ? <CircularProgress />
-            : onBoardingSteps[profile.onBoarding]}
+            : onBoardingSteps[profileMeta?.onBoarding]}
         </div>
       </Container>
     </>

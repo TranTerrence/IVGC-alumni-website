@@ -3,13 +3,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../components/Profile/ProfileContext';
-import { ConstantContext } from '../components/Firebase/ConstantContext';
+import { ConstantContext, Field } from '../components/Firebase/ConstantContext';
 import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../components/Firebase';
 import { Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import GlobalAppBar from '../components/GlobalAppBar';
-import { Field } from '../components/Profile/PostFormation';
 import * as ROUTES from '../constants/routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const { profile, setProfile } = useContext(ProfileContext);
+  const { basics, profileMeta, educations, setProfile } = useContext(ProfileContext);
   const fieldList = useContext(ConstantContext);
 
   console.log("FIELD LIST", fieldList);
@@ -50,29 +49,28 @@ export default function ProfilePage() {
 
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>
-          <Typography variant="h4">{profile.firstName + " " + profile.lastName + " - Promotion " + profile.promotion}
+          <Typography variant="h4">{basics?.firstName + " " + basics?.lastName + " - Promotion " + basics?.promotion}
           </Typography>
           <Button color='inherit' component={Link} to={ROUTES.EDIT_PROFILE}>
-      Modifier mon profile
+            Modifier mon profile
         </Button>
 
-          <Typography>{profile.email}</Typography>
+          <Typography>{basics?.email}</Typography>
           <Typography variant="h6">OnBoarding Step</Typography>
-          <Typography>{profile.onBoarding}</Typography>
+          <Typography>{profileMeta?.onBoarding}</Typography>
         </Paper>
         <Paper className={classes.paper}>
           <Typography variant="h4">{"Formation"}</Typography>
-          {profile.postFormations && profile.postFormations.map(postFormation =>
+          {educations && educations.map(education =>
             <>
 
-              <Typography>{postFormation.school}</Typography>
-              {postFormation.fields && postFormation.fields.map((item: Field) =>
+              <Typography>{education.institution}</Typography>
+              {education.fields && education.fields.map((item: Field) =>
                 <Chip label={item.field} />
               )}
-              <Typography>{postFormation.title}</Typography>
-              <Typography>{"Specialité : " + postFormation.speciality}</Typography>
-              <Typography>{postFormation.city}</Typography>
-              <Typography>{postFormation.startDate.toDate().toDateString() + " - " + postFormation.endDate.toDate().toDateString()}</Typography>
+              <Typography>{education.area}</Typography>
+              <Typography>{"Specialité : " + education.studyType}</Typography>
+
 
             </>
           )}

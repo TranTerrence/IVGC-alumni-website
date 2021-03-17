@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AskPromo = () => {
   const classes = useStyles();
-  const { profile, changeKey } = useContext(ProfileContext);
+  const { basics, changeBasics } = useContext(ProfileContext);
   return (
     <Fade in={true} timeout={1000} >
       <Box>
@@ -44,9 +44,9 @@ export const AskPromo = () => {
             <Select
               labelId="promotion"
               id="promotion"
-              value={profile.promotion}
+              value={basics.promotion}
               onChange={(e) => {
-                changeKey("promotion", e.target.value);
+                changeBasics("promotion", e.target.value);
               }}          >
               {getPromoMenuItems()}
             </Select>

@@ -1,6 +1,6 @@
 import { Box, Grid, Typography, } from "@material-ui/core";
 import React, { useContext } from "react";
-import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Basics, ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const AskBirthday = () => {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
+  const { basics, changeBasics }: { basics: Basics, changeBasics: Function } = useContext(ProfileContext);
   return (
     <Fade in={true} timeout={1000} >
       <Box>
@@ -58,13 +58,13 @@ export const AskBirthday = () => {
               minDate={new Date("01/01/1950")}
               invalidDateMessage="Mauvaise date"
               value={
-                profile.birthday
-                  ? profile.birthday.toDate()
+                basics.birthday
+                  ? basics.birthday.toDate()
                   : null}
               initialFocusedDate={new Date().setFullYear(new Date().getFullYear() - 20)}
               onChange={(date) => {
                 if (date !== null)
-                  changeKey("birthday", firebase?.toTimestamp(date));
+                  changeBasics("birthday", firebase?.toTimestamp(date));
               }}
               KeyboardButtonProps={{
                 'aria-label': "date anniversaire",

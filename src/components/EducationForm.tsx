@@ -1,7 +1,6 @@
 import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import React, { useContext, } from "react";
-import { PostFormation } from "./Profile/PostFormation";
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
@@ -10,8 +9,9 @@ import { FirebaseContext } from "./Firebase";
 import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
 import { ConstantContext } from "./Firebase/ConstantContext";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { EducationType } from "./Profile/ProfileContext";
 
-export const PostFormationForm = ({ postFormation, updatePostFormation, removePostFormation, index }: { postFormation: PostFormation, updatePostFormation: Function, removePostFormation: Function, index: number }) => {
+export const EducationForm = ({ education, updateEducation, removeEducation, index }: { education: EducationType, updateEducation: Function, removeEducation: Function, index: number }) => {
 
   const useStyles = makeStyles((theme: Theme) => ({
     textField: {
@@ -47,9 +47,9 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           margin="normal"
           fullWidth
           autoFocus
-          value={postFormation?.school}
+          value={education?.institution}
           onChange={(e) => {
-            updatePostFormation(index, "school", e.target.value);
+            updateEducation(index, "institution", e.target.value);
           }}
           className={classes.textField}
           InputProps={{
@@ -71,9 +71,9 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           fullWidth
           autoFocus
           variant="outlined"
-          value={postFormation?.title}
+          value={education?.studyType}
           onChange={(e) => {
-            updatePostFormation(index, "title", e.target.value);
+            updateEducation(index, "studyType", e.target.value);
           }}
           className={classes.textField}
           InputProps={{
@@ -95,9 +95,9 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           fullWidth
           autoFocus
           variant="outlined"
-          value={postFormation?.city}
+          value={education?.location?.city}
           onChange={(e) => {
-            updatePostFormation(index, "city", e.target.value);
+            updateEducation(index, "location", { city: e.target.value });
           }}
           className={classes.textField}
           InputProps={{
@@ -120,9 +120,9 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           autoFocus
           variant="outlined"
           helperText={"L'option ou la spécialisation choisie dans ton école"}
-          value={postFormation?.speciality}
+          value={education?.area}
           onChange={(e) => {
-            updatePostFormation(index, "speciality", e.target.value);
+            updateEducation(index, "area", e.target.value);
           }}
           className={classes.textField}
 
@@ -137,9 +137,9 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           options={fieldList}
           groupBy={(option) => option.category}
           getOptionLabel={(option) => option.field}
-          value={postFormation?.fields}
+          value={education?.fields ?? []}
           freeSolo
-          onChange={(event, values) => updatePostFormation(index, "fields", values)}
+          onChange={(event, values) => updateEducation(index, "fields", values)}
           renderInput={(params: any) => (
             <TextField className={classes.textField} {...params} multiline variant="outlined" label={"Domaines"} helperText={"Appuie entrer pour ajouter un tag"} placeholder={"Ecrire ici"} />)
           }
@@ -159,12 +159,12 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           initialFocusedDate={new Date()}
           invalidDateMessage="Mauvaise date"
           value={
-            postFormation.startDate
-              ? postFormation.startDate.toDate()
+            education.startDate
+              ? education.startDate.toDate()
               : null}
           onChange={(date) => {
             if (date !== null)
-              updatePostFormation(index, "startDate", firebase?.toTimestamp(date));
+              updateEducation(index, "startDate", firebase?.toTimestamp(date));
           }}
           KeyboardButtonProps={{
             'aria-label': "date de début",
@@ -184,13 +184,13 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
           minDate={new Date("01/01/2016")}
           invalidDateMessage="Mauvaise date"
           value={
-            postFormation.endDate
-              ? postFormation.endDate.toDate()
+            education.endDate
+              ? education.endDate.toDate()
               : null}
           initialFocusedDate={new Date()}
           onChange={(date) => {
             if (date !== null)
-              updatePostFormation(index, "endDate", firebase?.toTimestamp(date));
+              updateEducation(index, "endDate", firebase?.toTimestamp(date));
           }}
           KeyboardButtonProps={{
             'aria-label': "date de fin",
@@ -198,7 +198,7 @@ export const PostFormationForm = ({ postFormation, updatePostFormation, removePo
         />
       </Grid>
       <Grid item xs={12} container justify="center" >
-        <Button onClick={(e) => removePostFormation(index)} variant="outlined"
+        <Button onClick={(e) => removeEducation(index)} variant="outlined"
           startIcon={<DeleteIcon />}>Supprimer la formation</Button>
       </Grid>
     </Paper >

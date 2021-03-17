@@ -2,16 +2,16 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { constants } from '../../constants/firebase';
 import FirebaseContext from './context';
 
-interface field {
+export interface Field {
   field: string,
   category: string,
 }
 
-export const ConstantContext = createContext<field[]>([]);
+export const ConstantContext = createContext<Field[]>([]);
 
 const ConstantContextProvider = (props: any) => {
 
-  const [fieldList, setFieldList]: [field[], Function] = useState([]);
+  const [fieldList, setFieldList]: [Field[], Function] = useState([]);
   const firebase = useContext(FirebaseContext);
   useEffect(() => {
     const fetchFieldList = async () => {
