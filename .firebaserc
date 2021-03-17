@@ -1,12 +1,9 @@
 {
-  "projects": {
-    "default": "ivgc-alumni-website"
-  },
   "targets": {
     "ivgc-alumni-website": {
       "hosting": {
         "alumni-ivgc": [
-          "alumni-ivgc",
+          "alumni-ivgc"
         ]
       }
     }
