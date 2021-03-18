@@ -28,21 +28,29 @@ export default function HomePage() {
 
       <Container component="main" maxWidth="md">
         <Typography variant="h2" color="secondary">Présentation</Typography>
-        <Grid container direction="row">
-          <Grid item style={{ flex: 1 }} sm={5}>
+        <Grid container direction="row" spacing={2}>
+          <Grid item style={{ flex: 1 }} sm={5} >
             <img src={imgURL} width="100%" alt="Etudiants" />
           </Grid>
           <Grid item sm={7}>
             <Typography >
-
               L’institut Villebon - Georges Charpak a permis à plus de 150 élèves de s’épanouir à travers les promotions.
               Sur ce site, tu trouveras :
-              - un annuaire des anciens élèves pour garder le contact et t’aider à construire ton projet
-              professionnel
-              - les prochains événements entre élèves et anciens… et d’autres fonctionnalités à découvrir!
-              Toutes les contributions de volontaires pour apporter des nouvelles idées dans ce réseau sont les
-              bienvenues également, c’est vous qui apportez de la valeur à cette communauté
-</Typography>
+            </Typography>
+            <Typography>
+              <li >
+                Un annuaire des anciens élèves pour garder le contact et t’aider à construire ton projet
+                professionnel
+            </li>
+              <li >
+                les prochains événements entre élèves et anciens… et d’autres fonctionnalités à découvrir!
+                Toutes les contributions de volontaires pour apporter des nouvelles idées dans ce réseau sont les
+                bienvenues également, c’est vous qui apportez de la valeur à cette communauté
+            </li>
+              <li >
+                Toutes les contributions de volontaires pour apporter des nouvelles idées dans ce réseau sont les bienvenues également, c’est vous qui apportez de la valeur à cette communauté
+            </li>
+            </Typography>
           </Grid>
 
         </Grid>
