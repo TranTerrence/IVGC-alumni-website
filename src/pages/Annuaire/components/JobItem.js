@@ -53,22 +53,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const departmentPicMap = {
-    "Business": "/departments/man-walk-1.png",
-    "Community": "/departments/community.png",
-    "IT Corporate": "/departments/IT1.png",
-    "Marketing": "/departments/IT-2.png",
-    "IS/IT Digital": "/departments/IT-2.png",
-    "Industrial Technology & Science": "/departments/Engineering-1.png",
-    "Spontaneous Application": "/departments/Engineering-3.png",
-};
-
-
 export default function JobItem({ jobOffer }) {
     console.log("JobOffer", jobOffer)
     const [expanded, setExpanded] = useState(false); //Expand if its last 
     const classes = useStyles();
-    const location_arr = jobOffer.postFormations.map(location => {
+    const location_arr = jobOffer.educations.map(location => {
         let loc_Str = location.city;
         if (location.iso_3166_1_alpha_2_code !== null) {
             loc_Str += ' ';
@@ -87,10 +76,10 @@ export default function JobItem({ jobOffer }) {
                     
                     <Grid item md={12}>
                         <Typography align='center' className={classes.typoDepartment}  >
-                            {"Promotion " + jobOffer.promotion}
+                            {"Promotion " + jobOffer.basics.promotion}
                         </Typography>
                         <Typography align='center' className={classes.typoDepartment}  >
-                            {"Spécialité " + jobOffer.postFormations[0].speciality}
+                            {"Spécialité " + jobOffer.educations[0].area}
                         </Typography>
                     </Grid>
 
@@ -98,7 +87,7 @@ export default function JobItem({ jobOffer }) {
                 </Grid>
                 <Grid item md={3} xs={12}>
                     <Typography color='secondary' className={classes.typoJob} align='center'>
-                        {jobOffer.postFormations[0].school}
+                        {jobOffer.educations[0].institution}
                     </Typography>
                 </Grid>
                 <Grid item md={3} xs={12}>
@@ -110,7 +99,7 @@ export default function JobItem({ jobOffer }) {
                 </Grid>
                 <Grid item md={1}>
                     <Typography color='textSecondary'>
-                        {jobOffer.lastName + " " + jobOffer.firstName}
+                        {jobOffer.basics.lastName + " " + jobOffer.basics.firstName}
                     </Typography>
                 </Grid>
 
@@ -136,7 +125,7 @@ export default function JobItem({ jobOffer }) {
                         </Grid>
                         <Grid item xs={12}>
                         <Typography color='textSecondary'>
-                        {"Email : " + jobOffer.email}
+                        {"Email : " + jobOffer.basics.email}
                         </Typography>
                         </Grid>
                         <Grid item xs={12}>

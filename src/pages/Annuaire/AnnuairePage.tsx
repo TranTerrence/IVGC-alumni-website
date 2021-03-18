@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import * as firebase from "firebase";
-
-import { createMuiTheme, ThemeProvider, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-
 import Button from '@material-ui/core/Button';
 import Banner from "./components/Banner";
 import JobItem from './components/JobItem';
-import GlobalAppBar from "../../components/GlobalAppBar";
+import GlobalAppBar from '../../components/GlobalAppBar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -100,6 +93,7 @@ export default function AnnuairePage() {
   return (
     
     <React.Fragment>
+      <GlobalAppBar />
       <CssBaseline />
       <Grid
         container
@@ -113,28 +107,7 @@ export default function AnnuairePage() {
           <Banner fullJobList={fullJobList} jobList={jobList} setJobList={setJobList} setIsLoading={setIsLoading} />
 
         </Grid>
-        <Grid item xs={12} justify="center" container alignItems='center' >
-          <Typography color='secondary' className={classes.titleBlue}  >
-            It's time to join the adventure
-                        </Typography>
-        </Grid>
-        <Grid item xs={12} justify="center" container alignItems='center' >
-          <Typography  >
-            And to unleash your potential <span role="img" aria-label="Spaceship emoji"> 🚀</span>
-          </Typography>
-        </Grid>
-        <Grid item xs={12} justify="center" container align='right' spacing={4}>
-          <Grid item xs={6} align='right' >
-            <Link color="secondary" href="https://www.ekkiden.com/about" target="_blank" rel="noopener noreferrer">
-              See our values
-                            </Link>
-          </Grid>
-          <Grid item xs={6} align='left' >
-            <Link color="secondary" href="https://www.ekkiden.com/career" target="_blank" rel="noopener noreferrer">
-              Discover our teams
-                            </Link>
-          </Grid>
-        </Grid>
+        
         {(jobList === undefined || isLoading)
           ? null
           : <Grid item xs={12} justify="center" container alignItems='center' >
