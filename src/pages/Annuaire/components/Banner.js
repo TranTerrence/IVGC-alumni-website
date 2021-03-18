@@ -5,42 +5,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
-
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-
 
 
 const useStyles = makeStyles(theme => ({
 
     centerRow: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-
-        borderRadius: '24px',
-        backgroundColor: theme.palette.primary.main,
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+        borderRadius: '40px',
+        width: theme.spacing(120),
     },
-    searchBar: {
-        width: '100%',
-        margin: theme.spacing(2),
-    },
-
-    buttonSearch: {
-        margin: theme.spacing(3),
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-        minWidth: '300px',
-
-    },
-
     inputLabel: {
-        color: theme.palette.secondary.main,
+        color: theme.palette.secondary,
     },
     formControl: {
         margin: theme.spacing(2),
         minWidth: '100px',
         width: '95%',
-
     },
     chips: {
         display: 'flex',
@@ -49,31 +32,14 @@ const useStyles = makeStyles(theme => ({
     chip: {
         margin: 2,
     },
-
-   
     resultTypo: {
         margin: theme.spacing(1),
         paddingTop: theme.spacing(2),
+        color: theme.palette.primary
     }
-
-
 }));
 
-const groupBy = function (objectArray, property) {
-    return objectArray.reduce((acc, obj) => {
-        const key = obj[property];
-        if (!acc[key]) {
-            acc[key] = [];
-        }
-        // Add object to list for given key's value
-        acc[key].push(obj);
-        return acc;
-    }, {});
-}
-/**
- * Handle all the filters and update the jobList accordingly
- * 
- */
+
 export default function Banner({ fullJobList, jobList, setJobList, setIsLoading }) {
 
     const classes = useStyles();
@@ -82,24 +48,23 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const [department, setDepartment] = React.useState('');
     const [promo, setPromo] = React.useState('');
 
-    let locationList = fullJobList.flatMap(job => job.educations[0].location.city);
+    let locationList = fullJobList.flatMap(job => job.educations.map(education => education.location.city));
     locationList = [...new Set(locationList)].sort();
 
-    let departmentList = fullJobList.flatMap(job => job.educations[0].institution);
+    let departmentList = fullJobList.flatMap(job => job.educations.map(education => education.institution));
     departmentList = [...new Set(departmentList)].sort();
 
     let promoList = fullJobList.flatMap(job => job.basics.promotion);
     promoList = [...new Set(promoList)].sort();
 
-    console.log("promo list", promoList)
-    console.log("FJ list", fullJobList)
+    console.log("departmentlist", departmentList)
 
     // On change on those values, execute filterJob
     useEffect(() => {
         setIsLoading(true);
         filterJobList(); // This is be executed when `loading` state changes
         setIsLoading(false);
-    }, [promo,  citySelected, department]);
+    }, [promo, citySelected, department]);
 
     const selectPromo = function (classes) {
         return (
@@ -127,7 +92,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const selectCity = function (classes) {
         return (
             <FormControl className={classes.formControl}>
-                <InputLabel id="label-city" className={classes.inputLabel} >Ville</InputLabel>
+                <InputLabel id="label-city" className={classes.inputLabel}>Ville</InputLabel>
                 <Select
                     labelId="label-city"
                     id="city-select"
@@ -141,7 +106,6 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
                     {locationList.map(city =>
                         <MenuItem key={city} value={city}>{city}</MenuItem>)
                     }
-
                 </Select>
             </FormControl>
         );
@@ -164,50 +128,61 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
                     {departmentList.map(department =>
                         <MenuItem key={department} value={department}>{department}</MenuItem>)
                     }
-
                 </Select>
             </FormControl>
         );
     }
 
+    const checkCityInside = function (job) {
+        for (const elem of job.educations) {
+            if (elem.location.city.includes(citySelected)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    const checkSchoolInside = function (job) {
+        for (const elem of job.educations) {
+            if (elem.institution.includes(department)) {
+                return true
+            }
+        }
+        return false
+    }
+
+
     const filterJobList = async function () {
         let filteredJobList = await fullJobList.filter(job => {
             console.log("JOB : ", job)
             return (
-                (citySelected === '' || job.educations[0].location.city.includes(citySelected))
-                && (department === '' || job.educations[0].institution.includes(department))
-                && (promo === '' || job.basics.promotion == promo)
+                (citySelected === '' || checkCityInside(job))
+                && (department === '' || checkSchoolInside(job))
+                && (promo === '' || job.basics.promotion === promo)
             );
         });
         console.log('filtered by ', promo, citySelected, department);
         setJobList(filteredJobList);
     }
 
-    return (
 
+    return (
         <Paper className={classes.centerRow} elevation={3}>
             <Grid container spacing={2} >
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={3}>
                     {selectPromo(classes)}
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={3}>
                     {selectCity(classes)}
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item xs={6} md={3}>
                     {selectDepartment(classes)}
                 </Grid>
-                <Grid item container xs={12} md={4} spacing={2} >
-                    <Grid item md={2}>
-                        <Typography color='secondary' className={classes.resultTypo} align='center'>{jobList.length.toString() + " results "}</Typography>
-                    </Grid>
+                <Grid item md={3}>
+                    <Typography className={classes.resultTypo} align='center'>{jobList.length.toString() + " resultats "}</Typography>
                 </Grid>
-
             </Grid>
-
-
         </Paper>
-
-
     );
 
 

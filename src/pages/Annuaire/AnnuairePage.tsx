@@ -91,7 +91,7 @@ export default function AnnuairePage() {
 
 
   return (
-    
+
     <React.Fragment>
       <GlobalAppBar />
       <CssBaseline />
@@ -107,16 +107,16 @@ export default function AnnuairePage() {
           <Banner fullJobList={fullJobList} jobList={jobList} setJobList={setJobList} setIsLoading={setIsLoading} />
 
         </Grid>
-        
+
         {(jobList === undefined || isLoading)
           ? null
           : <Grid item xs={12} justify="center" container alignItems='center' >
             <Typography variant="h5" className={classes.nbResult}   >
-              {jobList.length + " jobs for your search"}
+              {jobList.length + " résultat(s)"}
             </Typography></Grid>
         }
 
-        
+
         {(jobList === undefined || isLoading)
           ? <Grid item xs={12} container justify="center"><CircularProgress color='secondary' /></Grid>
           : jobList.reverse().slice(0, nbJobsToShow).map((job) => ( //Reverse to change the order and put the last published on top
@@ -126,7 +126,7 @@ export default function AnnuairePage() {
         }
         {(nbJobsToShow < jobList.length)
 
-          ? <Grid item xs={12} container justify="center">  
+          ? <Grid item xs={12} container justify="center">
             <Button color='secondary' onClick={() => {
               const NBjobsToLoad = 20;
               if (nbJobsToShow + NBjobsToLoad < jobList.length)

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Typography, Grid, Button, IconButton } from "@material-ui/core";
+import { Card, Typography, Grid, IconButton } from "@material-ui/core";
 import clsx from 'clsx';
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from "@material-ui/core/Collapse";
 import Box from "@material-ui/core/Box";
-import firebase from "firebase";
 import 'firebase/analytics';
+import { palette } from '../../../constants/colors'
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -15,12 +15,26 @@ const useStyles = makeStyles(theme => ({
         width: theme.spacing(120),
     },
 
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 500,
+    },
     autocomplete: {
         marginTop: theme.spacing(2),
     },
 
     button: {
         marginRight: theme.spacing(0),
+    },
+    container: {
+        backgroundColor: palette.primary.main,
+        borderRadius: "8px"
     },
     dropdown: {
         transition: theme.transitions.create(["transform"], {
@@ -44,7 +58,7 @@ const useStyles = makeStyles(theme => ({
         transform: 'rotate(180deg)',
     },
 
-    typoDepartment:{
+    typoDepartment: {
         fontSize: 12,
     },
     typoJob: {
@@ -57,50 +71,44 @@ export default function JobItem({ jobOffer }) {
     console.log("JobOffer", jobOffer)
     const [expanded, setExpanded] = useState(false); //Expand if its last 
     const classes = useStyles();
-    const location_arr = jobOffer.educations.map(location => {
-        let loc_Str = location.city;
-        if (location.iso_3166_1_alpha_2_code !== null) {
-            loc_Str += ' ';
-        }
-        return loc_Str;
-    });
-    const location_str = location_arr.join(', ');
-    const analytics = firebase.analytics();
+
     return (
         <Card spacing={2} className={classes.card}>
             <Grid container spacing={2}
                 justify="center"
                 alignItems="center">
 
+                <Grid item md={3}>
+                    <Typography color='textSecondary' align="center">
+                        {jobOffer.basics.firstName + " " + jobOffer.basics.lastName}
+                    </Typography>
+                    <Typography align='center' className={classes.typoDepartment}  >
+                        {"Promotion " + jobOffer.basics.promotion}
+                    </Typography>
+                </Grid>
+
+                <Grid item md={6} xs={12}>
+                    {
+                        jobOffer.educations.length > 0
+                            ? jobOffer.educations.map(education =>
+                                <Typography color='secondary' className={classes.typoJob} align='center'>
+                                    {education.institution}
+                                </Typography>)
+                            : <Typography color='secondary' className={classes.typoJob} align='center'>Non renseigné</Typography>
+                    }
+                </Grid>
+
                 <Grid item container md={2} direction="column">
-                    
                     <Grid item md={12}>
-                        <Typography align='center' className={classes.typoDepartment}  >
-                            {"Promotion " + jobOffer.basics.promotion}
-                        </Typography>
-                        <Typography align='center' className={classes.typoDepartment}  >
-                            {"Spécialité " + jobOffer.educations[0].area}
-                        </Typography>
+                        <ul>
+                            {jobOffer.educations.map(education =>
+                                <Typography align='center' className={classes.typoDepartment}  >
+                                    {education.area}
+                                </Typography>
+                            )
+                            }
+                        </ul>
                     </Grid>
-
-
-                </Grid>
-                <Grid item md={3} xs={12}>
-                    <Typography color='secondary' className={classes.typoJob} align='center'>
-                        {jobOffer.educations[0].institution}
-                    </Typography>
-                </Grid>
-                <Grid item md={3} xs={12}>
-                    <Typography color='textSecondary' align='center'>
-                        {jobOffer.locations !== undefined
-                            ? location_str
-                            : ''}
-                    </Typography>
-                </Grid>
-                <Grid item md={1}>
-                    <Typography color='textSecondary'>
-                        {jobOffer.basics.lastName + " " + jobOffer.basics.firstName}
-                    </Typography>
                 </Grid>
 
                 <Grid item md align='center'>
@@ -124,11 +132,30 @@ export default function JobItem({ jobOffer }) {
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                        <Typography color='textSecondary'>
-                        {"Email : " + jobOffer.basics.email}
-                        </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
+                            <Typography color='#fff'>
+                                {jobOffer.basics.email}
+                            </Typography>
+                            <Grid container direction="column" >
+                                {
+                                    jobOffer.educations.map(education =>
+                                        <>
+                                            <Grid item xs container direction="column" spacing={2}>
+                                                <Typography gutterBottom variant="subtitle1">
+                                                    {education.institution}
+                                                </Typography>
+                                                <Typography variant="body2" gutterBottom>
+                                                    {education.area}
+                                                </Typography>
+                                                <Typography variant="body2" color="textSecondary">
+                                                    {education.location.city}
+                                                </Typography>
+                                                <Typography variant="subtitle1">{education.startDate.toDate().getFullYear()}</Typography>
+                                            </Grid>
+                                            <Divider className={classes.divider} variant="middle" />
+                                        </>
+                                    )
+                                }
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Collapse>
