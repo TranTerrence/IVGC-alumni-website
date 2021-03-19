@@ -10,6 +10,7 @@ import { Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import GlobalAppBar from '../components/GlobalAppBar';
 import * as ROUTES from '../constants/routes';
+import TitlePage from '../components/TitlePage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -46,6 +47,7 @@ export default function ProfilePage() {
   return (
     <>
       <GlobalAppBar />
+      <TitlePage title="Mon Profil" />
 
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>

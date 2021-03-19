@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Container } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
+import TitlePage from '../components/TitlePage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -54,12 +55,12 @@ export default function FAQPage() {
   return (
     <>
       <GlobalAppBar />
+      <TitlePage title="FAQ" />
+
 
       <Container component="main" maxWidth="xl" >
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5" color="secondary">
-            FAQ Page
-      </Typography>
+
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

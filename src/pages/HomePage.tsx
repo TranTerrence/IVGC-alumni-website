@@ -5,6 +5,7 @@ import GlobalAppBar from '../components/GlobalAppBar';
 import { Grid } from '@material-ui/core';
 import { FirebaseContext } from '../components/Firebase';
 import { useEffect } from 'react';
+import TitlePage from '../components/TitlePage';
 
 
 export default function HomePage() {
@@ -25,6 +26,7 @@ export default function HomePage() {
   return (
     <>
       <GlobalAppBar />
+      <TitlePage title="Bienvenue sur le site de la communauté" />
 
       <Container component="main" maxWidth="md">
         <Typography variant="h2" color="secondary">Présentation</Typography>

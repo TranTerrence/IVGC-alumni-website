@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AlumniLogo from '../components/AlumniLogo';
 import GlobalAppBar from '../components/GlobalAppBar';
+import TitlePage from '../components/TitlePage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -34,6 +35,8 @@ export default function ContactPage() {
   return (
     <>
       <GlobalAppBar />
+      <TitlePage title="Contact" />
+
 
       <Container component="main" maxWidth="xs" >
         <div className={classes.paper}>
@@ -42,13 +45,10 @@ export default function ContactPage() {
 
 
           <Typography component="h1" variant="h5" color="secondary">
-            Contact
+            En construction
         </Typography>
 
-          <Typography component="h4" variant="h6" color="secondary">
-            Adresse :
-            Mail :
-        </Typography>
+
 
         </div>
 

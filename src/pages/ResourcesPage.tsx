@@ -16,6 +16,8 @@ import { storages } from '../constants/firebase';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GlobalAppBar from '../components/GlobalAppBar';
+import TitlePage from '../components/TitlePage';
+
 const FileRow = (props: { path: string }) => {
 
   const firebase = useContext(FirebaseContext);
@@ -135,9 +137,9 @@ export default function ResourcesPage() {
   return (
     <>
       <GlobalAppBar />
+      <TitlePage title="Resources" />
 
       <Container>
-        <Typography variant="h2" color="primary">Ressources</Typography>
         <Typography variant="body1">Retrouvez ici tous les documents de l'association.</Typography>
 
 
