@@ -22,6 +22,7 @@ import { frFR } from '@material-ui/core/locale';
 import ResourcesPage from './pages/ResourcesPage';
 import PasswordForgetPage from './pages/PasswordForgetPage';
 import EditProfilePage from './pages/EditProfilePage';
+import LoadingPage from './pages/LoadingPage';
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -49,7 +50,6 @@ function App() {
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        
 
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfilePage} redirectPath={ROUTES.SIGN_IN} />
@@ -62,33 +62,36 @@ function App() {
   );
 }
 
-const LoggedInRoute = ({ component, redirectPath, ...rest }: any) => {
+const LoggedInRoute = ({ component, redirectPath, path, ...rest }: { component: React.FC, redirectPath: string, path: string, rest?: any }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // let some time to firebase to retrieve the user state
 
   const firebase = useContext(FirebaseContext);
   if (firebase) {
     firebase.auth.onAuthStateChanged(function (user) {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(firebase.isLoggedIn());
+      setIsLoading(false);
     });
   }
-  const routeComponent = (props: any) => (
-    isLoggedIn
+
+  let routeComponent = (props: any) => (
+    isLoggedIn && !isLoading
       ? React.createElement(component, props)
       : <Redirect to={{ pathname: redirectPath }} />
   );
-  return < Route {...rest} render={routeComponent} />
+  return isLoading
+    ? <LoadingPage />
+    : < Route {...rest} path={path} render={routeComponent} />
 }
 
 /**
  * 
  * Should be logged in and admin!
  */
-const AdminRoute = ({ component, redirectPath, ...rest }: any) => {
+const AdminRoute = ({ component, redirectPath, path, ...rest }: { component: React.FC, redirectPath: string, path: string, rest?: any }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const firebase = useContext(FirebaseContext);
   if (firebase) {
     firebase.auth.onAuthStateChanged(async function (user) {
@@ -99,14 +102,18 @@ const AdminRoute = ({ component, redirectPath, ...rest }: any) => {
       } else {
         setIsAdmin(false);
       }
+      setIsLoading(false);
+
     });
   }
   const routeComponent = (props: any) => (
-    isAdmin
+    isAdmin && !isLoading
       ? React.createElement(component, props)
       : <Redirect to={{ pathname: redirectPath }} />
   );
-  return <Route {...rest} render={routeComponent} />;
+  return isLoading
+    ? <LoadingPage />
+    : <Route {...rest} path={path} render={routeComponent} />;
 }
 
 
