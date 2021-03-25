@@ -77,7 +77,9 @@ export default function AnnuairePage() {
       snapshot.forEach(doc => {
         let user = doc.data();
         user.id = doc.id;
-        userlist.push(user);
+        if (user.educations) {
+          userlist.push(user);
+        }
       });
       setUserList(userlist);
       setFullUserList(userlist);

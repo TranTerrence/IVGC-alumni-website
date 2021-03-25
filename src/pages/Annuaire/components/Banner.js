@@ -48,13 +48,13 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
     const [department, setDepartment] = React.useState('');
     const [promo, setPromo] = React.useState('');
 
-    let locationList = fullUserList.flatMap(user => user.educations.map(education => education.location.city));
+    let locationList = fullUserList.flatMap(user => user.educations ? user.educations.map(education => education.location.city) : []);
     locationList = [...new Set(locationList)].sort();
 
-    let departmentList = fullUserList.flatMap(user => user.educations.map(education => education.institution));
+    let departmentList = fullUserList.flatMap(user => user.educations ? user.educations.map(education => education.institution) : []);
     departmentList = [...new Set(departmentList)].sort();
 
-    let promoList = fullUserList.flatMap(user => user.basics.promotion);
+    let promoList = fullUserList.flatMap(user => user.basics ? user.basics.promotion : []);
     promoList = [...new Set(promoList)].sort();
 
     console.log("departmentlist", departmentList)
@@ -133,6 +133,9 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
     }
 
     const checkCityInside = function (user) {
+        if (user.educations == null) {
+            return false
+        }
         for (const elem of user.educations) {
             if (elem.location.city.includes(citySelected)) {
                 return true
@@ -142,6 +145,9 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
     }
 
     const checkSchoolInside = function (user) {
+        if (user.educations == null) {
+            return false
+        }
         for (const elem of user.educations) {
             if (elem.institution.includes(department)) {
                 return true

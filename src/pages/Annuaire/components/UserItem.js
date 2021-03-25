@@ -7,9 +7,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Box from "@material-ui/core/Box";
 import 'firebase/analytics';
 import { palette } from '../../../constants/colors'
-import Divider from '@material-ui/core/Divider';
-import Chip from '@material-ui/core/Chip';
-import { Paper } from '@material-ui/core';
+import EducationTimeline from '../../../components/EducationTimeline';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -82,32 +80,32 @@ export default function UserItem({ User }) {
 
                 <Grid item md={3}>
                     <Typography color='textSecondary' align="center">
-                        {User.basics.firstName + " " + User.basics.lastName}
+                        {User.basics ? User.basics.firstName + " " + User.basics.lastName : "Undefined"}
                     </Typography>
                     <Typography align='center' className={classes.typoDepartment}  >
-                        {"Promotion " + User.basics.promotion}
+                        {User.basics ? "Promotion " + User.basics.promotion : "Undefined"}
                     </Typography>
                 </Grid>
 
                 <Grid item md={6} xs={12}>
                     {
-                        User.educations.length > 0
+                        User.educations ? User.educations.length > 0
                             ? User.educations.map(education =>
                                 <Typography color='secondary' className={classes.typoUser} align='center'>
                                     {education.institution}
                                 </Typography>)
-                            : <Typography color='secondary' className={classes.typoUser} align='center'>Non renseigné</Typography>
+                            : <Typography color='secondary' className={classes.typoUser} align='center'>Non renseigné</Typography> : "Undefined"
                     }
                 </Grid>
 
                 <Grid item container md={2} direction="column">
                     <Grid item md={12}>
                         <ul>
-                            {User.educations.map(education =>
+                            {User.educations ? User.educations.map(education =>
                                 <Typography align='center' className={classes.typoDepartment}  >
                                     {education.area}
                                 </Typography>
-                            )
+                            ) : "Undefined"
                             }
                         </ul>
                     </Grid>
@@ -135,28 +133,13 @@ export default function UserItem({ User }) {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography color='#fff'>
-                                {User.basics.email}
+                                {User.basics ? User.basics.email : "Undefined"}
                             </Typography>
                             <Grid container direction="column" >
                                 {
-                                    User.educations.map(education =>
-                                        <>
-                                            <Grid item xs container direction="column" spacing={2}>
-                                                <Typography gutterBottom variant="subtitle1">
-                                                    {education.institution}
-                                                </Typography>
-                                                <Typography variant="body2" gutterBottom>
-                                                    {education.area}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary">
-                                                    {education.location.city}
-                                                </Typography>
-                                                <Typography variant="subtitle1">{education.startDate.toDate().getFullYear()}</Typography>
-                                            </Grid>
-                                            <Divider className={classes.divider} variant="middle" />
-                                        </>
-                                    )
-                                }
+                                    User.educations ?
+                                        <EducationTimeline educations={User.educations} />
+                                        : "Undefined"}
                             </Grid>
                         </Grid>
                     </Grid>
@@ -165,6 +148,4 @@ export default function UserItem({ User }) {
         </Card >
 
     );
-
-
 }
