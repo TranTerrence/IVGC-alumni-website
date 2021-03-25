@@ -8,6 +8,8 @@ import Box from "@material-ui/core/Box";
 import 'firebase/analytics';
 import { palette } from '../../../constants/colors'
 import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     card: {

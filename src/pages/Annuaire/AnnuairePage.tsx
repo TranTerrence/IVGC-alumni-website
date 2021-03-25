@@ -10,7 +10,6 @@ import Banner from "./components/Banner";
 import UserItem from './components/UserItem';
 import GlobalAppBar from '../../components/GlobalAppBar';
 
-
 const useStyles = makeStyles(theme => ({
 
   appBar: {
