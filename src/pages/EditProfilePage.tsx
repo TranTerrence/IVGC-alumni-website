@@ -7,6 +7,7 @@ import { ConstantContext } from '../components/Firebase/ConstantContext';
 import { FirebaseContext } from '../components/Firebase';
 import { Paper } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
+import PromoForm from '../components/Forms/PromoForm';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -48,8 +49,7 @@ export default function EditProfilePage() {
           <Typography variant="h4">{basics.firstName + " " + basics.lastName + " - Promotion " + basics.promotion}
           </Typography>
           <Typography>{basics.email}</Typography>
-          <Typography variant="h6">OnBoarding Step</Typography>
-          <Typography>{profileMeta.onBoarding}</Typography>
+          <PromoForm />
         </Paper>
       </Container>
     </>
