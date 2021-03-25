@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 export default function Banner({ fullUserList, userList, setUserList, setIsLoading }) {
 
     const classes = useStyles();
-    const [citySelected, setCitySelected] = React.useState([]);
+    const [citySelected, setCitySelected] = React.useState('');
 
     const [department, setDepartment] = React.useState('');
     const [promo, setPromo] = React.useState('');
