@@ -1,4 +1,4 @@
-import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
+import { Button, CircularProgress, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import React, { useContext, } from "react";
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
@@ -10,6 +10,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete/Autocomplete";
 import { ConstantContext } from "./Firebase/ConstantContext";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { EducationType } from "./Profile/ProfileContext";
+import { SchoolsContext } from "./Firebase/SchoolsContext";
 
 export const EducationForm = ({ education, updateEducation, removeEducation, index }: { education: EducationType, updateEducation: Function, removeEducation: Function, index: number }) => {
 
@@ -34,11 +35,46 @@ export const EducationForm = ({ education, updateEducation, removeEducation, ind
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const fieldList = useContext(ConstantContext);
-
+  const { schools, loading } = useContext(SchoolsContext);
 
   return (
     <Paper className={classes.paper}>
       <Grid item xs={12}>
+        <Autocomplete
+          id="field"
+          options={schools}
+          loading={loading}
+          getOptionLabel={(option) => option?.fields?.uo_lib}
+          groupBy={(option) => option?.fields?.aca_nom}
+
+          value={education?.institution}
+          freeSolo
+          onChange={(e, value) => {
+            updateEducation(index, "institution", value);
+          }}
+
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={"Ecole"}
+              className={classes.textField}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountBalanceOutlinedIcon color="primary" />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <React.Fragment>
+                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                ),
+              }}
+            />
+          )}
+        />
         <TextField
           name="school"
           label="Nom de l'école"

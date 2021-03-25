@@ -13,6 +13,7 @@ import { AskEducations } from './components/AskEducations';
 import { AppBar, Button, CircularProgress, Toolbar, Typography } from '@material-ui/core';
 import ConstantContextProvider from '../../components/Firebase/ConstantContext';
 import { ButtonPrevious } from './components/OnboardingButtons';
+import SchoolsContextProvider from '../../components/Firebase/SchoolsContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -35,7 +36,9 @@ export default function OnBoardingPage() {
   <AskBirthday />,
   <AskPromo />,
   <ConstantContextProvider>
-    <AskEducations />
+    <SchoolsContextProvider>
+      <AskEducations />
+    </SchoolsContextProvider>
   </ConstantContextProvider>,
   ];
 
