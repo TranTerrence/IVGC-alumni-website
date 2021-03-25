@@ -6,7 +6,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './pages/Profile/ProfilePage';
 import FAQPage from './pages/FAQPage';
 import ActuPage from './pages/ActuPage';
 import ArticlePage from './pages/ArticlePage';
