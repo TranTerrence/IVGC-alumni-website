@@ -6,9 +6,11 @@ import { EducationType, ProfileContext } from '../../components/Profile/ProfileC
 import { Field } from '../../components/Firebase/ConstantContext';
 import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../../components/Firebase';
-import { Paper } from '@material-ui/core';
+import { Button, Paper } from '@material-ui/core';
 import GlobalAppBar from '../../components/GlobalAppBar';
 import { Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -52,6 +54,9 @@ export default function ProfilePage() {
         <Paper className={classes.paper}>
           <Typography variant="h4">{basics?.firstName + " " + basics?.lastName + " - Promotion " + basics?.promotion}
           </Typography>
+          <Button color='inherit' component={Link} to={ROUTES.EDIT_PROFILE}>
+            Modifier mon profile
+          </Button>
         </Paper>
         <Paper className={classes.paper}>
           <Typography variant="h4">{"Formation"}</Typography>
