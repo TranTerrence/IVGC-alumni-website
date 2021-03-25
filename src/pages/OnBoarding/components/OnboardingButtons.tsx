@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button/Button";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import FirebaseContext from "../../../components/Firebase/context";
-import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Profile, ProfileContext, ProfileMeta } from "../../../components/Profile/ProfileContext";
 import * as ROUTES from '../../../constants/routes';
 import { TransitionProps } from '@material-ui/core/transitions';
 import Confetti from 'react-confetti';
@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const ButtonNext = () => {
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
+  const { profileMeta, changeProfileMeta, profile }: { profileMeta: ProfileMeta, changeProfileMeta: Function, profile: Profile } = useContext(ProfileContext);
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const goNext = async () => {
-    profile.onBoarding += 1;
+    profileMeta.onBoarding += 1;
     console.log("GO next", profile);
     firebase?.updateProfile(profile);
-    await changeKey("onBoarding", profile.onBoarding);
+    await changeProfileMeta("onBoarding", profileMeta.onBoarding);
   };
 
   return (<Button variant="contained" color="primary" className={classes.buttonEnd}
@@ -30,14 +30,13 @@ export const ButtonNext = () => {
 }
 
 export const ButtonPrevious = () => {
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
-  const firebase = useContext(FirebaseContext);
+  const { profileMeta, changeProfileMeta, profile }: { profileMeta: ProfileMeta, changeProfileMeta: Function, profile: Profile } = useContext(ProfileContext); const firebase = useContext(FirebaseContext);
 
   const goPrevious = async () => {
-    if (profile.onBoarding > 0) {
-      profile.onBoarding -= 1;
+    if (profileMeta.onBoarding > 0) {
+      profileMeta.onBoarding -= 1;
       firebase?.updateProfile(profile);
-      await changeKey("onBoarding", profile.onBoarding);
+      await changeProfileMeta("onBoarding", profileMeta.onBoarding);
     }
   };
 
@@ -65,7 +64,7 @@ export const ButtonLast = () => {
 }
 
 const CongratDialog = () => {
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
+  const { profileMeta, changeProfileMeta, profile }: { profileMeta: ProfileMeta, changeProfileMeta: Function, profile: Profile } = useContext(ProfileContext);
   const firebase = useContext(FirebaseContext);
 
   const history = useHistory();
@@ -78,9 +77,9 @@ const CongratDialog = () => {
   });
 
   const handleClose = async () => {
-    profile.onBoarding += 1;
+    profileMeta.onBoarding += 1;
     firebase?.updateProfile(profile);
-    await changeKey("onBoarding", profile.onBoarding);
+    await changeProfileMeta("onBoarding", profileMeta.onBoarding);
     history.push(ROUTES.MY_PROFILE);
   }
   return (<Dialog

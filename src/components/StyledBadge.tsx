@@ -1,6 +1,4 @@
-import { makeStyles, Theme, withStyles, createStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar/Avatar";
-import React from "react";
+import { Theme, withStyles, createStyles } from "@material-ui/core/styles";
 import Badge from '@material-ui/core/Badge';
 import { palette } from "../constants/colors";
 

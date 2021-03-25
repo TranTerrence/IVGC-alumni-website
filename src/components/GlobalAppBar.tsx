@@ -37,7 +37,7 @@ export default function GlobalAppBar() {
 
   const firebase = useContext(FirebaseContext);
 
-  const { profile } = useContext(ProfileContext);
+  const { basics } = useContext(ProfileContext);
 
 
   if (firebase) {
@@ -77,7 +77,7 @@ export default function GlobalAppBar() {
       <div>
         <Button color='inherit' onClick={handleMenu}
           endIcon={<Avatar />}>
-          {profile.firstName}
+          {basics.firstName}
         </Button>
         <Menu
           id="menu-appbar"
@@ -150,6 +150,7 @@ export default function GlobalAppBar() {
   if (isLoading) {
     return (<AppBar position="static">
       <TitleAlumni />
+
     </AppBar>);
   }
 

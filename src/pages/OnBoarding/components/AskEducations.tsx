@@ -1,6 +1,5 @@
 import { Box, Grid, Typography, } from "@material-ui/core";
 import React, { useContext } from "react";
-import { initPostFormation, PostFormation, } from "../../../components/Profile/PostFormation";
 import { ButtonLast } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
@@ -8,10 +7,10 @@ import { MASCOT_NAME } from "../../../constants/names";
 import Fade from "@material-ui/core/Fade";
 import { MascotAvatar } from "../../../components/MascotAvatar";
 import AddIcon from '@material-ui/icons/Add';
-import { PostFormationForm } from "../../../components/PostFormationForm";
+import { EducationForm } from "../../../components/EducationForm";
 
 import Button from "@material-ui/core/Button/Button";
-import { Profile, ProfileContext } from "../../../components/Profile/ProfileContext";
+import { EducationType, initEducation, ProfileContext } from "../../../components/Profile/ProfileContext";
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     '& .MuiOutlinedInput-root': {
@@ -31,36 +30,38 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
+export interface updateEducationProps {
+  index: number, key: keyof EducationType, newValue: any
+}
 
-export const AskPostFormations = () => {
+export const AskEducations = () => {
   const classes = useStyles();
-  //const [postFormations, setPostFormations]: [PostFormation[], Function] = useState([initPostFormation]);
-  const { profile, changeKey }: { profile: Profile, changeKey: Function } = useContext(ProfileContext);
+  //const [educations, setEducationTypes]: [EducationType[], Function] = useState([initEducationType]);
+  const { educations, setEducations } = useContext(ProfileContext);
 
-  if (!profile.postFormations) {
-    const initCPFcopy = { ...initPostFormation };
-    changeKey("postFormations", [initCPFcopy]);
+  if (!educations) {
+    const initCPFcopy = { ...initEducation };
+    setEducations([initCPFcopy]);
   }
 
-
-  const updatePostFormation = (index: number, key: keyof PostFormation, newValue: any) => {
-    let postFormationsCopy = [...profile.postFormations];
-    postFormationsCopy[index][key] = newValue;
-    changeKey("postFormations", postFormationsCopy);
+  const updateEducation = (index: number, key: keyof EducationType, newValue: any) => {
+    let educationsCopy = [...educations];
+    educationsCopy[index][key] = newValue;
+    setEducations(educationsCopy);
   };
 
-  const removePostFormation = (index: number) => {
-    let postFormationsCopy = [...profile.postFormations];
-    postFormationsCopy.splice(index, 1);
+  const removeEducation = (index: number) => {
+    let educationsCopy = [...educations];
+    educationsCopy.splice(index, 1);
     console.log("REMOVE PF");
-    changeKey("postFormations", postFormationsCopy);
+    setEducations(educationsCopy);
   };
 
 
-  const addPostFormation = () => {
-    const initCPFcopy = { ...initPostFormation };
-    changeKey("postFormations", [
-      ...profile.postFormations,
+  const addEducation = () => {
+    const initCPFcopy = { ...initEducation };
+    setEducations([
+      ...educations,
       initCPFcopy,
     ]);
   };
@@ -76,12 +77,12 @@ export const AskPostFormations = () => {
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >Qu'as-tu fais après l'institut ?</Typography>
             {
-              profile.postFormations && profile.postFormations.map((postFormation, index) =>
-                <PostFormationForm key={index} postFormation={postFormation} updatePostFormation={updatePostFormation} removePostFormation={removePostFormation} index={index} />
+              educations && educations.map((education, index) =>
+                <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
               )
             }
             <Grid item container justify="center" >
-              <Button onClick={addPostFormation} color="primary" variant="outlined"
+              <Button onClick={addEducation} color="primary" variant="outlined"
                 startIcon={<AddIcon />}>Ajouter une formation</Button>
             </Grid>
             <Grid item>

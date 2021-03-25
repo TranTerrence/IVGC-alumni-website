@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -11,6 +9,7 @@ import { FirebaseContext } from '../components/Firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import * as FIRESTORE_CONSTS from '../constants/firebase';
 import GlobalAppBar from '../components/GlobalAppBar';
+import TitlePage from '../components/TitlePage';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -98,16 +97,8 @@ function ActuPage() {
     <div className="App">
 
       <GlobalAppBar />
+      <TitlePage title="Les actualités du moment" />
 
-      <AppBar className={classes.appBar} position="static">
-        <Toolbar>
-          <Container>
-            <Typography variant="h6" color="primary" >
-              Les actualités du moment
-          </Typography>
-          </Container>
-        </Toolbar>
-      </AppBar>
       <Box className={classes.hero}>
         <Box>Actualités</Box>
       </Box>

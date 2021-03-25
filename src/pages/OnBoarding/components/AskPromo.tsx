@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, MenuItem, Select } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
-import { ButtonLast, ButtonNext } from "./OnboardingButtons";
+import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade";
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AskPromo = () => {
   const classes = useStyles();
-  const { profile, changeKey } = useContext(ProfileContext);
+  const { basics, changeBasics } = useContext(ProfileContext);
   return (
     <Fade in={true} timeout={1000} >
       <Box>
@@ -44,9 +44,9 @@ export const AskPromo = () => {
             <Select
               labelId="promotion"
               id="promotion"
-              value={profile.promotion}
+              value={basics.promotion}
               onChange={(e) => {
-                changeKey("promotion", e.target.value);
+                changeBasics("promotion", e.target.value);
               }}          >
               {getPromoMenuItems()}
             </Select>

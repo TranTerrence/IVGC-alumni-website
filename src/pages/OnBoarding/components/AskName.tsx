@@ -1,4 +1,4 @@
-import { Box, Grid, Avatar, Typography, TextField } from "@material-ui/core";
+import { Box, Grid, Typography, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AskName = () => {
   const classes = useStyles();
-  const { profile, changeKey } = useContext(ProfileContext);
+  const { basics, changeBasics } = useContext(ProfileContext);
 
 
   return (
@@ -55,9 +55,9 @@ export const AskName = () => {
                   label="Prénom"
                   name="firstName"
                   autoComplete="fname"
-                  value={profile.firstName}
+                  value={basics.firstName}
                   onChange={(e) => {
-                    changeKey("firstName", e.target.value);
+                    changeBasics("firstName", e.target.value);
                   }}
                   variant="outlined"
                   autoFocus
@@ -72,9 +72,9 @@ export const AskName = () => {
                   id="lastName"
                   margin="normal"
                   variant="outlined"
-                  value={profile.lastName}
+                  value={basics.lastName}
                   onChange={(e) => {
-                    changeKey("lastName", e.target.value);
+                    changeBasics("lastName", e.target.value);
                   }}
                   className={classes.textField}
                 />

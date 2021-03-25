@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 import 'firebase/analytics';
-import { collections, fieldList, storages } from '../../constants/firebase';
+import { collections, fieldList } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 import { initProfile, Profile } from '../Profile/ProfileContext';
 import { User } from '../User/UserContext';
@@ -56,8 +56,11 @@ class Firebase {
     // Create the Profile with default values
     this.updateProfile({
       ...initProfile,
-      uid: user.uid,
-      email: user.email,
+      basics: {
+        uid: user.uid,
+        email: user.email,
+      }
+
     })
   }
 
@@ -167,8 +170,8 @@ class Firebase {
   }
 
   updateProfile = (profile: Partial<Profile>) => {
-    if (profile.uid) {
-      this.firestore.collection(collections.profiles).doc(profile.uid)
+    if (profile.basics) {
+      this.firestore.collection(collections.profiles).doc(profile.basics.uid)
         .set(profile, { merge: true })
         .then(function () {
           console.log("User updated successfully");
@@ -230,6 +233,11 @@ class Firebase {
         console.log("Can't get resources ref");
       });
     return res;
+  }
+
+  getDownloadURL = async (path: string) => {
+    const url = await this.storage.ref().child(path).getDownloadURL();
+    return url;
   }
 
   downloadDocument = (path: string, fileName: string) => {
