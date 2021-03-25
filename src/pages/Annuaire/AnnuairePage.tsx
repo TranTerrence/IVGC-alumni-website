@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
 import Banner from "./components/Banner";
-import JobItem from './components/JobItem';
+import UserItem from './components/UserItem';
 import GlobalAppBar from '../../components/GlobalAppBar';
 
 
@@ -61,31 +61,30 @@ export default function AnnuairePage() {
 
   const classes = useStyles();
   //HOOKS
-  const [jobList, setJobList] = useState([]); //Job list to show eventually filtered
-  const [nbJobsToShow, setNBJobsToShow] = useState(20);
+  const [userList, setUserList] = useState([]); //Job list to show eventually filtered
+  const [nbUsersToShow, setNBUsersToShow] = useState(20);
 
-  const [fullJobList, setFullJobList] = useState([]); // The whole jobList without filtering
+  const [fullUserList, setFullUserList] = useState([]); // The whole jobList without filtering
   const [isLoading, setIsLoading] = useState(true);
 
   // This effect runs one time for each session
   useEffect(() => {
     setIsLoading(true);
-    async function getJobList() {
-      const jobsRef = db.collection('profiles');
-      const snapshot = await jobsRef.get();
+    async function getUserList() {
+      const usersRef = db.collection('profiles');
+      const snapshot = await usersRef.get();
 
-      let joblist = [];
+      let userlist = [];
       snapshot.forEach(doc => {
-        let job = doc.data();
-        job.id = doc.id;
-        joblist.push(job);
+        let user = doc.data();
+        user.id = doc.id;
+        userlist.push(user);
       });
-      setJobList(joblist);
-      setFullJobList(joblist);
+      setUserList(userlist);
+      setFullUserList(userlist);
       setIsLoading(false);
     }
-    getJobList();
-    console.log("Job list", jobList)
+    getUserList();
   }, [db]);
 
 
@@ -104,34 +103,34 @@ export default function AnnuairePage() {
         spacing={2}
       >
         <Grid item xs={12} justify="center" container alignItems='center' >
-          <Banner fullJobList={fullJobList} jobList={jobList} setJobList={setJobList} setIsLoading={setIsLoading} />
+          <Banner fullUserList={fullUserList} userList={userList} setUserList={setUserList} setIsLoading={setIsLoading} />
 
         </Grid>
 
-        {(jobList === undefined || isLoading)
+        {(userList === undefined || isLoading)
           ? null
           : <Grid item xs={12} justify="center" container alignItems='center' >
             <Typography variant="h5" className={classes.nbResult}   >
-              {jobList.length + " résultat(s)"}
+              {userList.length + " résultat(s)"}
             </Typography></Grid>
         }
 
 
-        {(jobList === undefined || isLoading)
+        {(userList === undefined || isLoading)
           ? <Grid item xs={12} container justify="center"><CircularProgress color='secondary' /></Grid>
-          : jobList.reverse().slice(0, nbJobsToShow).map((job) => ( //Reverse to change the order and put the last published on top
-            <Grid item xs={12} key={job.id} justify="center" container >
-              <JobItem jobOffer={job} />
+          : userList.reverse().slice(0, nbUsersToShow).map((user) => ( //Reverse to change the order and put the last published on top
+            <Grid item xs={12} key={user.id} justify="center" container >
+              <UserItem User={user} />
             </Grid>))
         }
-        {(nbJobsToShow < jobList.length)
+        {(nbUsersToShow < userList.length)
 
           ? <Grid item xs={12} container justify="center">
             <Button color='secondary' onClick={() => {
-              const NBjobsToLoad = 20;
-              if (nbJobsToShow + NBjobsToLoad < jobList.length)
-                setNBJobsToShow(nbJobsToShow + 20);
-              else setNBJobsToShow(jobList.length);
+              const NBusersToLoad = 20;
+              if (nbUsersToShow + NBusersToLoad < userList.length)
+                setNBUsersToShow(nbUsersToShow + 20);
+              else setNBUsersToShow(userList.length);
 
             }}>Load more</Button>
           </Grid>

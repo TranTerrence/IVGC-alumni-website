@@ -61,14 +61,14 @@ const useStyles = makeStyles(theme => ({
     typoDepartment: {
         fontSize: 12,
     },
-    typoJob: {
+    typoUser: {
         color: theme.palette.secondary.main,
         fontWeight: 700,
     },
 }));
 
-export default function JobItem({ jobOffer }) {
-    console.log("JobOffer", jobOffer)
+export default function UserItem({ User }) {
+    console.log("User", User)
     const [expanded, setExpanded] = useState(false); //Expand if its last 
     const classes = useStyles();
 
@@ -80,28 +80,28 @@ export default function JobItem({ jobOffer }) {
 
                 <Grid item md={3}>
                     <Typography color='textSecondary' align="center">
-                        {jobOffer.basics.firstName + " " + jobOffer.basics.lastName}
+                        {User.basics.firstName + " " + User.basics.lastName}
                     </Typography>
                     <Typography align='center' className={classes.typoDepartment}  >
-                        {"Promotion " + jobOffer.basics.promotion}
+                        {"Promotion " + User.basics.promotion}
                     </Typography>
                 </Grid>
 
                 <Grid item md={6} xs={12}>
                     {
-                        jobOffer.educations.length > 0
-                            ? jobOffer.educations.map(education =>
-                                <Typography color='secondary' className={classes.typoJob} align='center'>
+                        User.educations.length > 0
+                            ? User.educations.map(education =>
+                                <Typography color='secondary' className={classes.typoUser} align='center'>
                                     {education.institution}
                                 </Typography>)
-                            : <Typography color='secondary' className={classes.typoJob} align='center'>Non renseigné</Typography>
+                            : <Typography color='secondary' className={classes.typoUser} align='center'>Non renseigné</Typography>
                     }
                 </Grid>
 
                 <Grid item container md={2} direction="column">
                     <Grid item md={12}>
                         <ul>
-                            {jobOffer.educations.map(education =>
+                            {User.educations.map(education =>
                                 <Typography align='center' className={classes.typoDepartment}  >
                                     {education.area}
                                 </Typography>
@@ -126,18 +126,18 @@ export default function JobItem({ jobOffer }) {
                             <Box marginLeft={4} marginRight={4}>
                                 <div
                                     dangerouslySetInnerHTML={{
-                                        __html: jobOffer.about_position
+                                        __html: User.about_position
                                     }}>
                                 </div>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography color='#fff'>
-                                {jobOffer.basics.email}
+                                {User.basics.email}
                             </Typography>
                             <Grid container direction="column" >
                                 {
-                                    jobOffer.educations.map(education =>
+                                    User.educations.map(education =>
                                         <>
                                             <Grid item xs container direction="column" spacing={2}>
                                                 <Typography gutterBottom variant="subtitle1">

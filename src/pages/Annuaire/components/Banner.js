@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Banner({ fullJobList, jobList, setJobList, setIsLoading }) {
+export default function Banner({ fullUserList, userList, setUserList, setIsLoading }) {
 
     const classes = useStyles();
     const [citySelected, setCitySelected] = React.useState([]);
@@ -48,21 +48,20 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     const [department, setDepartment] = React.useState('');
     const [promo, setPromo] = React.useState('');
 
-    let locationList = fullJobList.flatMap(job => job.educations.map(education => education.location.city));
+    let locationList = fullUserList.flatMap(user => user.educations.map(education => education.location.city));
     locationList = [...new Set(locationList)].sort();
 
-    let departmentList = fullJobList.flatMap(job => job.educations.map(education => education.institution));
+    let departmentList = fullUserList.flatMap(user => user.educations.map(education => education.institution));
     departmentList = [...new Set(departmentList)].sort();
 
-    let promoList = fullJobList.flatMap(job => job.basics.promotion);
+    let promoList = fullUserList.flatMap(user => user.basics.promotion);
     promoList = [...new Set(promoList)].sort();
 
     console.log("departmentlist", departmentList)
 
-    // On change on those values, execute filterJob
     useEffect(() => {
         setIsLoading(true);
-        filterJobList(); // This is be executed when `loading` state changes
+        filterUserList(); // This is be executed when `loading` state changes
         setIsLoading(false);
     }, [promo, citySelected, department]);
 
@@ -133,8 +132,8 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
         );
     }
 
-    const checkCityInside = function (job) {
-        for (const elem of job.educations) {
+    const checkCityInside = function (user) {
+        for (const elem of user.educations) {
             if (elem.location.city.includes(citySelected)) {
                 return true
             }
@@ -142,8 +141,8 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
         return false
     }
 
-    const checkSchoolInside = function (job) {
-        for (const elem of job.educations) {
+    const checkSchoolInside = function (user) {
+        for (const elem of user.educations) {
             if (elem.institution.includes(department)) {
                 return true
             }
@@ -152,17 +151,16 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
     }
 
 
-    const filterJobList = async function () {
-        let filteredJobList = await fullJobList.filter(job => {
-            console.log("JOB : ", job)
+    const filterUserList = async function () {
+        let filteredUserList = await fullUserList.filter(user => {
             return (
-                (citySelected === '' || checkCityInside(job))
-                && (department === '' || checkSchoolInside(job))
-                && (promo === '' || job.basics.promotion === promo)
+                (citySelected === '' || checkCityInside(user))
+                && (department === '' || checkSchoolInside(user))
+                && (promo === '' || user.basics.promotion === promo)
             );
         });
         console.log('filtered by ', promo, citySelected, department);
-        setJobList(filteredJobList);
+        setUserList(filteredUserList);
     }
 
 
@@ -179,7 +177,7 @@ export default function Banner({ fullJobList, jobList, setJobList, setIsLoading 
                     {selectDepartment(classes)}
                 </Grid>
                 <Grid item md={3}>
-                    <Typography className={classes.resultTypo} align='center'>{jobList.length.toString() + " resultats "}</Typography>
+                    <Typography className={classes.resultTypo} align='center'>{userList.length.toString() + " resultats "}</Typography>
                 </Grid>
             </Grid>
         </Paper>

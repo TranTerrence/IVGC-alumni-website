@@ -23,6 +23,7 @@ import ResourcesPage from './pages/ResourcesPage';
 import PasswordForgetPage from './pages/PasswordForgetPage';
 import EditProfilePage from './pages/EditProfilePage';
 import LoadingPage from './pages/LoadingPage';
+
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
