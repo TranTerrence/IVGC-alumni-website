@@ -78,7 +78,12 @@ export default function AnnuairePage() {
         let user = doc.data();
         user.id = doc.id;
         if (user.educations) {
-          userlist.push(user);
+          for (const elem of user.educations) {
+            if (elem.institution) {
+              userlist.push(user);
+              break;
+            }
+          }
         }
       });
       setUserList(userlist);
