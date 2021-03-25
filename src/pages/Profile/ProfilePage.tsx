@@ -3,13 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { EducationType, ProfileContext } from '../../components/Profile/ProfileContext';
-import { ConstantContext, Field } from '../../components/Firebase/ConstantContext';
+import { Field } from '../../components/Firebase/ConstantContext';
 import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../../components/Firebase';
-import { Button, Paper } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Paper } from '@material-ui/core';
 import GlobalAppBar from '../../components/GlobalAppBar';
-import * as ROUTES from '../../constants/routes';
 import { Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent } from '@material-ui/lab';
 
 
@@ -18,14 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
   },
-  paper2: {
-    padding: '6px 16px',
-  },
-  secondaryTail: {
-    backgroundColor: theme.palette.secondary.main,
-  },
   oppositeContent: {
-    // TODO: adjust this value accordingly
     flex: 0,
   }
 }));
@@ -35,10 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
-  const { basics, profileMeta, educations, setProfile } = useContext(ProfileContext);
-  const fieldList = useContext(ConstantContext);
+  const { basics, educations, setProfile } = useContext(ProfileContext);
 
-  console.log("FIELD LIST", fieldList);
   // Sync the data with the context
   // TODO: Optimization fetch only if context is empty
   useEffect(() => {
