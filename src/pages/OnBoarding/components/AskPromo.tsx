@@ -41,8 +41,6 @@ export const AskPromo = () => {
           <Grid item container direction="column" xs>
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >De quelle promotion es-tu?</Typography>
-
-
             <PromoForm />
             <Grid item>
               <ButtonNext />

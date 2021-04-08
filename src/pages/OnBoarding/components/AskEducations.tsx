@@ -7,10 +7,11 @@ import { MASCOT_NAME } from "../../../constants/names";
 import Fade from "@material-ui/core/Fade";
 import { MascotAvatar } from "../../../components/MascotAvatar";
 import AddIcon from '@material-ui/icons/Add';
-import { EducationForm } from "../../../components/EducationForm";
+
 
 import Button from "@material-ui/core/Button/Button";
 import { EducationType, initEducation, ProfileContext } from "../../../components/Profile/ProfileContext";
+import { EducationForms } from "../../../components/Forms/EducationForms";
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     '& .MuiOutlinedInput-root': {
@@ -76,15 +77,7 @@ export const AskEducations = () => {
           <Grid item container direction="column" xs >
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
             <Typography variant="body2" >Qu'as-tu fais après l'institut ?</Typography>
-            {
-              educations && educations.map((education, index) =>
-                <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
-              )
-            }
-            <Grid item container justify="center" >
-              <Button onClick={addEducation} color="primary" variant="outlined"
-                startIcon={<AddIcon />}>Ajouter une formation</Button>
-            </Grid>
+            <EducationForms/>
             <Grid item>
               <ButtonLast />
             </Grid>
