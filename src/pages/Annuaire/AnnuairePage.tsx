@@ -100,7 +100,7 @@ export default function AnnuairePage() {
 
     <React.Fragment>
       <GlobalAppBar />
-      <TitlePage title="Annuaire des Alumnis" />
+      <TitlePage title="Annuaire des Alumni" />
       <CssBaseline />
       <Grid
         container
