@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Banner from "./components/Banner";
 import UserItem from './components/UserItem';
 import GlobalAppBar from '../../components/GlobalAppBar';
+import TitlePage from '../../components/TitlePage';
 
 const useStyles = makeStyles(theme => ({
 
@@ -99,6 +100,7 @@ export default function AnnuairePage() {
 
     <React.Fragment>
       <GlobalAppBar />
+      <TitlePage title="Annuaire des Alumnis" />
       <CssBaseline />
       <Grid
         container
