@@ -15,20 +15,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function EducationTimeLine({ educations }: { educations }) {
+export default function EducationTimeLine({ educations, size = 'h5' }: { educations, size }) {
   return (<Timeline align="left" >
     {educations && educations.map(education =>
-      <EducationTimelineItem education={education} />
+      <EducationTimelineItem education={education} size={size} />
     )}
   </Timeline>)
 };
 
-function EducationTimelineItem({ education }: { education: EducationType }) {
+function EducationTimelineItem({ education, size = 'h5' }: { education: EducationType, size?: string }) {
   const classes = useStyles();
   return (
     <TimelineItem>
       <TimelineOppositeContent className={classes.oppositeContent}>
-        <Typography align="center" variant="body2" color="textSecondary">
+        <Typography align="center" variant="body2" color="textSecondary" >
           {education?.endDate?.toDate().getFullYear() + " - " + education?.startDate?.toDate().getFullYear()}
         </Typography>
       </TimelineOppositeContent>
@@ -37,7 +37,7 @@ function EducationTimelineItem({ education }: { education: EducationType }) {
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <Typography variant="h5">{education.institution + " | " + education.studyType}</Typography>
+        <Typography variant={size}>{education.institution + " | " + education.studyType}</Typography>
         {education.fields && education.fields.map((item: Field) =>
           <Chip label={item.field} />
         )}

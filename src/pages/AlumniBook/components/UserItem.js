@@ -8,6 +8,9 @@ import Box from "@material-ui/core/Box";
 import 'firebase/analytics';
 import { palette } from '../../../constants/colors'
 import EducationTimeline from '../../../components/EducationTimeline';
+import Divider from '@material-ui/core/Divider';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -71,7 +74,6 @@ export default function UserItem({ User }) {
     console.log("User", User)
     const [expanded, setExpanded] = useState(false); //Expand if its last 
     const classes = useStyles();
-
     return (
         <Card spacing={2} className={classes.card}>
             <Grid container spacing={2}
@@ -131,15 +133,24 @@ export default function UserItem({ User }) {
                                 </div>
                             </Box>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Typography color='#fff'>
-                                {User.basics ? User.basics.email : "Undefined"}
-                            </Typography>
+                        <Grid item xs={12} >
+                            <Button
+                                variant="contained"
+                                color="default"
+                                startIcon={<ContactMailIcon></ContactMailIcon>}
+                                href={User.basics ? "mailto:" + User.basics.email : "Undefined"}
+                            >
+                                {User.basics ? "Contacter " + User.basics.firstName + " " + User.basics.lastName : "Undefined"}
+                            </Button>
+                            <Divider style={{ width: '100%' }} />
                             <Grid container direction="column" >
                                 {
                                     User.educations ?
-                                        <EducationTimeline educations={User.educations} />
-                                        : "Undefined"}
+                                        <EducationTimeline
+                                            educations={User.educations}
+                                            size="subtitle2" />
+                                        : "Undefined"
+                                }
                             </Grid>
                             <IconButton onClick={() => setExpanded(!expanded)} className={clsx(classes.expand, {
                                 [classes.expandOpen]: expanded,
