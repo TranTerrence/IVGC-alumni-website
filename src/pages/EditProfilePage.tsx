@@ -29,7 +29,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   mail: {
     marginBottom: theme.spacing(3),
-  }
+  },
+  promotypo: {
+    marginTop: theme.spacing(3),
+  },
+  gridelm: {
+    marginRight: theme.spacing(3)
+  },
 }));
 
 
@@ -66,14 +72,17 @@ export default function EditProfilePage() {
           <Typography variant="h4" className={classes.names}>{basics.firstName + " " + basics.lastName + " - Promotion " + basics.promotion}
           </Typography>
           <Typography className={classes.mail}>{basics.email}</Typography>
+        </Paper>
+
+        <Paper className={classes.paper}>
           <Grid container>
-          <FirstnameForm/>
-          <LastnameForm/>
-          <BirthdayForm/>
-          <Typography variant = 'h5'>Promotion</Typography>
-          <PromoForm />
-          <EducationForms/>
-        </Grid>
+            <FirstnameForm/>
+            <LastnameForm/>
+            <BirthdayForm/>
+            <Typography variant = 'h6' className={classes.promotypo}>Promotion</Typography>
+            <PromoForm/>
+            <EducationForms/>
+          </Grid>
         </Paper>
         <Grid>
           <ButtonCancel/>
