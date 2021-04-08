@@ -55,7 +55,7 @@ function App() {
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
         <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.MY_PROFILE} />
-        <Route path={ROUTES.ANNUAIRE_PAGE} component={AnnuairePage} />
+        <LoggedInRoute path={ROUTES.ANNUAIRE_PAGE} component={AnnuairePage} />
       </Router>
       <Footer />
     </ThemeProvider >

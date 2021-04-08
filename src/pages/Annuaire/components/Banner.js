@@ -47,6 +47,7 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
 
     const [department, setDepartment] = React.useState('');
     const [promo, setPromo] = React.useState('');
+    const [field, setField] = React.useState("");
 
     let locationList = fullUserList.flatMap(user => user.educations.flatMap(education => education.location ? education.location.city : null));
     locationList = [...new Set(locationList)].sort();
@@ -57,13 +58,16 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
     let promoList = fullUserList.flatMap(user => user.basics.promotion ? user.basics.promotion : []);
     promoList = [...new Set(promoList)].sort();
 
-    console.log("departmentlist", departmentList)
+    let fieldList = fullUserList.flatMap(user => user.educations.flatMap(education => education.area ? education.area : null));
+    fieldList = [...new Set(fieldList)].sort();
+
+    console.log("fieldlist", fieldList)
 
     useEffect(() => {
         setIsLoading(true);
         filterUserList(); // This is be executed when `loading` state changes
         setIsLoading(false);
-    }, [promo, citySelected, department]);
+    }, [promo, citySelected, department, field]);
 
     const selectPromo = function (classes) {
         return (
@@ -132,6 +136,28 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
         );
     }
 
+    const selectField = function (classes) {
+        return (
+            <FormControl className={classes.formControl}>
+                <InputLabel id="label-field" className={classes.inputLabel} >Domaine</InputLabel>
+                <Select
+                    labelId="label-field"
+                    id="field-select"
+                    disableUnderline
+                    value={field}
+                    onChange={event => {
+                        setField(event.target.value);
+                    }}
+                >
+                    <MenuItem value={''}>Tout les domaines</MenuItem>
+                    {fieldList.map(field =>
+                        <MenuItem key={field} value={field}>{field}</MenuItem>)
+                    }
+                </Select>
+            </FormControl>
+        );
+    }
+
     const checkCityInside = function (user) {
 
         for (const elem of user.educations) {
@@ -152,12 +178,22 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
         return false
     }
 
+    const checkFieldInside = function (user) {
+
+        for (const elem of user.educations) {
+            if (elem.area.includes(field)) {
+                return true
+            }
+        }
+        return false
+    }
 
     const filterUserList = async function () {
         let filteredUserList = await fullUserList.filter(user => {
             return (
                 (citySelected === '' || checkCityInside(user))
                 && (department === '' || checkSchoolInside(user))
+                && (field === '' || checkFieldInside(user))
                 && (promo === '' || user.basics.promotion === promo)
             );
         });
@@ -177,6 +213,9 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
                 </Grid>
                 <Grid item xs={6} md={3}>
                     {selectDepartment(classes)}
+                </Grid>
+                <Grid item xs={6} md={3}>
+                    {selectField(classes)}
                 </Grid>
                 <Grid item md={3}>
                     <Typography className={classes.resultTypo} align='center'>{userList.length.toString() + " resultats "}</Typography>
