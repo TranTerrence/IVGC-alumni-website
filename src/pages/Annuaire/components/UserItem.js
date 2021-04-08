@@ -141,6 +141,12 @@ export default function UserItem({ User }) {
                                         <EducationTimeline educations={User.educations} />
                                         : "Undefined"}
                             </Grid>
+                            <IconButton onClick={() => setExpanded(!expanded)} className={clsx(classes.expand, {
+                                [classes.expandOpen]: expanded,
+                            })} aria-expanded={expanded}
+                                aria-label="Show more">
+                                <ExpandMoreIcon />
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Collapse>
