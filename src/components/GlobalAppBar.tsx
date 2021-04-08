@@ -76,7 +76,7 @@ export default function GlobalAppBar() {
     return (
       <div>
         <Button color='inherit' onClick={handleMenu}
-          endIcon={<Avatar />}>
+          endIcon={<Avatar alt={basics.firstName} src={basics?.picture} />}>
           {basics.firstName}
         </Button>
         <Menu

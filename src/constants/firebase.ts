@@ -187,4 +187,5 @@ export const fieldList = [
 
 export const storages = {
   resources: "resources",
+  profilePics: "profilePics"
 }
