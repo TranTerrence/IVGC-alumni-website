@@ -7,10 +7,8 @@ import { FirebaseContext } from '../components/Firebase';
 import { useEffect } from 'react';
 import TitlePage from '../components/TitlePage';
 
-
 export default function HomePage() {
   const firebase = useContext(FirebaseContext);
-
   const [imgURL, setImgURL] = useState("");
   useEffect(() => {
     const fetchImage = async () => {
@@ -26,8 +24,7 @@ export default function HomePage() {
   return (
     <>
       <GlobalAppBar />
-      <TitlePage title="Bienvenue sur le site de la communauté" />
-
+      <TitlePage title=" Bienvenue sur le site de la communauté des anciens élèves de l'institut Villebon - Georges Charpak" />
       <Container component="main" maxWidth="md">
         <Typography variant="h2" color="secondary">Présentation</Typography>
         <Grid container direction="row" spacing={2}>
