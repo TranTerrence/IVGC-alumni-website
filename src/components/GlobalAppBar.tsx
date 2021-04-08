@@ -125,11 +125,11 @@ export default function GlobalAppBar() {
       }
       {isVerified
         &&
-        <Button color='inherit' component={Link} to={ROUTES.ANNUAIRE_PAGE}>
-            Annuaire
+        <Button color='inherit' component={Link} to={ROUTES.ALUMNI_BOOK_PAGE}>
+          Annuaire
         </Button>
       }
-      
+
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>

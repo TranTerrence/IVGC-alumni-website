@@ -13,4 +13,4 @@ export const WRITE_ARTICLE_PAGE = '/write_article';
 export const CONTACT = '/contact';
 export const ONBOARDING = '/onboarding';
 export const RESOURCES = '/resources';
-export const ANNUAIRE_PAGE = '/annuaire';
+export const ALUMNI_BOOK_PAGE = '/yearbook';

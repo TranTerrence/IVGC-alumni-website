@@ -15,7 +15,7 @@ import * as ROUTES from './constants/routes';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
-import AnnuairePage from './pages/Annuaire/AnnuairePage';
+import AlumniBookPage from './pages/AlumniBook/AlumniBookPage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';
@@ -55,7 +55,7 @@ function App() {
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
         <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.MY_PROFILE} />
-        <LoggedInRoute path={ROUTES.ANNUAIRE_PAGE} component={AnnuairePage} />
+        <LoggedInRoute path={ROUTES.ALUMNI_BOOK_PAGE} component={AlumniBookPage} />
       </Router>
       <Footer />
     </ThemeProvider >
