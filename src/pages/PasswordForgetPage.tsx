@@ -18,6 +18,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Divider from '@material-ui/core/Divider';
+
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(4),
