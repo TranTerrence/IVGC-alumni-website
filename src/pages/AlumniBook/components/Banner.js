@@ -67,6 +67,7 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
         setIsLoading(true);
         filterUserList(); // This is be executed when `loading` state changes
         setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [promo, citySelected, department, field]);
 
     const selectPromo = function (classes) {
