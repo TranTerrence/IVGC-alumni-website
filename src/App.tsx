@@ -22,7 +22,6 @@ import { frFR } from '@material-ui/core/locale';
 import ResourcesPage from './pages/ResourcesPage';
 import PasswordForgetPage from './pages/PasswordForgetPage';
 import EditProfilePage from './pages/EditProfilePage';
-import LoadingPage from './pages/LoadingPage';
 
 const theme = createMuiTheme({
   typography: {
@@ -80,7 +79,7 @@ const LoggedInRoute = ({ component, redirectPath, path, ...rest }: { component: 
       : <Redirect to={{ pathname: redirectPath }} />
   );
   return isLoading
-    ? <LoadingPage />
+    ? null//<LoadingPage />
     : < Route {...rest} path={path} render={routeComponent} />
 }
 
@@ -112,7 +111,7 @@ const AdminRoute = ({ component, redirectPath, path, ...rest }: { component: Rea
       : <Redirect to={{ pathname: redirectPath }} />
   );
   return isLoading
-    ? <LoadingPage />
+    ? null//<LoadingPage />
     : <Route {...rest} path={path} render={routeComponent} />;
 }
 

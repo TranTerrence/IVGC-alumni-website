@@ -11,6 +11,7 @@ import EducationTimeline from '../../../components/EducationTimeline';
 import Divider from '@material-ui/core/Divider';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -68,6 +69,10 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.secondary.main,
         fontWeight: 700,
     },
+    userPic: {
+        height: theme.spacing(8),
+        width: theme.spacing(8),
+      }
 }));
 
 export default function UserItem({ User }) {
@@ -79,17 +84,21 @@ export default function UserItem({ User }) {
             <Grid container spacing={2}
                 justify="center"
                 alignItems="center">
+                <Grid item md={1}>
+                <Avatar alt={User.basics.firstName} src={User.basics.picture} className={classes.userPic} >{User.basics ? User?.basics?.firstName?.charAt(0) : null}</Avatar>
+
+                </Grid>
 
                 <Grid item md={3}>
                     <Typography color='textSecondary' align="center">
-                        {User.basics ? User.basics.firstName + " " + User.basics.lastName : "Undefined"}
+                        {User.basics ? User.basics.firstName + " " + User.basics.lastName : "Inconnu(e)"}
                     </Typography>
                     <Typography align='center' className={classes.typoDepartment}  >
-                        {User.basics ? "Promotion " + User.basics.promotion : "Undefined"}
+                        {User.basics ? "Promotion " + User.basics.promotion : "Inconnu(e)"}
                     </Typography>
                 </Grid>
 
-                <Grid item md={6} xs={12}>
+                <Grid item md={5} xs={12}>
                     {
                         User.educations ? User.educations.length > 0
                             ? User.educations.map(education =>

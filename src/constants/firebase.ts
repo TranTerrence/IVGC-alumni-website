@@ -8,6 +8,7 @@ export const collections = {
 
 export const storages = {
   resources: "resources",
+  profilePics: "profilePics"
 }
 
 export const constants = {

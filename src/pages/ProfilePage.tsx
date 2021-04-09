@@ -6,7 +6,7 @@ import { ProfileContext } from '../components/Profile/ProfileContext';
 import { ConstantContext, Field } from '../components/Firebase/ConstantContext';
 import Chip from '@material-ui/core/Chip';
 import { FirebaseContext } from '../components/Firebase';
-import { Button, Paper } from '@material-ui/core';
+import { Avatar, Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import GlobalAppBar from '../components/GlobalAppBar';
 import * as ROUTES from '../constants/routes';
@@ -51,6 +51,7 @@ export default function ProfilePage() {
 
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>
+          <Avatar alt={basics.firstName} src={basics?.picture} />
           <Typography variant="h4">{basics?.firstName + " " + basics?.lastName + " - Promotion " + basics?.promotion}
           </Typography>
           <Button color='inherit' component={Link} to={ROUTES.EDIT_PROFILE}>
