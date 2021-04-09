@@ -4,6 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent } from '@material-ui/lab';
 import Chip from '@material-ui/core/Chip';
+import { EducationType } from './Profile/ProfileContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function EducationTimeLine({ educations, size = 'h5' }: { educations, size }) {
+export default function EducationTimeLine({ educations, size = 'h5' }: { educations: Array<EducationType>, size?: string }) {
   return (<Timeline align="left" >
     {educations && educations.map(education =>
       <EducationTimelineItem education={education} size={size} />

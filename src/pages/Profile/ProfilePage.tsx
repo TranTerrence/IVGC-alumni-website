@@ -4,9 +4,10 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../../components/Profile/ProfileContext';
 import { FirebaseContext } from '../../components/Firebase';
-import { Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import GlobalAppBar from '../../components/GlobalAppBar';
 import EducationTimeline from '../../components/EducationTimeline';
+import Avatar from '@material-ui/core/Avatar';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -16,6 +17,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   oppositeContent: {
     flex: 0,
+  },
+  profilePic: {
+    height: theme.spacing(16),
+    width: theme.spacing(16),
   }
 }));
 
@@ -48,8 +53,20 @@ export default function ProfilePage() {
 
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>
-          <Typography variant="h4">{basics?.firstName + " " + basics?.lastName + " - Promotion " + basics?.promotion}
-          </Typography>
+          <Grid container direction="row">
+            <Grid item xs={2}>
+              <Avatar alt={basics.firstName} src={basics?.picture} className={classes.profilePic} />
+            </Grid>
+            <Grid container item direction="column" xs={10}>
+              <Typography variant="h4">{basics?.firstName + " " + basics?.lastName}</Typography>
+              <Typography variant="h6">{"Promotion " + basics?.promotion}
+              </Typography>
+
+            </Grid>
+
+
+          </Grid>
+
         </Paper>
         <Paper className={classes.paper}>
           <Typography variant="h4">{"Formation"}</Typography>
