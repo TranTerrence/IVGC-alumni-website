@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent } from '@material-ui/lab';
 import Chip from '@material-ui/core/Chip';
 import { EducationType } from './Profile/ProfileContext';
+import { Field } from './Firebase/ConstantContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -16,7 +17,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function EducationTimeLine({ educations, size = 'h5' }: { educations: Array<EducationType>, size?: string }) {
+type typographyVariant = "inherit" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "caption" | "button" | "overline" | "srOnly" | undefined;
+
+
+export default function EducationTimeLine({ educations, size = 'h5' }: { educations: Array<EducationType>, size?: typographyVariant }) {
   return (<Timeline align="left" >
     {educations && educations.map(education =>
       <EducationTimelineItem education={education} size={size} />
@@ -24,7 +28,7 @@ export default function EducationTimeLine({ educations, size = 'h5' }: { educati
   </Timeline>)
 };
 
-function EducationTimelineItem({ education, size = 'h5' }: { education: EducationType, size?: string }) {
+function EducationTimelineItem({ education, size = 'h5' }: { education: EducationType, size?: typographyVariant }) {
   const classes = useStyles();
   return (
     <TimelineItem>
