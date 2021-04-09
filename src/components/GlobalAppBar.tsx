@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
@@ -11,18 +9,18 @@ import FirebaseContext from './Firebase/context';
 import LogOutButton from './SignOutButton';
 import { ProfileContext } from './Profile/ProfileContext';
 import Avatar from '@material-ui/core/Avatar';
-import { Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      flexGrow: 1,
-      textAlign: "left"
+    white: {
+      color: 'white',
+      backgroundColor: 'white',
+      padding: theme.spacing(0.3),
     },
-    titleCenter: {
+    fill: {
       flexGrow: 1,
-      textAlign: "center"
-    }
+    },
   }),
 );
 
@@ -105,10 +103,7 @@ export default function GlobalAppBar() {
 
   const AppBarAuth = ({ isVerified }: { isVerified: boolean }) => (
     <Toolbar>
-      <TitleAlumni />
-      <Button color='inherit' component={Link} to={ROUTES.HOME}>
-        Home
-          </Button>
+      <LogoAlumni />
       <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
         Actualité
           </Button>
@@ -123,9 +118,17 @@ export default function GlobalAppBar() {
           Ecrire un article
            </Button>
       }
+      {isVerified
+        &&
+        <Button color='inherit' component={Link} to={ROUTES.ALUMNI_BOOK_PAGE}>
+          Annuaire
+        </Button>
+      }
+
       <Button color='inherit' component={Link} to={ROUTES.FAQ}>
         FAQ
           </Button>
+      <SpaceFill />
       {
         isAdmin
           ? <Button color='inherit' component={Link} to={ROUTES.ADMIN}>
@@ -142,7 +145,7 @@ export default function GlobalAppBar() {
 
   if (isLoading) {
     return (<AppBar position="static">
-      <TitleAlumni />
+      <LogoAlumni />
 
     </AppBar>);
   }
@@ -158,31 +161,33 @@ export default function GlobalAppBar() {
   );
 }
 
-const TitleAlumni = () => {
+const LogoAlumni = () => {
   const classes = useStyles();
+  const history = useHistory();
   return (
-    <>
-      <Typography variant="h6" className={classes.title}>
-        Communauté des anciens élèves de l'institut Villebon -
-          <Box fontStyle="italic" display='inline'> Georges Charpak</Box>
-      </Typography>
-    </>
+    <IconButton type="button" onClick={() => history.push(ROUTES.HOME)} >
+      <Avatar className={classes.white} alt="Logo Institut" src="/img/favicon-96x96.png" >
+      </Avatar>
+    </IconButton>
   );
 
 };
 
+const SpaceFill = () => {
+  const classes = useStyles();
+  return (
+    <div className={classes.fill} />
+  );
+};
 
 const AppBarNonAuth = () => (
   <Toolbar>
-    <TitleAlumni />
-    <Button color='inherit' component={Link} to={ROUTES.HOME}>
-      Home
+    <LogoAlumni />
+    <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
+      Actualité
         </Button>
     <Button color='inherit' component={Link} to={ROUTES.RESOURCES}>
       Ressources
-        </Button>
-    <Button color='inherit' component={Link} to={ROUTES.ACTU_PAGE}>
-      Actualité
         </Button>
     <Button color='inherit' component={Link} to={ROUTES.CONTACT}>
       Contact
@@ -190,6 +195,7 @@ const AppBarNonAuth = () => (
     <Button color='inherit' component={Link} to={ROUTES.FAQ}>
       FAQ
         </Button>
+    <SpaceFill />
     <Button color='inherit' component={Link} to={ROUTES.SIGN_IN}>
       Se connecter
         </Button>

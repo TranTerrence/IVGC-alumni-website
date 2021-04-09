@@ -137,7 +137,7 @@ export default function ResourcesPage() {
   return (
     <>
       <GlobalAppBar />
-      <TitlePage title="Resources" />
+      <TitlePage title="Ressources" />
 
       <Container>
         <Typography variant="body1">Retrouvez ici tous les documents de l'association.</Typography>
