@@ -5,7 +5,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
-import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 
 
@@ -218,9 +217,7 @@ export default function Banner({ fullUserList, userList, setUserList, setIsLoadi
                 <Grid item xs={6} md={3}>
                     {selectField(classes)}
                 </Grid>
-                <Grid item md={3}>
-                    <Typography className={classes.resultTypo} align='center'>{userList.length.toString() + " resultats "}</Typography>
-                </Grid>
+                
             </Grid>
         </Paper>
     );
