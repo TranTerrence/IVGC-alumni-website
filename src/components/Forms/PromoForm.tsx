@@ -1,13 +1,6 @@
-import { Grid, makeStyles, MenuItem, Select, Theme, Typography } from "@material-ui/core";
+import { Grid, MenuItem, Select, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../Profile/ProfileContext";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  form: {
-    minWidth: theme.spacing(16),
-  }
-}));
-
 
 export default function PromoForm() {
   const { basics, changeBasics } = useContext(ProfileContext);
@@ -20,7 +13,6 @@ export default function PromoForm() {
     }
     return promoItems;
   }
-
   return (
     <Grid container direction="row" spacing={2} alignItems="center">
       <Grid item>

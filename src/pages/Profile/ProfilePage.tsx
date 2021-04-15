@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import EditIcon from '@material-ui/icons/Edit';
 
-
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -34,13 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-
-
 export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { basics, educations, setProfile } = useContext(ProfileContext);
-
   // Sync the data with the context
   // TODO: Optimization fetch only if context is empty
   useEffect(() => {
@@ -60,13 +56,11 @@ export default function ProfilePage() {
   return (
     <>
       <GlobalAppBar />
-
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>
           <Grid container direction="row">
             <Grid item xs={2}>
               <Avatar alt={basics.firstName} src={basics?.picture} className={classes.profilePic} />
-
             </Grid>
             <Grid container item direction="column" xs={7} className={classes.name}>
               <Typography variant="h4">{basics?.firstName + " " + basics?.lastName}</Typography>
@@ -78,10 +72,7 @@ export default function ProfilePage() {
                 Modifier mon profile
               </Button>
             </Grid>
-
-
           </Grid>
-
         </Paper>
         <Paper className={classes.paper}>
           <Typography variant="h4">{"Formation"}</Typography>

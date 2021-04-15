@@ -1,6 +1,5 @@
-import { Box, Grid, Typography, MenuItem, Select } from "@material-ui/core";
-import React, { useContext } from "react";
-import { ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Box, Grid, Typography } from "@material-ui/core";
+import React from "react";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
@@ -27,8 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: theme.spacing(6),
   }
 }));
-
-
 export const AskPromo = () => {
   const classes = useStyles();
   return (

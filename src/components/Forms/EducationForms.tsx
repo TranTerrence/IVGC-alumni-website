@@ -14,26 +14,21 @@ import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 
 export const EducationForms = () => {
   const { educations, setEducations } = useContext(ProfileContext);
-
   if (!educations) {
     const initCPFcopy = { ...initEducation };
     setEducations([initCPFcopy]);
   }
-
   const updateEducation = (index: number, key: keyof EducationType, newValue: any) => {
     let educationsCopy = [...educations];
     educationsCopy[index][key] = newValue;
     setEducations(educationsCopy);
   };
-
   const removeEducation = (index: number) => {
     let educationsCopy = [...educations];
     educationsCopy.splice(index, 1);
     console.log("REMOVE PF");
     setEducations(educationsCopy);
   };
-
-
   const addEducation = () => {
     const initCPFcopy = { ...initEducation };
     setEducations([
@@ -41,10 +36,7 @@ export const EducationForms = () => {
       initCPFcopy,
     ]);
   };
-
-
   return (
-
     <Grid container >
       {
         educations && educations.map((education, index) =>
@@ -58,9 +50,6 @@ export const EducationForms = () => {
     </Grid>
   );
 }
-
-
-
 
 const EducationForm = ({ education, updateEducation, removeEducation, index }: { education: EducationType, updateEducation: Function, removeEducation: Function, index: number }) => {
 
@@ -78,15 +67,11 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
       paddingBottom: theme.spacing(2),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-
     },
-
   }));
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const fieldList = useContext(ConstantContext);
-
-
   return (
     <Paper className={classes.paper}>
       <Grid container>
@@ -177,7 +162,6 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
               updateEducation(index, "area", e.target.value);
             }}
             className={classes.textField}
-
           />
         </Grid>
         <Grid item xs={12}>

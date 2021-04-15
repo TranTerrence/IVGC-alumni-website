@@ -39,9 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(3)
   },
 }));
-
-
-
 export default function EditProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
@@ -111,8 +108,6 @@ export default function EditProfilePage() {
     </>
   );
 }
-
-
 const ButtonSave = () => {
   const { profile }: { profile: Profile } = useContext(ProfileContext);
   const classes = useStyles();
@@ -126,13 +121,9 @@ const ButtonSave = () => {
   return (<Button variant="contained" color="primary" className={classes.button}
     onClick={save}>Sauvegarder</Button>);
 }
-
-
 const ButtonCancel = () => {
   const history = useHistory();
   const classes = useStyles();
   return (<Button variant="outlined" color="primary" className={classes.button}
     onClick={() => history.push(ROUTES.MY_PROFILE)}>Annuler</Button>);
 }
-
-
