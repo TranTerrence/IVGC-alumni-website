@@ -21,10 +21,9 @@ export const FirstnameForm = () => {
   
   
     return (
-        <Grid>
-            <TextField
+          <TextField
             margin="normal"
-            //fullWidth
+            fullWidth
             id="firstName"
             label="Prénom"
             name="firstName"
@@ -36,6 +35,5 @@ export const FirstnameForm = () => {
             variant="outlined"
             autoFocus
             className={classes.textField} />
-        </Grid>
     );
 }

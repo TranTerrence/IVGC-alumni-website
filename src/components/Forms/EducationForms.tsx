@@ -13,45 +13,45 @@ import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 
 export const EducationForms = () => {
-    const { educations, setEducations } = useContext(ProfileContext);
+  const { educations, setEducations } = useContext(ProfileContext);
 
-    const updateEducation = (index: number, key: keyof EducationType, newValue: any) => {
-        let educationsCopy = [...educations];
-        educationsCopy[index][key] = newValue;
-        setEducations(educationsCopy);
-    };
-    
-    const removeEducation = (index: number) => {
-        let educationsCopy = [...educations];
-        educationsCopy.splice(index, 1);
-        console.log("REMOVE PF");
-        setEducations(educationsCopy);
-    };
-    
-    
-    const addEducation = () => {
-        const initCPFcopy = { ...initEducation };
-        setEducations([
-        ...educations,
-        initCPFcopy,
-       ]);
-    };
+  const updateEducation = (index: number, key: keyof EducationType, newValue: any) => {
+    let educationsCopy = [...educations];
+    educationsCopy[index][key] = newValue;
+    setEducations(educationsCopy);
+  };
+
+  const removeEducation = (index: number) => {
+    let educationsCopy = [...educations];
+    educationsCopy.splice(index, 1);
+    console.log("REMOVE PF");
+    setEducations(educationsCopy);
+  };
 
 
-    return (
+  const addEducation = () => {
+    const initCPFcopy = { ...initEducation };
+    setEducations([
+      ...educations,
+      initCPFcopy,
+    ]);
+  };
 
-        <Grid container>
-        {
-            educations && educations.map((education, index) =>
-              <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
-            )
-        }
-          <Grid item container justify="center" >
-            <Button onClick={addEducation} color="primary" variant="outlined"
-              startIcon={<AddIcon />}>Ajouter une formation</Button>
-          </Grid>
-        </Grid>
-    );
+
+  return (
+
+    <Grid container >
+      {
+        educations && educations.map((education, index) =>
+          <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
+        )
+      }
+      <Grid item container justify="center" >
+        <Button onClick={addEducation} color="primary" variant="outlined"
+          startIcon={<AddIcon />}>Ajouter une formation</Button>
+      </Grid>
+    </Grid>
+  );
 }
 
 
@@ -59,31 +59,32 @@ export const EducationForms = () => {
 
 const EducationForm = ({ education, updateEducation, removeEducation, index }: { education: EducationType, updateEducation: Function, removeEducation: Function, index: number }) => {
 
-    const useStyles = makeStyles((theme: Theme) => ({
-      textField: {
-        '& .MuiOutlinedInput-root': {
-          '&:hover fieldset': {
-            borderColor: palette.primary.main,
-          },
+  const useStyles = makeStyles((theme: Theme) => ({
+    textField: {
+      '& .MuiOutlinedInput-root': {
+        '&:hover fieldset': {
+          borderColor: palette.primary.main,
         },
       },
-      paper: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-  
-      },
-  
-    }));
-    const classes = useStyles();
-    const firebase = useContext(FirebaseContext);
-    const fieldList = useContext(ConstantContext);
-  
-  
-    return (
-      <Paper className={classes.paper}>
+    },
+    paper: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+
+    },
+
+  }));
+  const classes = useStyles();
+  const firebase = useContext(FirebaseContext);
+  const fieldList = useContext(ConstantContext);
+
+
+  return (
+    <Paper className={classes.paper}>
+      <Grid container>
         <Grid item xs={12}>
           <TextField
             name="school"
@@ -171,7 +172,7 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
               updateEducation(index, "area", e.target.value);
             }}
             className={classes.textField}
-  
+
           />
         </Grid>
         <Grid item xs={12}>
@@ -247,6 +248,7 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
           <Button onClick={(e) => removeEducation(index)} variant="outlined"
             startIcon={<DeleteIcon />}>Supprimer la formation</Button>
         </Grid>
-      </Paper >
-    );
-  }
+      </Grid>
+    </Paper >
+  );
+}

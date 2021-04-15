@@ -12,7 +12,7 @@ export default function SignOutButton({ setIsLoggedIn }: { setIsLoggedIn: Functi
     if (firebase) {
       firebase.doSignOut();
       setIsLoggedIn(false);
-      history.push(ROUTES.SIGN_IN);
+      history.push(ROUTES.HOME);
     }
   }
 

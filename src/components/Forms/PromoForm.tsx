@@ -1,11 +1,16 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { Grid, makeStyles, MenuItem, Select, Theme, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import { ProfileContext } from "../Profile/ProfileContext";
+
+const useStyles = makeStyles((theme: Theme) => ({
+  form: {
+    minWidth: theme.spacing(16),
+  }
+}));
 
 
 export default function PromoForm() {
   const { basics, changeBasics } = useContext(ProfileContext);
-
   const getPromoMenuItems = () => {
     const promoItems = [];
     const thisYear = new Date().getFullYear();
@@ -16,13 +21,22 @@ export default function PromoForm() {
     return promoItems;
   }
 
-  return (<Select
-    labelId="promotion"
-    id="promotion"
-    value={basics.promotion}
-    onChange={(e) => {
-      changeBasics("promotion", e.target.value);
-    }}          >
-    {getPromoMenuItems()}
-  </Select>)
+  return (
+    <Grid container direction="row" spacing={2} alignItems="center">
+      <Grid item>
+        <Typography>Promotion</Typography>
+      </Grid>
+      <Grid item>
+        <Select
+          labelId="promotion"
+          id="promotion"
+          value={basics.promotion}
+          onChange={(e) => {
+            changeBasics("promotion", e.target.value);
+          }}          >
+          {getPromoMenuItems()}
+        </Select>
+      </Grid>
+    </Grid>
+  )
 }

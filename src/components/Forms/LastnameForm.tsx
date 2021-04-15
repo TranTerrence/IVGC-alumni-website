@@ -21,10 +21,9 @@ export const LastnameForm = () => {
   
   
     return (
-        <Grid item xs={6}>
             <TextField
                 name="lastName"
-                //fullWidth
+                fullWidth
                 label="Nom"
                 type="lName"
                 id="lastName"
@@ -36,6 +35,5 @@ export const LastnameForm = () => {
                 } }
                 className={classes.textField} 
             />
-        </Grid>
     );
 }
