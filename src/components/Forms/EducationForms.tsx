@@ -15,6 +15,11 @@ import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 export const EducationForms = () => {
   const { educations, setEducations } = useContext(ProfileContext);
 
+  if (!educations) {
+    const initCPFcopy = { ...initEducation };
+    setEducations([initCPFcopy]);
+  }
+
   const updateEducation = (index: number, key: keyof EducationType, newValue: any) => {
     let educationsCopy = [...educations];
     educationsCopy[index][key] = newValue;
