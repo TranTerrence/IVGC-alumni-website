@@ -1,12 +1,13 @@
-import { Box, Grid, Typography, TextField } from "@material-ui/core";
-import React, { useContext } from "react";
-import { ProfileContext } from "../../../components/Profile/ProfileContext";
+import { Box, Grid, Typography } from "@material-ui/core";
+import React from "react";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade/Fade";
 import { MascotAvatar } from "../../../components/MascotAvatar";
 import { MASCOT_NAME } from "../../../constants/names";
+import { FirstnameForm } from "../../../components/Forms/FirstnameForm";
+import { LastnameForm } from "../../../components/Forms/LastnameForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AskName = () => {
   const classes = useStyles();
-  const { basics, changeBasics } = useContext(ProfileContext);
 
 
   return (
@@ -45,42 +45,8 @@ export const AskName = () => {
             <Typography variant="body2" >Salut! Je suis {MASCOT_NAME}</Typography>
             <Typography variant="body2" >On va créer ton profile en quelques étapes.</Typography>
             <Typography variant="body2" >Comment tu t'appelles ?</Typography>
-
-            <Grid container spacing={2} direction="row">
-              <Grid item xs={6}>
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  id="firstName"
-                  label="Prénom"
-                  name="firstName"
-                  autoComplete="fname"
-                  value={basics.firstName}
-                  onChange={(e) => {
-                    changeBasics("firstName", e.target.value);
-                  }}
-                  variant="outlined"
-                  autoFocus
-                  className={classes.textField}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  name="lastName"
-                  label="Nom"
-                  type="lName"
-                  id="lastName"
-                  margin="normal"
-                  variant="outlined"
-                  value={basics.lastName}
-                  onChange={(e) => {
-                    changeBasics("lastName", e.target.value);
-                  }}
-                  className={classes.textField}
-                />
-              </Grid>
-            </Grid>
-
+            <FirstnameForm/>
+            <LastnameForm/>
             <Grid item>
               <ButtonNext />
             </Grid>

@@ -4,11 +4,13 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ProfileContext } from '../../components/Profile/ProfileContext';
 import { FirebaseContext } from '../../components/Firebase';
-import { Grid, Paper } from '@material-ui/core';
+import { Button, Grid, Paper } from '@material-ui/core';
 import GlobalAppBar from '../../components/GlobalAppBar';
 import EducationTimeline from '../../components/EducationTimeline';
 import Avatar from '@material-ui/core/Avatar';
-
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -21,16 +23,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   profilePic: {
     height: theme.spacing(16),
     width: theme.spacing(16),
-  }
+  },
+  name: {
+    marginTop: theme.spacing(3),
+  },
+  modification: {
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(5),
+  },
 }));
-
-
 
 export default function ProfilePage() {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const { basics, educations, setProfile } = useContext(ProfileContext);
-
   // Sync the data with the context
   // TODO: Optimization fetch only if context is empty
   useEffect(() => {
@@ -50,23 +56,23 @@ export default function ProfilePage() {
   return (
     <>
       <GlobalAppBar />
-
       <Container component="main" maxWidth="md" >
         <Paper className={classes.paper}>
           <Grid container direction="row">
             <Grid item xs={2}>
               <Avatar alt={basics.firstName} src={basics?.picture} className={classes.profilePic} />
             </Grid>
-            <Grid container item direction="column" xs={10}>
+            <Grid container item direction="column" xs={7} className={classes.name}>
               <Typography variant="h4">{basics?.firstName + " " + basics?.lastName}</Typography>
               <Typography variant="h6">{"Promotion " + basics?.promotion}
               </Typography>
-
             </Grid>
-
-
+            <Grid xs={3}>
+              <Button component={Link} to={ROUTES.EDIT_PROFILE} className={classes.modification} startIcon={<EditIcon />} color="primary">
+                Modifier mon profile
+              </Button>
+            </Grid>
           </Grid>
-
         </Paper>
         <Paper className={classes.paper}>
           <Typography variant="h4">{"Formation"}</Typography>
