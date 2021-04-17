@@ -1,8 +1,7 @@
 {
-  "short_name": "Institut Villebon George Charpak Alumni",
-  "name": "Institut Villebon George Charpak Alumni",
-  "icons": [
-    {
+  "short_name": "Communauté Institut Villebon George Charpak",
+  "name": "Communauté des anciens de l'Institut Villebon George Charpak",
+  "icons": [{
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
