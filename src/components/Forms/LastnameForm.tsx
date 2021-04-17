@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField, Theme } from "@material-ui/core";
+import { makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { useContext } from "react";
 import { palette } from "../../constants/colors";
 import { ProfileContext } from "../Profile/ProfileContext";
