@@ -94,7 +94,7 @@ const FolderRow = (props: { path: string, setPath: Function }) => {
     <>
 
       {folders_path.length > 0 && folders_path.map((path) => (
-        <TableRow >
+        <TableRow key={getLastItem(path)}>
           <TableCell >
             <Link color="primary" onClick={() => setPath(path)} style={{ fontSize: 24 }} >
               <FolderOutlinedIcon color="primary" />
@@ -121,7 +121,7 @@ const BreadCrumbsFolder = (props: { path: string, setPath: Function }) => {
   return (
     <Breadcrumbs aria-label="breadcrumb" separator={<ArrowForwardIosIcon fontSize="small" />}  >
       {path_split.map((folder_name, index) =>
-        <Link color={(path_split.length - 1 === index) ? "primary" : "inherit"}
+        <Link key={folder_name} color={(path_split.length - 1 === index) ? "primary" : "inherit"}
           onClick={() => setPath(path_split.slice(0, index + 1).join("/"))}>
           {folder_name}
         </Link>

@@ -7,7 +7,7 @@ export const collections = {
 }
 
 export const storages = {
-  resources: "resources",
+  resources: "ressources",
   profilePics: "profilePics"
 }
 
