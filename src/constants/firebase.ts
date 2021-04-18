@@ -7,6 +7,11 @@ export const collections = {
   schools: "schools",
 }
 
+export const storages = {
+  resources: "ressources",
+  profilePics: "profilePics"
+}
+
 export const constants = {
   postFormation: "postFormation",
 }
@@ -185,7 +190,3 @@ export const fieldList = [
   },
 ]
 
-
-export const storages = {
-  resources: "resources",
-}

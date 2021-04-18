@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export const ButtonNext = () => {
+export const ButtonNext = ({ text = "suivant" }: { text?: string }) => {
   const { profileMeta, changeProfileMeta, profile }: { profileMeta: ProfileMeta, changeProfileMeta: Function, profile: Profile } = useContext(ProfileContext);
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
@@ -26,7 +26,7 @@ export const ButtonNext = () => {
   };
 
   return (<Button variant="contained" color="primary" className={classes.buttonEnd}
-    onClick={goNext}>Suivant</Button>);
+    onClick={goNext}>{text}</Button>);
 }
 
 export const ButtonPrevious = () => {

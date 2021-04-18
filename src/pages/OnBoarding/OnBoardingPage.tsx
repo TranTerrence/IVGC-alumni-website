@@ -14,6 +14,7 @@ import { AppBar, Button, CircularProgress, Toolbar, Typography } from '@material
 import ConstantContextProvider from '../../components/Firebase/ConstantContext';
 import { ButtonPrevious } from './components/OnboardingButtons';
 import SchoolsContextProvider from '../../components/Firebase/SchoolsContext';
+import { AskPicture } from './components/AskPicture';
 
 const useStyles = makeStyles((theme: Theme) => ({
   stepWrapper: {
@@ -35,6 +36,7 @@ export default function OnBoardingPage() {
   const onBoardingSteps = [<AskName />,
   <AskBirthday />,
   <AskPromo />,
+  <AskPicture />,
   <ConstantContextProvider>
     <SchoolsContextProvider>
       <AskEducations />

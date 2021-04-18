@@ -1,13 +1,12 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import React from "react";
+import { Box, Grid, Avatar, Typography, TextField } from "@material-ui/core";
+import React, { useContext } from "react";
+import { ProfileContext } from "../../../components/Profile/ProfileContext";
 import { ButtonNext } from "./OnboardingButtons";
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { palette } from "../../../constants/colors";
 import Fade from "@material-ui/core/Fade/Fade";
 import { MascotAvatar } from "../../../components/MascotAvatar";
 import { MASCOT_NAME } from "../../../constants/names";
-import { FirstnameForm } from "../../../components/Forms/FirstnameForm";
-import { LastnameForm } from "../../../components/Forms/LastnameForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -29,8 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-export const AskName = () => {
+export const AskDescription = () => {
   const classes = useStyles();
+  const { profile, changeKey } = useContext(ProfileContext);
 
 
   return (
@@ -42,11 +42,27 @@ export const AskName = () => {
           </Grid>
           <Grid container direction="column" item xs={10}>
             <Typography variant="body1" className={classes.speakerName} >{MASCOT_NAME}</Typography>
-            <Typography variant="body2" >Salut! Je suis {MASCOT_NAME}</Typography>
-            <Typography variant="body2" >On va créer ton profile en quelques étapes.</Typography>
-            <Typography variant="body2" >Comment tu t'appelles ?</Typography>
-            <FirstnameForm/>
-            <LastnameForm/>
+            <Typography variant="body2" >Donne moi une petite description de ce que tu fais actuellement, et de qui tu es.</Typography>
+
+            <Grid container spacing={2} direction="row">
+              <Grid item xs={6}>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  name="description"
+                  value={profile.description}
+                  onChange={(e) => {
+                    changeKey("description", e.target.value);
+                  }}
+                  variant="outlined"
+                  autoFocus
+                  className={classes.textField}
+                />
+              </Grid>
+            </Grid>
+
             <Grid item>
               <ButtonNext />
             </Grid>

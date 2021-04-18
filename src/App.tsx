@@ -15,14 +15,14 @@ import * as ROUTES from './constants/routes';
 import WriteArticlePage from './pages/WriteArticle';
 import ContactPage from './pages/ContactPage';
 import OnBoardingPage from './pages/OnBoarding/OnBoardingPage';
-
+import AlumniBookPage from './pages/AlumniBook/AlumniBookPage';
 import { palette } from './constants/colors';
 import FirebaseContext from './components/Firebase/context';
 import { frFR } from '@material-ui/core/locale';
 import ResourcesPage from './pages/ResourcesPage';
 import PasswordForgetPage from './pages/PasswordForgetPage';
 import EditProfilePage from './pages/EditProfilePage';
-import LoadingPage from './pages/LoadingPage';
+
 const theme = createMuiTheme({
   typography: {
     "fontFamily": `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -50,15 +50,14 @@ function App() {
         <Route path={ROUTES.CONTACT} component={ContactPage} />
         <Route path={ROUTES.RESOURCES} component={ResourcesPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-
         <LoggedInRoute path={ROUTES.MY_PROFILE} component={ProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <Route path={ROUTES.EDIT_PROFILE} component={EditProfilePage} redirectPath={ROUTES.SIGN_IN} />
         <LoggedInRoute path={ROUTES.ONBOARDING} component={OnBoardingPage} redirectPath={ROUTES.ONBOARDING} />
         <AdminRoute path={ROUTES.ADMIN} component={AdminPage} redirectPath={ROUTES.MY_PROFILE} />
-
+        <LoggedInRoute path={ROUTES.ALUMNI_BOOK_PAGE} component={AlumniBookPage} redirectPath={ROUTES.HOME} />
       </Router>
       <Footer />
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 
@@ -80,7 +79,7 @@ const LoggedInRoute = ({ component, redirectPath, path, ...rest }: { component: 
       : <Redirect to={{ pathname: redirectPath }} />
   );
   return isLoading
-    ? <LoadingPage />
+    ? null//<LoadingPage />
     : < Route {...rest} path={path} render={routeComponent} />
 }
 
@@ -112,7 +111,7 @@ const AdminRoute = ({ component, redirectPath, path, ...rest }: { component: Rea
       : <Redirect to={{ pathname: redirectPath }} />
   );
   return isLoading
-    ? <LoadingPage />
+    ? null//<LoadingPage />
     : <Route {...rest} path={path} render={routeComponent} />;
 }
 
