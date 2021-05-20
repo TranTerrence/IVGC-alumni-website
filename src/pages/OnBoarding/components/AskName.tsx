@@ -45,8 +45,8 @@ export const AskName = () => {
             <Typography variant="body2" >Salut! Je suis {MASCOT_NAME}</Typography>
             <Typography variant="body2" >On va créer ton profile en quelques étapes.</Typography>
             <Typography variant="body2" >Comment tu t'appelles ?</Typography>
-            <FirstnameForm/>
-            <LastnameForm/>
+            <FirstnameForm />
+            <LastnameForm />
             <Grid item>
               <ButtonNext />
             </Grid>

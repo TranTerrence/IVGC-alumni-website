@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { EducationType, initEducation, ProfileContext } from "../Profile/ProfileContext";
 import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
@@ -11,7 +11,8 @@ import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutline
 import DeleteIcon from '@material-ui/icons/Delete';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
-import { SchoolsContext } from "../Firebase/SchoolsContext";
+import SchoolsContextProvider, { SchoolsContext } from "../Firebase/SchoolsContext";
+import { DialogAddSchool } from "./DialogAddSchool";
 
 export const EducationForms = () => {
   const { educations, setEducations } = useContext(ProfileContext);
@@ -39,11 +40,13 @@ export const EducationForms = () => {
   };
   return (
     <Grid container >
-      {
-        educations && educations.map((education, index) =>
-          <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
-        )
-      }
+      <SchoolsContextProvider>
+        {
+          educations && educations.map((education, index) =>
+            <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
+          )
+        }
+      </SchoolsContextProvider>
       <Grid item container justify="center" >
         <Button onClick={addEducation} color="primary" variant="outlined"
           startIcon={<AddIcon />}>Ajouter une formation</Button>
@@ -74,6 +77,8 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
   const firebase = useContext(FirebaseContext);
   const fieldList = useContext(ConstantContext);
   const { schools, loading } = useContext(SchoolsContext);
+
+  const [openAddSchool, setOpenAddSchool] = useState(false);
   return (
     <Paper className={classes.paper}>
       <Grid container>
@@ -82,14 +87,18 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
             id="field"
             options={schools}
             loading={loading}
-            getOptionLabel={(option) => option?.fields?.uo_lib}
-            groupBy={(option) => option?.fields?.aca_nom}
-
+            getOptionLabel={(option) => option.name}
+            groupBy={(option) => option.type}
             value={education?.institution}
-            freeSolo
             onChange={(e, value) => {
+              console.log(value);
               updateEducation(index, "institution", value);
             }}
+            noOptionsText={
+              <Button onMouseDown={() => setOpenAddSchool(true)}>
+                Ajouter une école
+              </Button>
+            }
 
             renderInput={(params) => (
               <TextField
@@ -113,6 +122,9 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
               />
             )}
           />
+          {
+            openAddSchool && <DialogAddSchool />
+          }
           <TextField
             name="school"
             label="Nom de l'école"
@@ -278,3 +290,4 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
     </Paper >
   );
 }
+

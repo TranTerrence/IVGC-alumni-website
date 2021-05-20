@@ -1,30 +1,26 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collections, constants } from '../../constants/firebase';
+import { collections } from '../../constants/firebase';
 import FirebaseContext from './context';
 
+
+
+export type SchoolTypes = "Université" | "Grande école" | "Autres";
 export interface School {
-  fields: {
-    aca_nom: string,
-    adresse_uai: string,
-    code_postal_uai?: string,
-    compte_facebook?: string,
-    compte_instagram?: string,
-    compte_linkedin?: string,
-    compte_twitter?: string,
-    compte_youtube?: string,
-    date_creation?: string,
-    uo_lib: string, // Nom de l'école
-    uo_lib_officiel: string,
-    url: string,  // site de l'école
-    wikipedia?: string,
-    wikipedia_en?: string,
-    nom_court?: string,
-
-
-  },
+  name: string,
+  city: string,
+  country: string,
+  address?: string,
+  type: SchoolTypes,
+  website?: string,
 }
 
+export const InitSchool: School = {
+  name: "",
+  city: "",
+  country: "France",
+  type: "Université",
+}
 export interface SchoolsContextInterface {
   schools: Array<School>,
   loading: boolean,

@@ -1,9 +1,10 @@
 import React, { createContext, useState } from 'react';
 import firebase from 'firebase';
 import { Field } from '../Firebase/ConstantContext';
+import { InitSchool, School } from '../Firebase/SchoolsContext';
 
 export interface EducationType {
-  institution: string, // Ecole de ..
+  institution: School, // Ecole de ..
   area: string, // Software development
   studyType?: string, // bachelor
   startDate?: firebase.firestore.Timestamp,
@@ -15,7 +16,7 @@ export interface EducationType {
 }
 
 export const initEducation = {
-  institution: "",
+  institution: InitSchool,
   area: "",
 }
 

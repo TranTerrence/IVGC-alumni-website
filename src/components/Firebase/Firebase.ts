@@ -7,6 +7,7 @@ import { collections, fieldList } from '../../constants/firebase';
 import { roles } from '../../constants/roles';
 import { initProfile, Profile } from '../Profile/ProfileContext';
 import { User } from '../User/UserContext';
+import { School } from './SchoolsContext';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -134,6 +135,17 @@ class Firebase {
       .set(userData)
       .then(function () {
         console.log("New user created successfully in Firestore");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+  }
+
+  addSchool = (school: School) => {
+
+    this.firestore.collection(collections.schools).add(school)
+      .then(function () {
+        console.log("New school created successfully in Firestore");
       })
       .catch(function (error) {
         console.error("Error writing document: ", error);
