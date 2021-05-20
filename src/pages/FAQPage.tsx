@@ -8,6 +8,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Container } from '@material-ui/core';
 import GlobalAppBar from '../components/GlobalAppBar';
 import TitlePage from '../components/TitlePage';
+import * as FIRESTORE_CONSTS from '../constants/firebase';
+import { FirebaseContext } from '../components/Firebase';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -51,52 +54,52 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function FAQPage() {
   const classes = useStyles();
-
+  const firebase = React.useContext(FirebaseContext);
+  console.log(FIRESTORE_CONSTS.collections.questions)
+  const FirestoreCollection = () => {
+    const [value, loading, error] = useCollectionData(
+      firebase?.firestore.collection(FIRESTORE_CONSTS.collections.questions).limit(100),
+      {
+        idField: "id"
+      }
+    );
+    return (
+      <div>
+        {error && <strong>Error: {JSON.stringify(error)}</strong>}
+        {loading && <span>Document: Loading...</span>}
+        {value &&
+          <>
+        <Container component="main" maxWidth="xl" >
+        <div className={classes.paper}>
+          {value.map((question: any) => (
+          <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className={classes.heading} >{question.title}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {question.question}
+        </Typography>
+          </AccordionDetails>
+        </Accordion>
+          ))
+          }
+          </div>
+        </Container>
+          </>
+        }
+      </div>
+    );
+  }
   return (
     <>
       <GlobalAppBar />
       <TitlePage title="FAQ" />
-
-
-      <Container component="main" maxWidth="xl" >
-        <div className={classes.paper}>
-
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={classes.heading}>Question 1</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
-          </Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography className={classes.heading}>Question 2</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
-            <br />
-                <a href="#secondary-heading-and-columns" className={classes.link}>
-                  Learn more
-            </a>
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        </div>
-      </Container>
+      <FirestoreCollection></FirestoreCollection>
     </>
   );
 }

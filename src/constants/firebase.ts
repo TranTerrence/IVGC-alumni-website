@@ -4,6 +4,7 @@ export const collections = {
   profiles: "profiles",
   postFormations: "postFormations",
   constants: "constants",
+  questions: "questions"
 }
 
 export const storages = {
