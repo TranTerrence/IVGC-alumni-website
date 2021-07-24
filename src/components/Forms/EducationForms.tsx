@@ -125,27 +125,7 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
           {
             openAddSchool && <DialogAddSchool />
           }
-          <TextField
-            name="school"
-            label="Nom de l'école"
-            type="name"
-            id="school"
-            margin="normal"
-            fullWidth
-            autoFocus
-            value={education?.institution}
-            onChange={(e) => {
-              updateEducation(index, "institution", e.target.value);
-            }}
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountBalanceOutlinedIcon color="primary" />
-                </InputAdornment>
-              ),
-            }}
-          />
+
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -166,30 +146,6 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
               startAdornment: (
                 <InputAdornment position="start">
                   <SchoolOutlinedIcon color="primary" />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="city"
-            label="Ville de l'école"
-            type="city"
-            id="city"
-            margin="normal"
-            fullWidth
-            autoFocus
-            variant="outlined"
-            value={education?.location?.city}
-            onChange={(e) => {
-              updateEducation(index, "location", { city: e.target.value });
-            }}
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PlaceOutlinedIcon color="primary" />
                 </InputAdornment>
               ),
             }}
