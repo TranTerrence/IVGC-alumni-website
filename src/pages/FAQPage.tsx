@@ -27,54 +27,57 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 }));
 
-export default function FAQPage() {
+const FAQList = () => {
   const classes = useStyles();
   const firebase = React.useContext(FirebaseContext);
   console.log(FIRESTORE_CONSTS.collections.questions)
-  const FirestoreCollection = () => {
-    const [value, loading, error] = useCollectionData<QuestionType>(
-      firebase?.firestore.collection(FIRESTORE_CONSTS.collections.questions).limit(100),
-      {
-        idField: "id"
-      }
-    );
-    return (
-      <div>
 
-        <Container component="main" maxWidth="md" >
-          {error && <strong>Erreur: {JSON.stringify(error)}</strong>}
-          {loading && <CircularProgress color="secondary" />}
-          {value &&
-            <>
-              {value.map((faq: QuestionType) => (
-                <Accordion className={classes.faqItem}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography variant="h5" >{faq.question}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      {faq.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              ))
-              }
-            </>
-          }
-        </Container>
+  const [value, loading, error] = useCollectionData<QuestionType>(
+    firebase?.firestore.collection(FIRESTORE_CONSTS.collections.questions).limit(100),
+    {
+      idField: "id"
+    }
+  );
+  return (
+    <div>
 
-      </div>
-    );
-  }
+      <Container component="main" maxWidth="md" >
+        {error && <strong>Erreur: {JSON.stringify(error)}</strong>}
+        {loading && <div style={{ textAlign: "center" }} ><CircularProgress color="secondary" /></div>}
+        {value &&
+          <>
+            {value.map((faq: QuestionType) => (
+              <Accordion className={classes.faqItem}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                >
+                  <Typography variant="h5" >{faq.question}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    {faq.answer}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))
+            }
+          </>
+        }
+      </Container>
+
+    </div >
+  );
+}
+
+export default function FAQPage() {
+
   return (
     <>
       <GlobalAppBar />
       <TitlePage title="FAQ" />
-      <FirestoreCollection></FirestoreCollection>
+      <FAQList />
     </>
   );
 }
+
+
