@@ -1,5 +1,5 @@
-import { Button, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
-import React, { useContext } from "react";
+import { Button, CircularProgress, Grid, InputAdornment, makeStyles, Paper, TextField, Theme } from "@material-ui/core";
+import React, { useContext, useState } from "react";
 import { EducationType, initEducation, ProfileContext } from "../Profile/ProfileContext";
 import AddIcon from '@material-ui/icons/Add';
 import { Autocomplete } from "@material-ui/lab";
@@ -11,6 +11,8 @@ import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutline
 import DeleteIcon from '@material-ui/icons/Delete';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
+import SchoolsContextProvider, { SchoolsContext } from "../Firebase/SchoolsContext";
+import { DialogAddSchool } from "./DialogAddSchool";
 
 export const EducationForms = () => {
   const { educations, setEducations } = useContext(ProfileContext);
@@ -38,11 +40,13 @@ export const EducationForms = () => {
   };
   return (
     <Grid container >
-      {
-        educations && educations.map((education, index) =>
-          <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
-        )
-      }
+      <SchoolsContextProvider>
+        {
+          educations && educations.map((education, index) =>
+            <EducationForm key={index} education={education} updateEducation={updateEducation} removeEducation={removeEducation} index={index} />
+          )
+        }
+      </SchoolsContextProvider>
       <Grid item container justify="center" >
         <Button onClick={addEducation} color="primary" variant="outlined"
           startIcon={<AddIcon />}>Ajouter une formation</Button>
@@ -72,31 +76,56 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const fieldList = useContext(ConstantContext);
+  const { schools, loading } = useContext(SchoolsContext);
+
+  const [openAddSchool, setOpenAddSchool] = useState(false);
   return (
     <Paper className={classes.paper}>
       <Grid container>
         <Grid item xs={12}>
-          <TextField
-            name="school"
-            label="Nom de l'école"
-            type="name"
-            id="school"
-            margin="normal"
-            fullWidth
-            autoFocus
+          <Autocomplete
+            id="field"
+            options={schools}
+            loading={loading}
+            getOptionLabel={(option) => option.name}
+            groupBy={(option) => option.type}
             value={education?.institution}
-            onChange={(e) => {
-              updateEducation(index, "institution", e.target.value);
+            onChange={(e, value) => {
+              console.log(value);
+              updateEducation(index, "institution", value);
             }}
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountBalanceOutlinedIcon color="primary" />
-                </InputAdornment>
-              ),
-            }}
+            noOptionsText={
+              <Button onMouseDown={() => setOpenAddSchool(true)}>
+                Ajouter une école
+              </Button>
+            }
+
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={"Ecole"}
+                className={classes.textField}
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountBalanceOutlinedIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <React.Fragment>
+                      {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                      {params.InputProps.endAdornment}
+                    </React.Fragment>
+                  ),
+                }}
+              />
+            )}
           />
+          {
+            openAddSchool && <DialogAddSchool />
+          }
+
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -117,30 +146,6 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
               startAdornment: (
                 <InputAdornment position="start">
                   <SchoolOutlinedIcon color="primary" />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="city"
-            label="Ville de l'école"
-            type="city"
-            id="city"
-            margin="normal"
-            fullWidth
-            autoFocus
-            variant="outlined"
-            value={education?.location?.city}
-            onChange={(e) => {
-              updateEducation(index, "location", { city: e.target.value });
-            }}
-            className={classes.textField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PlaceOutlinedIcon color="primary" />
                 </InputAdornment>
               ),
             }}
@@ -241,3 +246,4 @@ const EducationForm = ({ education, updateEducation, removeEducation, index }: {
     </Paper >
   );
 }
+

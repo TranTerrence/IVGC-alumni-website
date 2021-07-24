@@ -13,6 +13,7 @@ import { AskEducations } from './components/AskEducations';
 import { AppBar, Button, CircularProgress, Toolbar, Typography } from '@material-ui/core';
 import ConstantContextProvider from '../../components/Firebase/ConstantContext';
 import { ButtonPrevious } from './components/OnboardingButtons';
+import SchoolsContextProvider from '../../components/Firebase/SchoolsContext';
 import { AskPicture } from './components/AskPicture';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -37,7 +38,9 @@ export default function OnBoardingPage() {
   <AskPromo />,
   <AskPicture />,
   <ConstantContextProvider>
-    <AskEducations />
+    <SchoolsContextProvider>
+      <AskEducations />
+    </SchoolsContextProvider>
   </ConstantContextProvider>,
   ];
 

@@ -42,7 +42,7 @@ function EducationTimelineItem({ education, size = 'h5' }: { education: Educatio
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <Typography variant={size}>{education.institution + " | " + education.studyType}</Typography>
+        <Typography variant={size}>{education.institution.name + " | " + education.studyType}</Typography>
         {education.fields && education.fields.map((item: Field) =>
           <Chip label={item.field} />
         )}
