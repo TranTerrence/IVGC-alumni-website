@@ -12,44 +12,19 @@ import * as FIRESTORE_CONSTS from '../constants/firebase';
 import { FirebaseContext } from '../components/Firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+export interface QuestionType {
+  question: string, // Pour qui est destiné le site?
+  answer: string, // Tous les étudiants et personnels de l'institut
+}
+
+const useStyles = makeStyles((theme: Theme) => ({
+
+  faqItem: {
+    width: '100%',
   },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  icon: {
-    verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
-  },
-  details: {
-    alignItems: 'center',
-  },
-  column: {
-    flexBasis: '33.33%',
-  },
-  helper: {
-    borderLeft: `2px solid ${theme.palette.divider}`,
-    padding: theme.spacing(1, 2),
-  },
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
+
 }));
 
 export default function FAQPage() {
@@ -57,7 +32,7 @@ export default function FAQPage() {
   const firebase = React.useContext(FirebaseContext);
   console.log(FIRESTORE_CONSTS.collections.questions)
   const FirestoreCollection = () => {
-    const [value, loading, error] = useCollectionData(
+    const [value, loading, error] = useCollectionData<QuestionType>(
       firebase?.firestore.collection(FIRESTORE_CONSTS.collections.questions).limit(100),
       {
         idField: "id"
@@ -65,33 +40,33 @@ export default function FAQPage() {
     );
     return (
       <div>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Document: Loading...</span>}
-        {value &&
-          <>
-        <Container component="main" maxWidth="xl" >
-        <div className={classes.paper}>
-          {value.map((question: any) => (
-          <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography className={classes.heading} >{question.title}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              {question.question}
-        </Typography>
-          </AccordionDetails>
-        </Accordion>
-          ))
+
+        <Container component="main" maxWidth="md" >
+          {error && <strong>Erreur: {JSON.stringify(error)}</strong>}
+          {loading && <CircularProgress color="secondary" />}
+          {value &&
+            <>
+              {value.map((faq: QuestionType) => (
+                <Accordion className={classes.faqItem}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography variant="h5" >{faq.question}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      {faq.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              ))
+              }
+            </>
           }
-          </div>
         </Container>
-          </>
-        }
+
       </div>
     );
   }
