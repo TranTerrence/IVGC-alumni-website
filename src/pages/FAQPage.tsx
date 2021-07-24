@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const FAQList = () => {
   const classes = useStyles();
   const firebase = React.useContext(FirebaseContext);
-  console.log(FIRESTORE_CONSTS.collections.questions)
-
   const [value, loading, error] = useCollectionData<QuestionType>(
     firebase?.firestore.collection(FIRESTORE_CONSTS.collections.questions).limit(100),
     {
