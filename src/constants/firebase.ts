@@ -5,6 +5,7 @@ export const collections = {
   postFormations: "postFormations",
   constants: "constants",
   schools: "schools",
+  questions: "questions"
 }
 
 export const storages = {
