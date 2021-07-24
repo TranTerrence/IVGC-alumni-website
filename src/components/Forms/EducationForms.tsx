@@ -9,7 +9,6 @@ import { FirebaseContext } from "../Firebase";
 import { ConstantContext } from "../Firebase/ConstantContext";
 import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
-import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 import SchoolsContextProvider, { SchoolsContext } from "../Firebase/SchoolsContext";
 import { DialogAddSchool } from "./DialogAddSchool";
